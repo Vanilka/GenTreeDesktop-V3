@@ -1,6 +1,7 @@
 package gentree.client.desktop.controllers.screen;
 
 import com.jfoenix.controls.JFXTabPane;
+import gentree.client.desktop.configuration.CellFactoryProvider;
 import gentree.client.desktop.configuration.messages.Keys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLAnchorPane;
@@ -41,8 +42,6 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
 
     public static final String TABLE_RELATION_SIM_RIGHT = "RIGHT";
     public static final String TABLE_RELATION_SIM_LEFT = "LEFT";
-    private static int TABLE_IMAGE_MEMBER_HEIGHT = 80;
-    private static int TABLE_IMAGE_MEMBER_WIDTH = 60;
     private final ToggleGroup buttonsTableGroup;
 
     @FXML
@@ -107,10 +106,10 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
     }
 
     private void setCellFactory() {
-        this.RELATION_SIM_LEFT_COLUMN.setCellFactory(setMemberCellFactory(TABLE_RELATION_SIM_LEFT));
-        this.RELATION_SIM_RIGHT_COLUMN.setCellFactory(setMemberCellFactory(TABLE_RELATION_SIM_RIGHT));
-        this.RELATION_TYPE_COLUMN.setCellFactory(setRelationTypeCellFactory());
-        this.SIM_PHOTO_COLUMN.setCellFactory(setPhotoCellFactory());
+        this.RELATION_SIM_LEFT_COLUMN.setCellFactory(CellFactoryProvider.MEMBER_LEFT_CELL_FACTORY);
+        this.RELATION_SIM_RIGHT_COLUMN.setCellFactory(CellFactoryProvider.MEMBER_RIGHT_CELL_FACTORY);
+        this.RELATION_TYPE_COLUMN.setCellFactory(CellFactoryProvider.RELATION_TYPE_CELL_FACTORY);
+        this.SIM_PHOTO_COLUMN.setCellFactory(CellFactoryProvider.SIM_PHOTO_CELL_FACTORY);
     }
 
     private void setButtonToToggleGroup() {
@@ -203,7 +202,7 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
     private void setCellValueFactory() {
         this.SIM_NAME_COLUMN.setCellValueFactory(data -> data.getValue().nameProperty());
         this.SIM_SURNAME_COLUMN.setCellValueFactory(data -> data.getValue().surnameProperty());
-        this.SIM_PHOTO_COLUMN.setCellValueFactory(sm.getPhotoValueFactory());
+        this.SIM_PHOTO_COLUMN.setCellValueFactory(CellFactoryProvider.PHOTO_VALUE_FACTORY);
 
         this.RELATION_SIM_LEFT_COLUMN.setCellValueFactory(data -> data.getValue().leftProperty());
         this.RELATION_SIM_RIGHT_COLUMN.setCellValueFactory(data -> data.getValue().rightProperty());
@@ -225,127 +224,6 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
         setRelationList(f.getRelations());
     }
 
-    private Callback<TableColumn<Relation, Member>,
-            TableCell<Relation, Member>> setMemberCellFactory(String parameter) {
-        Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>> callback =
-                new Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>>() {
-                    @Override
-                    public TableCell<Relation, Member> call(TableColumn<Relation, Member> param) {
-                        TableCell<Relation, Member> cell = new TableCell<Relation, Member>() {
-
-                            @Override
-                            protected void updateItem(Member item, boolean empty) {
-                                super.updateItem(item, empty);
-                                ImageView imageview = new ImageView();
-                                if (item != null) {
-                                    imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
-                                    imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
-                                    imageview.setImage(new Image(item.getPhoto()));
-                                    setGraphic(imageview);
-                                } else {
-                                    if (!empty) {
-                                        imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
-                                        imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
-                                        String path = parameter.equals(TABLE_RELATION_SIM_LEFT) ?
-                                                ImageFiles.NO_NAME_FEMALE.toString() : ImageFiles.NO_NAME_MALE.toString();
-                                        imageview.setImage(new Image(path));
-                                        setGraphic(imageview);
-                                    } else {
-                                        setGraphic(null);
-                                    }
-                                }
-                            }
-
-                        };
-                        return cell;
-                    }
-                };
-
-        return callback;
-    }
-
-    private Callback<TableColumn<Relation, RelationType>,
-            TableCell<Relation, RelationType>> setRelationTypeCellFactory() {
-        Callback<TableColumn<Relation, RelationType>,
-                TableCell<Relation, RelationType>> callback = new Callback<TableColumn<Relation, RelationType>, TableCell<Relation, RelationType>>() {
-            @Override
-            public TableCell<Relation, RelationType> call(TableColumn<Relation, RelationType> param) {
-                TableCell<Relation, RelationType> cell = new TableCell<Relation, RelationType>() {
-                    @Override
-                    protected void updateItem(RelationType item, boolean empty) {
-                        super.updateItem(item, empty);
-                        ImageView imageview = new ImageView();
-                        if (item != null) {
-                            String path;
-                            switch (item) {
-                                case FIANCE:
-                                    path = ImageFiles.RELATION_FIANCE.toString();
-                                    break;
-                                case MARRIED:
-                                    path = ImageFiles.RELATION_MARRIED.toString();
-                                    break;
-                                case LOVE:
-                                    path = ImageFiles.RELATION_LOVE.toString();
-                                    break;
-                                default:
-                                    path = ImageFiles.RELATION_NEUTRAL.toString();
-                                    break;
-                            }
-                            imageview.setImage(new Image(path));
-                            imageview.setFitHeight(40);
-                            imageview.setFitWidth(40);
-                            setGraphic(imageview);
-                        } else {
-                            setGraphic(null);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-        return callback;
-    }
-
-    private Callback<TableColumn<Member, String>,
-            TableCell<Member, String>> setPhotoCellFactory() {
-
-        Callback<TableColumn<Member, String>, TableCell<Member, String>> callback =
-                new Callback<TableColumn<Member, String>, TableCell<Member, String>>() {
-                    @Override
-                    public TableCell<Member, String> call(TableColumn<Member, String> param) {
-
-                        TableCell<Member, String> cell = new TableCell<Member, String>() {
-                            @Override
-                            protected void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                ImageView imageview = new ImageView();
-                                imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
-                                imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
-                                if (item != null) {
-                                    imageview.setImage(new Image(item));
-                                    setGraphic(imageview);
-                                } else {
-                                    if (!empty) {
-
-                                        imageview.setImage(new Image(ImageFiles.GENERIC_MALE.toString()));
-                                        setGraphic(imageview);
-                                    } else {
-                                        setGraphic(null);
-                                    }
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-        return callback;
-    }
-
-    private ImageView setGraphicToImageView(ImageView imv, String path) {
-        imv = new ImageView(path);
-        return imv;
-    }
-
 
     @Override
     public void setTabAndTPane(JFXTabPane tabPane, Tab tab) {
@@ -354,4 +232,8 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
     }
 
 
+    @Override
+    public void clean() {
+
+    }
 }

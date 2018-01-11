@@ -225,4 +225,8 @@ public class DialogAddMemberController implements Initializable, FXMLController,
         this.stage = stage;
     }
 
+    @Override
+    public void clean() {
+
+    }
 }

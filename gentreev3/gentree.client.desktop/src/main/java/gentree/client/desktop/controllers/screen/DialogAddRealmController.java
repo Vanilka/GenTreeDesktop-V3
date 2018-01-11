@@ -103,4 +103,5 @@ public class DialogAddRealmController implements Initializable, FXMLDialogWithRe
         BUTTON_CONFIRM.setDisable(true);
     }
 
+
 }

@@ -114,4 +114,8 @@ public class TabOpenExistingProjectController implements Initializable, FXMLCont
     }
 
 
+    @Override
+    public void clean() {
+
+    }
 }

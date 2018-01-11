@@ -3,6 +3,7 @@ package gentree.client.desktop.controllers.screen;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import gentree.client.desktop.configuration.CellFactoryProvider;
 import gentree.client.desktop.configuration.messages.Keys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLAnchorPane;
@@ -153,16 +154,16 @@ public class PaneShowInfoSim extends Pane implements Initializable, FXMLControll
 
 
     private void populateComboBoxes() {
-        SIM_RACE_CB.setCellFactory(sm.getRaceListCell());
-        SIM_RACE_CB.setButtonCell(sm.getRaceListCell().call(null));
+        SIM_RACE_CB.setCellFactory(CellFactoryProvider.RACE_LIST_CELL);
+        SIM_RACE_CB.setButtonCell(CellFactoryProvider.RACE_LIST_CELL.call(null));
         SIM_RACE_CB.getItems().addAll(Race.values());
         SIM_DEATH_CAUSE.getItems().addAll(DeathCauses.values());
         SIM_DEATH_CAUSE.getSelectionModel().select(DeathCauses.NATURAL);
-        SIM_AGE_CB.setCellFactory(sm.getAgeListCell());
-        SIM_AGE_CB.setButtonCell(sm.getAgeListCell().call(null));
+        SIM_AGE_CB.setCellFactory(CellFactoryProvider.AGE_LIST_CELL);
+        SIM_AGE_CB.setButtonCell(CellFactoryProvider.AGE_LIST_CELL.call(null));
         SIM_AGE_CB.getItems().addAll(Age.values());
-        SIM_SEX_CB.setCellFactory(sm.getGenderListCell());
-        SIM_SEX_CB.setButtonCell(sm.getGenderListCell().call(null));
+        SIM_SEX_CB.setCellFactory(CellFactoryProvider.GENDER_LIST_CELL);
+        SIM_SEX_CB.setButtonCell(CellFactoryProvider.GENDER_LIST_CELL.call(null));
         SIM_SEX_CB.getItems().addAll(Gender.values());
     }
 
@@ -277,4 +278,8 @@ public class PaneShowInfoSim extends Pane implements Initializable, FXMLControll
         return member;
     }
 
+    @Override
+    public void clean() {
+
+    }
 }

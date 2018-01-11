@@ -49,4 +49,8 @@ public class TabOpenNewProjectController implements Initializable, FXMLControlle
     }
 
 
+    @Override
+    public void clean() {
+
+    }
 }

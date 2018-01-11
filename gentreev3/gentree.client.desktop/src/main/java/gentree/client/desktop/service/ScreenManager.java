@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTabPane;
 import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.Realm;
 import gentree.client.desktop.configuration.enums.FilesFXML;
+import gentree.client.desktop.configuration.helper.BorderPanePermuteHelper;
 import gentree.client.desktop.configuration.helper.BorderPaneReloadHelper;
 import gentree.client.desktop.configuration.messages.AppTitles;
 import gentree.client.desktop.configuration.messages.LogMessages;
@@ -71,7 +72,6 @@ public class ScreenManager implements ContextProvider {
     private static final FileChooser imgFileChooser = new FileChooser();
     private static final FileChooser xmlFileChooser = new FileChooser();
     private static String LAST_PATH;
-    BorderPaneReloadHelper bpHelper;
 
     /*
         Commons controllers
@@ -100,7 +100,6 @@ public class ScreenManager implements ContextProvider {
 
 
     private ScreenManager() {
-        bpHelper = new BorderPaneReloadHelper();
         LAST_PATH = System.getProperty("user.home");
     }
 
@@ -146,6 +145,7 @@ public class ScreenManager implements ContextProvider {
         try {
             this.mainWindowBorderPane = ((BorderPane) loader.load());
             this.rootWindowController = loader.getController();
+
         } catch (IOException ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
@@ -163,9 +163,8 @@ public class ScreenManager implements ContextProvider {
                     border.setTop(temp);
                     break;
                 case CENTER:
-                    bpHelper.before(border);
                     border.setCenter(temp);
-                    bpHelper.after(border);
+                    BorderPanePermuteHelper.permute(border);
                     break;
                 case BOTTOM:
                     border.setBottom(temp);
@@ -474,7 +473,8 @@ public class ScreenManager implements ContextProvider {
     }
 
     public void reloadScreenWelcomeController() {
-        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
+        System.out.println("Reload ScreenWelcome");
+       screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
         context.setService(null);
     }
 
@@ -529,166 +529,10 @@ public class ScreenManager implements ContextProvider {
         this.screenMainController = controller;
     }
 
-    public Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>> getPhotoValueFactory() {
-        Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>> callback = param -> new ReadOnlyObjectWrapper<>(param.getValue().getPhoto());
-        return callback;
-    }
-
 
     /*
     Cell Factory
     */
-
-    public Callback<ListView<RelationType>, ListCell<RelationType>> getCustomRelationListCell() {
-        int relationWidth = 50;
-        int relationHeight = 50;
-
-        Callback<ListView<RelationType>, ListCell<RelationType>> callback = new Callback<ListView<RelationType>, ListCell<RelationType>>() {
-            @Override
-            public ListCell<RelationType> call(ListView<RelationType> param) {
-                final ListCell<RelationType> relationCell = new ListCell<RelationType>() {
-                    @Override
-                    public void updateItem(RelationType item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            switch (item) {
-                                case NEUTRAL:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_NEUTRAL.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                case LOVE:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_LOVE.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                case FIANCE:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_FIANCE.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                case MARRIED:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_MARRIED.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                default:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_NEUTRAL.toString(), relationWidth, relationHeight));
-                                    setText("");
-                            }
-                        } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.RELATION_NEUTRAL.toString(), relationWidth, relationHeight));
-                            setText("");
-                        }
-                    }
-
-                };
-                return relationCell;
-            }
-        };
-        return callback;
-    }
-
-    public Callback<ListView<Realm>, ListCell<Realm>> getCustomRealmListCell() {
-        Callback<ListView<Realm>, ListCell<Realm>> callback = new Callback<ListView<Realm>, ListCell<Realm>>() {
-
-            @Override
-            public ListCell<Realm> call(ListView<Realm> param) {
-                final ListCell<Realm> realmCell = new ListCell<Realm>() {
-                    @Override
-                    protected void updateItem(Realm item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setText(item.getName());
-                        } else {
-                            setText("");
-                        }
-                    }
-                };
-                return realmCell;
-            }
-        };
-        return callback;
-    }
-
-
-    public Callback<ListView<Race>, ListCell<Race>> getRaceListCell() {
-        Callback<ListView<Race>, ListCell<Race>> callback = new Callback<ListView<Race>, ListCell<Race>>() {
-            @Override
-            public ListCell<Race> call(ListView<Race> param) {
-                final ListCell<Race> raceCell = new ListCell<Race>() {
-                    @Override
-                    public void updateItem(Race item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getFilePathOfRace(item), 40, 40));
-                            setText("");
-                        } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.HUMAIN.toString(), 40, 40));
-                            setText("");
-                        }
-                    }
-
-                };
-                return raceCell;
-            }
-        };
-        return callback;
-
-    }
-
-    public Callback<ListView<Age>, ListCell<Age>> getAgeListCell() {
-        Callback<ListView<Age>, ListCell<Age>> callback = new Callback<ListView<Age>, ListCell<Age>>() {
-            @Override
-            public ListCell<Age> call(ListView<Age> param) {
-                final ListCell<Age> ageCell = new ListCell<Age>() {
-                    @Override
-                    public void updateItem(Age item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getFilePathOfAge(item), 30, 40));
-                            setText("");
-                        } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.HUMAIN.toString(), 30, 40));
-                            setText("");
-                        }
-                    }
-
-                };
-                return ageCell;
-            }
-        };
-        return callback;
-
-    }
-
-    public Callback<ListView<Gender>, ListCell<Gender>> getGenderListCell() {
-        Callback<ListView<Gender>, ListCell<Gender>> callback = new Callback<ListView<Gender>, ListCell<Gender>>() {
-            @Override
-            public ListCell<Gender> call(ListView<Gender> param) {
-                final ListCell<Gender> genderCell = new ListCell<Gender>() {
-                    @Override
-                    public void updateItem(Gender item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getFlePathOfGender(item), 30, 30));
-                            setText("");
-                        } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.HUMAIN.toString(), 30, 30));
-                            setText("");
-                        }
-                    }
-
-                };
-                return genderCell;
-            }
-        };
-        return callback;
-
-    }
-
-    private ImageView setGraphicToImageView(String path, int width, int height) {
-        ImageView imv = new ImageView(path);
-        imv.setFitWidth(width);
-        imv.setFitHeight(height);
-        return imv;
-    }
 
     public void register(GenTreeDrawingService drawingService) {
         this.genTreeDrawingService = drawingService;

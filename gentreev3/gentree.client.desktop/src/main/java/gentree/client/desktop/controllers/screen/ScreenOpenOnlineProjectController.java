@@ -52,6 +52,11 @@ public class ScreenOpenOnlineProjectController implements Initializable, FXMLCon
 
     private ChangeListener<? super Number> familyTableLayoutXListener = this::familyTableLayoutXChange;
 
+    @Override
+    public void clean() {
+
+    }
+
     @FXML
     private void chooseFamily() {
         if (FAMILY_TABLE.getSelectionModel().getSelectedItem() != null) {

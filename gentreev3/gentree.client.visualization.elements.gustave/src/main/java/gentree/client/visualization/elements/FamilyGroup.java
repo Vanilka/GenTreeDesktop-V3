@@ -29,11 +29,13 @@ public class FamilyGroup extends AnchorPane implements AutoCleanable {
     private static int MIN_OFFSET_HORIZONTAL = 300;
     private static int MIN_OFFSET_VERTICAL = 200;
     private final int idNode;
+
     @FXML
     private HeaderPane PANEL_HEADER;
     @FXML
     private AnchorPane content;
     @FXML
+
     private HBox contentHbox;
     private ObjectProperty<Relation> rootRelation;
     private ChangeListener<? super Relation> rootRelationListener = this::rootRelationChanged;

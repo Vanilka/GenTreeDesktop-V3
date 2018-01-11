@@ -189,4 +189,9 @@ public class DialogAddChildrenController implements Initializable, FXMLControlle
             newValue.getChildren().forEach(this::addChildToPane);
         }
     }
+
+    @Override
+    public void clean() {
+
+    }
 }

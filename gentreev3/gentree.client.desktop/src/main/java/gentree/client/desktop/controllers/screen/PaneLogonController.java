@@ -44,6 +44,11 @@ public class PaneLogonController implements Initializable, FXMLController, FXMLA
     @FXML
     private ObjectProperty<ResourceBundle> languageBundle = new SimpleObjectProperty<>();
 
+    @Override
+    public void clean() {
+
+    }
+
     @FXML
     private void login() {
         boolean result = rcs.login(LOGIN_FIELD.getText(), PASSWORD_FIELD.getText(), REALM_BOX.getSelectionModel().getSelectedItem());

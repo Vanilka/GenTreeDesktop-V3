@@ -10,5 +10,7 @@ public interface FXMLController {
 
     static final ScreenManager sm = ScreenManager.INSTANCE;
     static final GenTreeContext context = GenTreeContext.INSTANCE;
+
+    void clean();
 }
 

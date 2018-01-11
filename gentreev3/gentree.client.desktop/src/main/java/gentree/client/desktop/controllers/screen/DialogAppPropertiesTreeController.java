@@ -79,4 +79,8 @@ public class DialogAppPropertiesTreeController implements Initializable, FXMLCon
         populateProperties();
     }
 
+    @Override
+    public void clean() {
+
+    }
 }

@@ -91,6 +91,11 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
     }
 
+    @Override
+    public void clean() {
+
+    }
+
     @FXML
     private void openNewMemberDialog() {
         sm.showNewDialog( FilesFXML.ADD_MEMBER_DIALOG);

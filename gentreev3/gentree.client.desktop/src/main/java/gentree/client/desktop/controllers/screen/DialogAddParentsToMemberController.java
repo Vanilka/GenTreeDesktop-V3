@@ -311,4 +311,9 @@ public class DialogAddParentsToMemberController implements Initializable, FXMLCo
         fatherCard.setMember(newValue);
         findRelation(mother.get(), newValue);
     }
+
+    @Override
+    public void clean() {
+
+    }
 }

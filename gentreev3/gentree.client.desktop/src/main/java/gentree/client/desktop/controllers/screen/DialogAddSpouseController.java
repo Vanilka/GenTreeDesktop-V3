@@ -2,6 +2,7 @@ package gentree.client.desktop.controllers.screen;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import gentree.client.desktop.configuration.CellFactoryProvider;
 import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.enums.FilesFXML;
 import gentree.client.desktop.configuration.enums.PropertiesKeys;
@@ -183,8 +184,8 @@ public class DialogAddSpouseController implements Initializable, FXMLController,
     }
 
     private void initRelationTypeComboBox() {
-        RELATION_TYPE_COMBO_BOX.setCellFactory(sm.getCustomRelationListCell());
-        RELATION_TYPE_COMBO_BOX.setButtonCell(sm.getCustomRelationListCell().call(null));
+        RELATION_TYPE_COMBO_BOX.setCellFactory(CellFactoryProvider.CUSTOM_RELATION_LIST_CELL);
+        RELATION_TYPE_COMBO_BOX.setButtonCell(CellFactoryProvider.CUSTOM_RELATION_LIST_CELL.call(null));
         RELATION_TYPE_COMBO_BOX.getItems().addAll(RelationType.values());
         RELATION_TYPE_COMBO_BOX.getSelectionModel().select(RelationType.NEUTRAL);
         RELATION_TYPE_COMBO_BOX.setDisable(true);
@@ -242,5 +243,10 @@ public class DialogAddSpouseController implements Initializable, FXMLController,
         if (newValue.equals(RelationType.NEUTRAL)) {
             CHECK_BOX_SET_CURRENT.setSelected(false);
         }
+    }
+
+    @Override
+    public void clean() {
+
     }
 }

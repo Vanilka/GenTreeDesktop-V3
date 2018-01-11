@@ -27,4 +27,9 @@ public class MainWindowController implements Initializable, FXMLController, FXML
         this.languageBundle.setValue(resources);
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
     }
+
+    @Override
+    public void clean() {
+
+    }
 }

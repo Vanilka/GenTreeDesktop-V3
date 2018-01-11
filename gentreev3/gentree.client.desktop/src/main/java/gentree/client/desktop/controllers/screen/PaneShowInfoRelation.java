@@ -2,6 +2,7 @@ package gentree.client.desktop.controllers.screen;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import gentree.client.desktop.configuration.CellFactoryProvider;
 import gentree.client.desktop.configuration.messages.Keys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLAnchorPane;
@@ -157,7 +158,7 @@ public class PaneShowInfoRelation implements Initializable, FXMLController, FXML
     private void setCellValueFactory() {
         this.SIM_NAME_COLUMN.setCellValueFactory(data -> data.getValue().nameProperty());
         this.SIM_SURNAME_COLUMN.setCellValueFactory(data -> data.getValue().surnameProperty());
-        this.SIM_PHOTO_COLUMN.setCellValueFactory(sm.getPhotoValueFactory());
+        this.SIM_PHOTO_COLUMN.setCellValueFactory(CellFactoryProvider.PHOTO_VALUE_FACTORY);
         this.SIM_PHOTO_COLUMN.setCellFactory(setPhotoCellFactory());
     }
 
@@ -260,4 +261,8 @@ public class PaneShowInfoRelation implements Initializable, FXMLController, FXML
         return relation;
     }
 
+    @Override
+    public void clean() {
+
+    }
 }

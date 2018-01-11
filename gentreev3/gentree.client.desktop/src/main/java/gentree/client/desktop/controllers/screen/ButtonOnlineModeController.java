@@ -84,5 +84,10 @@ public class ButtonOnlineModeController implements Initializable, FXMLPane, FXML
     /*
      * GETTERS AND SETTERS
      */
+
+    @Override
+    public void clean() {
+
+    }
 }
 

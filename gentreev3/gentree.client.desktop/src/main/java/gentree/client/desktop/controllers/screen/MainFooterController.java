@@ -38,4 +38,9 @@ public class MainFooterController implements Initializable, FXMLController, FXML
     private void initFooter() {
         this.FOOTER_COPYRIGHTS.setText(AppTitles.APP_FOOTER);
     }
+
+    @Override
+    public void clean() {
+
+    }
 }

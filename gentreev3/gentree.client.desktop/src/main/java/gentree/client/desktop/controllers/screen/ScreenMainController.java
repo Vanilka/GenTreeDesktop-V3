@@ -72,6 +72,11 @@ public class ScreenMainController implements Initializable, FXMLController, FXML
         paneShowInfoSim.setMember(member);
     }
 
+    @Override
+    public void clean() {
+
+    }
+
     public void showInfoRelation(Relation relation) {
         removerOthersInfoRelationsOrSim();
         SCREEN_MAIN_LEFT.getChildren().forEach(n -> n.setVisible(false));

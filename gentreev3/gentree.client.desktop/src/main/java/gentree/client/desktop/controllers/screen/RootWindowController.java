@@ -14,8 +14,15 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Martyna SZYMKOWIAK on 10/07/2017.
+ * <p>
+ * This is a Main BorderPane of the Application</br>
+ * This Pane will contain<br>
+ * <li>Top: MenuBar</li>
+ * <li>Bottom: Footer</li>
+ * <li>Center:  content of application</li>
+ * </br>
+ * Top and Bottom Panes should not be changed during Application work
  */
-
 @Log4j2
 public class RootWindowController implements Initializable, FXMLController, FXMLBorderPane {
 
@@ -27,5 +34,10 @@ public class RootWindowController implements Initializable, FXMLController, FXML
         log.trace(LogMessages.MSG_CTRL_INITIALIZATION);
         this.languageBundle.setValue(resources);
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
+    }
+
+    @Override
+    public void clean() {
+
     }
 }

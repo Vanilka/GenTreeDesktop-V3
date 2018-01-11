@@ -33,4 +33,9 @@ public class DialogAppPropertiesOtherController implements Initializable, FXMLCo
     public void cleanListeners() {
 
     }
+
+    @Override
+    public void clean() {
+
+    }
 }

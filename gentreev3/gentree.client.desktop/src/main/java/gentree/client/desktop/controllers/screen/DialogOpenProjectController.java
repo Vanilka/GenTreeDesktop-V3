@@ -233,4 +233,9 @@ public class DialogOpenProjectController implements Initializable, FXMLControlle
             BUTTON_CONFIRM.setText(getValueFromKey(Keys.OPEN));
         }
     }
+
+    @Override
+    public void clean() {
+
+    }
 }

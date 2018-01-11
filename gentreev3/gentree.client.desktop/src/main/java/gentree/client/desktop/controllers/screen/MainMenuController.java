@@ -202,9 +202,14 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
         this.MENU_ITEM_SAVE_PROJECT_AS.setText(getValueFromKey(Keys.MENU_PROJECT_SAVE_AS));
     }
 
+    @Override
+    public void clean() {
+
+    }
+
     /*
-        MENU BUTTON ACTION
-     */
+            MENU BUTTON ACTION
+         */
     @FXML
     public void openProperties(ActionEvent actionEvent) {
 

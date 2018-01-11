@@ -103,4 +103,9 @@ public class ScreenMainRightController extends AnchorPane implements Initializab
     private void languageChange(ObservableValue<? extends ResourceBundle> observable, ResourceBundle oldValue, ResourceBundle newValue) {
         reloadElements();
     }
+
+    @Override
+    public void clean() {
+
+    }
 }

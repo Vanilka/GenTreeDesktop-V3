@@ -1,6 +1,7 @@
 package gentree.client.desktop.controllers.screen;
 
 import com.jfoenix.controls.JFXTextField;
+import gentree.client.desktop.configuration.CellFactoryProvider;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLController;
 import gentree.client.desktop.controllers.FXMLDialogReturningMember;
@@ -158,7 +159,7 @@ public class DialogChooseMemberController implements Initializable, FXMLControll
 
 
     private void setCellValueFactory() {
-        this.MEMBER_PHOTO_COLUMN.setCellValueFactory(sm.getPhotoValueFactory());
+        this.MEMBER_PHOTO_COLUMN.setCellValueFactory(CellFactoryProvider.PHOTO_VALUE_FACTORY);
         this.MEMBER_NAME_COLUMN.setCellValueFactory(data -> data.getValue().nameProperty());
         this.MEMBER_SURNAME_COLUMN.setCellValueFactory(data -> data.getValue().surnameProperty());
         this.MEMBER_AGE_COLUMN.setCellValueFactory(data -> data.getValue().ageProperty());
@@ -251,4 +252,8 @@ public class DialogChooseMemberController implements Initializable, FXMLControll
         memberList.addAll(list);
     }
 
+    @Override
+    public void clean() {
+
+    }
 }

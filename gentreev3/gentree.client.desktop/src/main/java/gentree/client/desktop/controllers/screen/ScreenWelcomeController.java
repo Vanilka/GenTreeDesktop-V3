@@ -10,6 +10,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import lombok.extern.log4j.Log4j2;
@@ -40,11 +41,22 @@ public class ScreenWelcomeController implements Initializable, FXMLController, F
     private ObjectProperty<ResourceBundle> languageBundle = new SimpleObjectProperty<>();
     private ChangeListener<? super Number> mainAnchorPaneHeightListener = this::heightChange;
     private ChangeListener<? super ResourceBundle> languageListener = this::languageChange;
+    private ChangeListener<? super Parent> parentListener = this::ParentChange;
+
+
+    private void ParentChange(ObservableValue<? extends Parent> observableValue, Parent oldValue, Parent newValue) {
+        if (newValue == null) {
+            MAIN_ANCHOR_PANE.parentProperty().removeListener(parentListener);
+            parentListener  = null;
+            clean();
+        }
+    }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.trace(LogMessages.MSG_CTRL_INITIALIZATION);
+        initListener();
         this.languageBundle.setValue(resources);
         initOnlineProjectPane();
         initLocalProjectPane();
@@ -52,16 +64,24 @@ public class ScreenWelcomeController implements Initializable, FXMLController, F
         addTopOffsetListener();
         LOCAL_PROJECT_PANE.resize(300, 400);
         ONLINE_PROJECT_PANE.resize(300, 400);
+        MAIN_ANCHOR_PANE.parentProperty().addListener(parentListener);
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
+    }
+
+    private void initListener() {
+        MAIN_ANCHOR_PANE.parentProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("Parent changes for screen Welcome");
+            System.out.println("Paren is : " + newValue);
+        });
     }
 
 
     public void initLocalProjectPane() {
-        sm.loadFxml( LOCAL_PROJECT_PANE, FilesFXML.LOCAL_APP_MODE);
+        sm.loadFxml(LOCAL_PROJECT_PANE, FilesFXML.LOCAL_APP_MODE);
     }
 
     public void initOnlineProjectPane() {
-        sm.loadFxml( ONLINE_PROJECT_PANE, FilesFXML.ONLINE_APP_MODE);
+        sm.loadFxml(ONLINE_PROJECT_PANE, FilesFXML.ONLINE_APP_MODE);
     }
 
     public void addTopOffsetListener() {
@@ -76,11 +96,6 @@ public class ScreenWelcomeController implements Initializable, FXMLController, F
         double y = (newValue.doubleValue() - LOCAL_PROJECT_PANE.getHeight()) / 2;
         LOCAL_PROJECT_PANE.setLayoutY(y);
         ONLINE_PROJECT_PANE.setLayoutY(y);
-    }
-
-    private void cleanListeners() {
-        this.MAIN_ANCHOR_PANE.heightProperty().removeListener(mainAnchorPaneHeightListener);
-        this.languageBundle.removeListener(languageListener);
     }
 
 
@@ -99,6 +114,17 @@ public class ScreenWelcomeController implements Initializable, FXMLController, F
     private void reloadElements() {
 
     }
+
+    @Override
+    public void clean() {
+        cleanListeners();
+    }
+
+    private void cleanListeners() {
+        this.MAIN_ANCHOR_PANE.heightProperty().removeListener(mainAnchorPaneHeightListener);
+        this.languageBundle.removeListener(languageListener);
+    }
+
 
     /*
      ON CLICK ACTIONS

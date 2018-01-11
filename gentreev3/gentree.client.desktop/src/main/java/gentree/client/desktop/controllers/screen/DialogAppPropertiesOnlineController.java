@@ -1,6 +1,7 @@
 package gentree.client.desktop.controllers.screen;
 
 import com.jfoenix.controls.JFXButton;
+import gentree.client.desktop.configuration.CellFactoryProvider;
 import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.Realm;
 import gentree.client.desktop.configuration.RealmConfig;
@@ -88,8 +89,12 @@ public class DialogAppPropertiesOnlineController implements Initializable, FXMLC
 
 
     private void populateRealmList() {
-        REALM_LIST.setCellFactory(sm.getCustomRealmListCell());
+        REALM_LIST.setCellFactory(CellFactoryProvider.CUSTOM_REALM_LIST_CELL);
         REALM_LIST.setItems(realmConfig.getRealms());
     }
 
+    @Override
+    public void clean() {
+
+    }
 }

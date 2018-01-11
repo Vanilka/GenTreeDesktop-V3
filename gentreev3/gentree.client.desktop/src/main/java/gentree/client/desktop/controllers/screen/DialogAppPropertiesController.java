@@ -190,4 +190,8 @@ public class DialogAppPropertiesController implements Initializable, FXMLControl
     }
 
 
+    @Override
+    public void clean() {
+
+    }
 }

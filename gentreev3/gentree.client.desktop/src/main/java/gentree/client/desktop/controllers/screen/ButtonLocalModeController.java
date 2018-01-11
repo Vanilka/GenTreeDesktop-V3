@@ -89,6 +89,10 @@ public class ButtonLocalModeController implements Initializable, FXMLPane, FXMLC
         reloadElements();
     }
 
+    @Override
+    public void clean() {
+
+    }
 
     /*
      * GETTERS AND SETTERS
