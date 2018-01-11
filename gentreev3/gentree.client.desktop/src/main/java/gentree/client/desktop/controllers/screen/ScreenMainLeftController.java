@@ -58,14 +58,12 @@ public class ScreenMainLeftController implements Initializable, FXMLController, 
 
     private void initPanes() {
         tabFamilyInfoController = (TabFamilyInfoController) sm.loadFxml(
-                new TabFamilyInfoController(),
                 TAB_PANE_INFO,
                 familyInfo,
                 FilesFXML.SCREEN_MAIN_LEFT_FAMILY_INFO_FXML, getValueFromKey(Keys.TAB_FAMILY_INFO));
         tabFamilyInfoController.setScreenMainLeft(this);
 
         tabFamilyViewController = (TabFamilyViewController) sm.loadFxml(
-                new TabFamilyViewController(),
                 TAB_PANE_INFO,
                 familyView,
                 FilesFXML.SCREEN_MAIN_LEFT_FAMILY_VIEW_FXML, getValueFromKey(Keys.TAB_FAMILY_VIEW));

@@ -49,7 +49,7 @@ public class PaneLogonController implements Initializable, FXMLController, FXMLA
         boolean result = rcs.login(LOGIN_FIELD.getText(), PASSWORD_FIELD.getText(), REALM_BOX.getSelectionModel().getSelectedItem());
         if (result) {
             System.out.println("wull load Online FXML");
-            sm.loadFxml(new ScreenOpenOnlineProjectController(), sm.getMainWindowBorderPane(), FilesFXML.SCREEN_OPEN_ONLINE_PROJECT_FXML, ScreenManager.Where.CENTER);
+            sm.loadFxml( sm.getMainWindowBorderPane(), FilesFXML.SCREEN_OPEN_ONLINE_PROJECT_FXML, ScreenManager.Where.CENTER);
         }
 
     }

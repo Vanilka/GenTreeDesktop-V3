@@ -125,7 +125,7 @@ public class DialogAddChildrenController implements Initializable, FXMLControlle
 
     private void openChildChoice(ActionEvent event) {
 
-        Member child = sm.showNewDialog(new DialogChooseMemberController(), null, generateList(), FilesFXML.DIALOG_CHOOSE_MEMBER);
+        Member child = sm.showNewDialog( null, generateList(), FilesFXML.DIALOG_CHOOSE_MEMBER);
         if (child != null) addChildToPane(child);
 
     }

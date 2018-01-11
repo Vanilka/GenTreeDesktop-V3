@@ -112,7 +112,7 @@ public class DialogAddSpouseController implements Initializable, FXMLController,
     public void openChoosingSpouse(ActionEvent actionEvent) {
         List<Member> spouseList = generateSpouseList();
 
-        Member m = sm.showNewDialog(new DialogChooseMemberController(), member.get(), spouseList, FilesFXML.DIALOG_CHOOSE_MEMBER);
+        Member m = sm.showNewDialog( member.get(), spouseList, FilesFXML.DIALOG_CHOOSE_MEMBER);
         if (m != null) spouse.set(m);
     }
 

@@ -57,7 +57,7 @@ public class ScreenOpenOnlineProjectController implements Initializable, FXMLCon
         if (FAMILY_TABLE.getSelectionModel().getSelectedItem() != null) {
             ServiceResponse response = context.getService().setCurrentFamily(FAMILY_TABLE.getSelectionModel().getSelectedItem());
             if (response instanceof FamilyResponse) {
-                sm.loadFxml(new ScreenMainController(), sm.getMainWindowBorderPane(), FilesFXML.SCREEN_MAIN_FXML, ScreenManager.Where.CENTER);
+                sm.loadFxml( sm.getMainWindowBorderPane(), FilesFXML.SCREEN_MAIN_FXML, ScreenManager.Where.CENTER);
             }
         }
     }
@@ -70,7 +70,7 @@ public class ScreenOpenOnlineProjectController implements Initializable, FXMLCon
 
     @FXML
     private void newProject() {
-        sm.showNewDialog(new DialogOpenProjectController(), FilesFXML.OPEN_PROJECT_DIALOG);
+        sm.showNewDialog(FilesFXML.OPEN_PROJECT_DIALOG);
         refreshProjectList();
     }
 

@@ -108,9 +108,9 @@ public class ScreenManager implements ContextProvider {
     public void init() {
         configureStatics();
         initRoot();
-        loadFxml(mainFooterController, this.mainWindowBorderPane, FilesFXML.MAIN_FOOTER_FXML, Where.BOTTOM);
-        loadFxml(mainMenuController, this.mainWindowBorderPane, FilesFXML.MAIN_MENU_FXML, Where.TOP);
-        loadFxml(screenWelcomeController, this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
+        mainFooterController = (MainFooterController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_FOOTER_FXML, Where.BOTTOM);
+        mainMenuController = (MainMenuController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_MENU_FXML, Where.TOP);
+        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
 
         simContextMenu = new SimContextMenu();
         relationContextMenu = new RelationContextMenu();
@@ -153,11 +153,11 @@ public class ScreenManager implements ContextProvider {
     }
 
 
-    public void loadFxml(FXMLPane controller, BorderPane border, FilesFXML fxml, Where where) {
+    public FXMLPane loadFxml(BorderPane border, FilesFXML fxml, Where where) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             AnchorPane temp = (AnchorPane) loader.load();
-            controller = loader.getController();
+            FXMLPane controller = loader.getController();
             switch (where) {
                 case TOP:
                     border.setTop(temp);
@@ -181,16 +181,17 @@ public class ScreenManager implements ContextProvider {
             log.error(ex.getCause());
             ex.printStackTrace();
         }
+        return null;
 
     }
 
-    public void showNewDialog(FXMLDialogController controller, FilesFXML fxml) {
+    public void showNewDialog(FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
 
         try {
             Stage dialogStage = new Stage();
             AnchorPane dialogwindow = (AnchorPane) loader.load();
-            controller = loader.getController();
+            FXMLDialogController controller = loader.getController();
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(this.getStage());
             Scene scene = new Scene(dialogwindow);
@@ -199,7 +200,6 @@ public class ScreenManager implements ContextProvider {
             controller.setStage(dialogStage);
             dialogStage.showAndWait();
 
-
         } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
@@ -208,19 +208,18 @@ public class ScreenManager implements ContextProvider {
     }
 
 
-    public void showNewDialog(FXMLDialogWithRealmListControl controller, ObservableList<Realm> list, FilesFXML fxml) {
+    public void showNewDialog(ObservableList<Realm> list, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             Stage dialogStage = new Stage();
             AnchorPane dialogwindow = (AnchorPane) loader.load();
-            controller = loader.getController();
+            FXMLDialogWithRealmListControl controller = loader.getController();
             controller.setList(list);
             Scene scene = new Scene(dialogwindow);
             initDialogProperties(dialogStage, Modality.WINDOW_MODAL, this.getStage(), scene, false);
             controller.setStage(dialogStage);
             dialogStage.showAndWait();
 
-
         } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
@@ -229,31 +228,34 @@ public class ScreenManager implements ContextProvider {
     }
 
 
-    public void showNewDialog(FXMLDialogWithMemberController controller, Member member, FilesFXML fxml) {
+    public FXMLDialogWithMemberController showNewDialog(Member member, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             Stage dialogStage = new Stage();
             AnchorPane dialogwindow = (AnchorPane) loader.load();
-            controller = loader.getController();
+            FXMLDialogWithMemberController controller = loader.getController();
             controller.setFather(member);
             Scene scene = new Scene(dialogwindow);
             initDialogProperties(dialogStage, Modality.WINDOW_MODAL, this.getStage(), scene, false);
             controller.setStage(dialogStage);
             dialogStage.showAndWait();
+            return controller;
         } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
             ex.printStackTrace();
         }
+
+        return null;
     }
 
 
-    public void showNewDialog(FXMLDialogWithRelationController controller, Relation r, FilesFXML fxml) {
+    public void showNewDialog(Relation r, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             Stage dialogStage = new Stage();
             AnchorPane dialogwindow = (AnchorPane) loader.load();
-            controller = loader.getController();
+            FXMLDialogWithRelationController controller = loader.getController();
             controller.setRelation(r);
             Scene scene = new Scene(dialogwindow);
             initDialogProperties(dialogStage, Modality.WINDOW_MODAL, this.getStage(), scene, false);
@@ -264,14 +266,15 @@ public class ScreenManager implements ContextProvider {
             log.error(ex.getCause());
             ex.printStackTrace();
         }
+
     }
 
-    public Member showNewDialog(FXMLDialogReturningMember controller, Member member, List<Member> list, FilesFXML fxml) {
+    public Member showNewDialog(Member member, List<Member> list, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             Stage dialogStage = new Stage();
             AnchorPane dialogwindow = (AnchorPane) loader.load();
-            controller = loader.getController();
+            FXMLDialogReturningMember controller = loader.getController();
             controller.setMember(member);
             controller.setMemberList(list);
             Scene scene = new Scene(dialogwindow);
@@ -295,43 +298,46 @@ public class ScreenManager implements ContextProvider {
         dialogStage.setResizable(resizeable);
     }
 
-    public FXMLPane loadFxml(FXMLPane controller, Pane pane, FilesFXML fxml) {
+    public FXMLPane loadFxml(Pane pane, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             pane.getChildren().clear();
             pane.getChildren().addAll((Pane) loader.load());
-            controller = loader.getController();
+            FXMLPane controller = loader.getController();
+            return controller;
         } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
         }
-        return controller;
+        return null;
     }
 
 
-    public FXMLPane loadFxml(FXMLPane controller, AnchorPane anchor, FilesFXML fxml) {
+    public FXMLPane loadFxml(AnchorPane anchor, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             anchor.getChildren().clear();
             anchor.getChildren().addAll((AnchorPane) loader.load());
-            controller = loader.getController();
+            FXMLPane controller = loader.getController();
+            return controller;
         } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
             ex.printStackTrace();
         }
-        return controller;
+        return null;
     }
 
-    public FXMLTab loadFxml(FXMLTab controller, JFXTabPane tabPane, Tab tab, FilesFXML fxml, String title) {
+    public FXMLTab loadFxml(JFXTabPane tabPane, Tab tab, FilesFXML fxml, String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             tab.setContent(loader.load());
             tab.setText(title);
-            controller = loader.getController();
+            FXMLTab controller = loader.getController();
             tabPane.getTabs().add(tab);
             tabPane.getSelectionModel().select(tab);
             controller.setTabAndTPane(tabPane, tab);
+            return controller;
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -344,37 +350,38 @@ public class ScreenManager implements ContextProvider {
             log.error(ex.getCause());
         }
 
-        return controller;
+        return null;
     }
 
-    public FXMLTab loadFxml(FXMLTab controller, JFXTabPane tabPane, Tab tab, String fxml) {
+    public FXMLTab loadFxml(JFXTabPane tabPane, Tab tab, String fxml) {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml), context.getBundleValue());
         try {
             tab.setContent(loader.load());
-            controller = loader.getController();
+            FXMLTab controller = loader.getController();
             controller.setTabAndTPane(tabPane, tab);
+            return controller;
 
-        }  catch (Exception ex) {
-            log.error(ex.getMessage());
-            log.error(ex.getCause());
-            ex.printStackTrace();
-        }
-
-        return controller;
-    }
-
-    public FXMLPane loadAdditionalFxmltoAnchorPane(FXMLPane controller, AnchorPane anchor, FilesFXML fxml) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
-        try {
-            anchor.getChildren().addAll((AnchorPane) loader.load());
-            controller = loader.getController();
         } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
             ex.printStackTrace();
         }
-        return controller;
+
+        return null;
+    }
+
+    public FXMLPane loadAdditionalFxmltoAnchorPane(AnchorPane anchor, FilesFXML fxml) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
+        try {
+            anchor.getChildren().addAll((AnchorPane) loader.load());
+            return loader.getController();
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            log.error(ex.getCause());
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     public void showNotification(String title, String text) {
@@ -467,7 +474,7 @@ public class ScreenManager implements ContextProvider {
     }
 
     public void reloadScreenWelcomeController() {
-        loadFxml(screenWelcomeController, this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
+        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
         context.setService(null);
     }
 

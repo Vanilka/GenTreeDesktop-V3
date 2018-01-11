@@ -52,7 +52,7 @@ public class ScreenLoginRegisterController implements Initializable, FXMLControl
 
 
     private void initLogonForm() {
-        logonController = (PaneLogonController) sm.loadFxml(new PaneLogonController(), LOGON_FORM, FilesFXML.PANE_LOGON_FXML);
+        logonController = (PaneLogonController) sm.loadFxml( LOGON_FORM, FilesFXML.PANE_LOGON_FXML);
     }
 
     public void addTopOffsetListener(AnchorPane pane) {

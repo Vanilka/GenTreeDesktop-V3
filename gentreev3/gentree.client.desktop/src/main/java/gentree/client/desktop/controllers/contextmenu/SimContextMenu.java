@@ -45,11 +45,11 @@ public class SimContextMenu extends ContextMenu {
 
     private void initItemAddParents() {
 
-        itemAddParents.setOnAction(event -> sm.showNewDialog(new DialogAddParentsToMemberController(), member, FilesFXML.DIALOG_ADD_PARENTS_TO_MEMBER));
+        itemAddParents.setOnAction(event -> sm.showNewDialog( member, FilesFXML.DIALOG_ADD_PARENTS_TO_MEMBER));
     }
 
     private void initItemAddSpouse() {
-        itemAddSiblings.setOnAction(event -> sm.showNewDialog(new DialogAddSpouseController(), member, FilesFXML.DIALOG_ADD_SPOUSE_TO_MEMBER));
+        itemAddSiblings.setOnAction(event -> sm.showNewDialog( member, FilesFXML.DIALOG_ADD_SPOUSE_TO_MEMBER));
     }
 
     private void initItemAddChildren() {

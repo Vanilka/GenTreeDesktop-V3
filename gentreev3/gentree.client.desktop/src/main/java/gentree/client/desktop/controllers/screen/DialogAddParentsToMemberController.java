@@ -101,7 +101,7 @@ public class DialogAddParentsToMemberController implements Initializable, FXMLCo
     public void openChoosingMother() {
 
         List<Member> list = generateList(getMember(), Gender.M);
-        Member m = sm.showNewDialog(new DialogChooseMemberController(), getMember(), list, FilesFXML.DIALOG_CHOOSE_MEMBER);
+        Member m = sm.showNewDialog( getMember(), list, FilesFXML.DIALOG_CHOOSE_MEMBER);
         if (m != null) mother.set(m);
 
     }
@@ -110,7 +110,7 @@ public class DialogAddParentsToMemberController implements Initializable, FXMLCo
     public void openChoosingFather() {
 
         List<Member> list = generateList(getMember(), Gender.F);
-        Member f = sm.showNewDialog(new DialogChooseMemberController(), getMember(), list, FilesFXML.DIALOG_CHOOSE_MEMBER);
+        Member f = sm.showNewDialog( getMember(), list, FilesFXML.DIALOG_CHOOSE_MEMBER);
         if (f != null) father.set(f);
 
     }

@@ -110,10 +110,10 @@ public class DialogAppPropertiesController implements Initializable, FXMLControl
     }
 
     private void initPanes() {
-        dialogAppPropertiesTreeController = (DialogAppPropertiesTreeController) sm.loadFxml(new DialogAppPropertiesTreeController(), PANE_TREE_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_TREE);
+        dialogAppPropertiesTreeController = (DialogAppPropertiesTreeController) sm.loadFxml( PANE_TREE_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_TREE);
         dialogAppPropertiesTreeController.setProperties(propertiesMap);
-        dialogAppPropertiesOnlineController = (DialogAppPropertiesOnlineController) sm.loadFxml(new DialogAppPropertiesOnlineController(), PANE_ONLINE_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_ONLINE);
-        dialogAppPropertiesOtherController = (DialogAppPropertiesOtherController) sm.loadFxml(new DialogAppPropertiesOtherController(), PANE_OTHER_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_OTHER);
+        dialogAppPropertiesOnlineController = (DialogAppPropertiesOnlineController) sm.loadFxml( PANE_ONLINE_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_ONLINE);
+        dialogAppPropertiesOtherController = (DialogAppPropertiesOtherController) sm.loadFxml( PANE_OTHER_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_OTHER);
 
 
     }

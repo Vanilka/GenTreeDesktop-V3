@@ -53,7 +53,7 @@ public class ButtonOnlineModeController implements Initializable, FXMLPane, FXML
     @FXML
     public void selectOnlineApplication() {
         context.setService(new GenTreeOnlineService());
-        this.sm.loadFxml(new ScreenLoginRegisterController(), this.sm.getMainWindowBorderPane(), FilesFXML.SCREEN_LOGON_REGISTER_FXML, ScreenManager.Where.CENTER);
+        this.sm.loadFxml( this.sm.getMainWindowBorderPane(), FilesFXML.SCREEN_LOGON_REGISTER_FXML, ScreenManager.Where.CENTER);
     }
 
     /*

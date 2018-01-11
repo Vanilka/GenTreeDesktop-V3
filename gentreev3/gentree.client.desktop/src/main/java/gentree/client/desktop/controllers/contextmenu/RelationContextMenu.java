@@ -68,7 +68,7 @@ public class RelationContextMenu extends ContextMenu {
     }
 
     private void initItemAddChildren() {
-        itemAddChildren.setOnAction(event -> sm.showNewDialog(new DialogAddChildrenController(), relationTypeElement.getRelation().get(), FilesFXML.DIALOG_ADD_CHILDREN));
+        itemAddChildren.setOnAction(event -> sm.showNewDialog( relationTypeElement.getRelation().get(), FilesFXML.DIALOG_ADD_CHILDREN));
     }
 
     private void initRemoveRelation() {

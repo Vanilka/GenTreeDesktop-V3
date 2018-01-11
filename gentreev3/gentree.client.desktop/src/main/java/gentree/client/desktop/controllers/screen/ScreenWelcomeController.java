@@ -57,13 +57,11 @@ public class ScreenWelcomeController implements Initializable, FXMLController, F
 
 
     public void initLocalProjectPane() {
-        sm.loadFxml(new ButtonLocalModeController(), LOCAL_PROJECT_PANE,
-                FilesFXML.LOCAL_APP_MODE);
+        sm.loadFxml( LOCAL_PROJECT_PANE, FilesFXML.LOCAL_APP_MODE);
     }
 
     public void initOnlineProjectPane() {
-        sm.loadFxml(new ButtonOnlineModeController(), ONLINE_PROJECT_PANE,
-                FilesFXML.ONLINE_APP_MODE);
+        sm.loadFxml( ONLINE_PROJECT_PANE, FilesFXML.ONLINE_APP_MODE);
     }
 
     public void addTopOffsetListener() {

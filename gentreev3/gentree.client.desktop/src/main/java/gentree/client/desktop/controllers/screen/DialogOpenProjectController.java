@@ -117,7 +117,7 @@ public class DialogOpenProjectController implements Initializable, FXMLControlle
         context.getService().createFamily(new Family(tabOpenNewProjectController.getFAMILY_NAME_FIELD().getText().trim()));
 
         if (context.getService() instanceof GenTreeLocalService) {
-            sm.loadFxml(new ScreenMainController(), sm.getMainWindowBorderPane(), FilesFXML.SCREEN_MAIN_FXML, ScreenManager.Where.CENTER);
+            sm.loadFxml( sm.getMainWindowBorderPane(), FilesFXML.SCREEN_MAIN_FXML, ScreenManager.Where.CENTER);
         }
     }
 
@@ -126,7 +126,7 @@ public class DialogOpenProjectController implements Initializable, FXMLControlle
         Family family = readFamilyFromXML(path.toFile());
 
         ((GenTreeLocalService) context.getService()).openProject(family, path.toFile().getName());
-        sm.loadFxml(new ScreenMainController(), sm.getMainWindowBorderPane(), FilesFXML.SCREEN_MAIN_FXML, ScreenManager.Where.CENTER);
+        sm.loadFxml( sm.getMainWindowBorderPane(), FilesFXML.SCREEN_MAIN_FXML, ScreenManager.Where.CENTER);
     }
 
 
@@ -151,10 +151,10 @@ public class DialogOpenProjectController implements Initializable, FXMLControlle
      */
     private void initTabs() {
 
-        tabOpenNewProjectController = (TabOpenNewProjectController) sm.loadFxml(tabOpenNewProjectController, TAB_PANE_OPEN_PROJECT, tabOpenNewProject, FilesFXML.TAB_OPEN_NEW_PROJECT_FXML, getValueFromKey(Keys.TAB_NEW_PROJECT));
+        tabOpenNewProjectController = (TabOpenNewProjectController) sm.loadFxml( TAB_PANE_OPEN_PROJECT, tabOpenNewProject, FilesFXML.TAB_OPEN_NEW_PROJECT_FXML, getValueFromKey(Keys.TAB_NEW_PROJECT));
 
         if (context.getService() instanceof GenTreeLocalService) {
-            tabOpenExistingProjectController = (TabOpenExistingProjectController) sm.loadFxml(tabOpenExistingProjectController, TAB_PANE_OPEN_PROJECT, tabOpenExistingProject, FilesFXML.TAB_OPEN_EXISTING_PROJECT_FXML, getValueFromKey(Keys.TAB_OPEN_PROJECT));
+            tabOpenExistingProjectController = (TabOpenExistingProjectController) sm.loadFxml( TAB_PANE_OPEN_PROJECT, tabOpenExistingProject, FilesFXML.TAB_OPEN_EXISTING_PROJECT_FXML, getValueFromKey(Keys.TAB_OPEN_PROJECT));
         }
 
         TAB_PANE_OPEN_PROJECT.getSelectionModel().select(tabOpenNewProject);

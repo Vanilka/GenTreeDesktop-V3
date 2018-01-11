@@ -93,7 +93,7 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
 
     @FXML
     private void openNewMemberDialog() {
-        sm.showNewDialog(new DialogAddMemberController(), FilesFXML.ADD_MEMBER_DIALOG);
+        sm.showNewDialog( FilesFXML.ADD_MEMBER_DIALOG);
     }
 
     private void loadFamily(Family f) {

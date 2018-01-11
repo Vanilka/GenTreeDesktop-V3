@@ -208,7 +208,7 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
     @FXML
     public void openProperties(ActionEvent actionEvent) {
 
-        sm.showNewDialog(new DialogAppPropertiesController(), FilesFXML.DIALOG_APP_PROPERTIES);
+        sm.showNewDialog( FilesFXML.DIALOG_APP_PROPERTIES);
     }
 
 

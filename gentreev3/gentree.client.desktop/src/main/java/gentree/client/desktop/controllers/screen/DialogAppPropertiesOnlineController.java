@@ -54,7 +54,7 @@ public class DialogAppPropertiesOnlineController implements Initializable, FXMLC
     @FXML
     private void addNewRealm(ActionEvent event) {
 
-        sm.showNewDialog(new DialogAddRealmController(), realmConfig.getRealms(), FilesFXML.DIALOG_ADD_REALM);
+        sm.showNewDialog(realmConfig.getRealms(), FilesFXML.DIALOG_ADD_REALM);
     }
 
     @FXML

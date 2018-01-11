@@ -63,7 +63,7 @@ public class ButtonLocalModeController implements Initializable, FXMLPane, FXMLC
     @FXML
     public void selectLocalApplication() {
         context.setService(new GenTreeLocalService());
-        sm.showNewDialog(new DialogOpenProjectController(), FilesFXML.OPEN_PROJECT_DIALOG);
+        sm.showNewDialog(FilesFXML.OPEN_PROJECT_DIALOG);
     }
 
     /*
