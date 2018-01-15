@@ -19,7 +19,7 @@ import java.util.List;
 public class CircleEmbleme extends Control implements AutoCleanable {
     private static final String DEFAULT_CLASS_NAME = "circle-embleme";
 
-    private final SimpleStringProperty imgPath = new SimpleStringProperty();
+    private SimpleStringProperty imgPath = new SimpleStringProperty();
 
     public CircleEmbleme() {
         initialize();
@@ -43,7 +43,10 @@ public class CircleEmbleme extends Control implements AutoCleanable {
 
     @Override
     public void clean() {
-
+        if (getSkin() != null) ((CircleEmblemeSkin) getSkin()).clean();
+        getChildren().clear();
+        imgPath = null;
+        setSkin(null);
     }
 
     private void initialize() {

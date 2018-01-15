@@ -44,6 +44,7 @@ public class RelationTypeCard extends StackPane implements AutoCleanable {
     protected ImageView typeImg;
     protected StackPane imageContainer;
     protected DropShadow dropShadow;
+
     protected ObjectProperty<Relation> relation;
     protected ObjectProperty<RelationType> relationType;
 
@@ -109,7 +110,10 @@ public class RelationTypeCard extends StackPane implements AutoCleanable {
 
     private void cleanListeners() {
         relation.removeListener(relationListener);
+        relationListener = null;
         relationType.removeListener(relationTypeListener);
+        relationTypeListener = null;
+
         relationType.unbind();
         group.visibleProperty().unbind();
     }
@@ -158,9 +162,12 @@ public class RelationTypeCard extends StackPane implements AutoCleanable {
     @Override
     public void clean() {
         cleanListeners();
-
+        getChildren().clear();
         relation.setValue(null);
+        relation = null;
         relationType.setValue(null);
+        relationType = null;
+
         typeImg.setImage(null);
 
         relationListener = null;

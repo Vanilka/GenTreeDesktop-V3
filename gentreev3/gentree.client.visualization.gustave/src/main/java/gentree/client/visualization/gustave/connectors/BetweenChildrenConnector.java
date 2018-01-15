@@ -21,7 +21,7 @@ import java.util.Comparator;
  */
 public class BetweenChildrenConnector extends LineConnector {
 
-    private final ReadOnlyBooleanWrapper isEmpty = new ReadOnlyBooleanWrapper();
+    private ReadOnlyBooleanWrapper isEmpty = new ReadOnlyBooleanWrapper();
     /*
      *  Parent pane for this Connector
      */
@@ -58,20 +58,27 @@ public class BetweenChildrenConnector extends LineConnector {
 
     private void cleanListeners() {
         list.removeListener(changeListListener);
+
         isEmpty.unbind();
+        isEmpty = null;
+
         getLine().visibleProperty().unbind();
+
         list.forEach(ChildConnector::clean);
         list.clear();
+        list = null;
+
+        boundsListener = null;
+        changeListListener = null;
 
     }
 
     @Override
     public void clean() {
+        subBorderPane.getChildren().remove(getLine());
         cleanListeners();
         super.clean();
-
         subBorderPane = null;
-
         changeListListener = null;
         boundsListener = null;
 
@@ -103,7 +110,6 @@ public class BetweenChildrenConnector extends LineConnector {
     public ReadOnlyBooleanProperty isListEmpty() {
         return isEmpty.getReadOnlyProperty();
     }
-
 
     private void childListChange(ListChangeListener.Change<? extends ChildConnector> c) {
         while (c.next()) {

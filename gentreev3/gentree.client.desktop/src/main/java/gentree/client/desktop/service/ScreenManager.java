@@ -1,11 +1,11 @@
 package gentree.client.desktop.service;
 
 import com.jfoenix.controls.JFXTabPane;
+import gentree.client.desktop.configuration.ErrorMessages;
 import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.Realm;
 import gentree.client.desktop.configuration.enums.FilesFXML;
 import gentree.client.desktop.configuration.helper.BorderPanePermuteHelper;
-import gentree.client.desktop.configuration.helper.BorderPaneReloadHelper;
 import gentree.client.desktop.configuration.messages.AppTitles;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.configuration.wrappers.PhotoMarshaller;
@@ -18,22 +18,17 @@ import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.FamilyMember;
 import gentree.client.visualization.elements.RelationReference;
 import gentree.client.visualization.elements.RelationTypeElement;
-import gentree.client.visualization.elements.configuration.ContextProvider;
-import gentree.client.visualization.elements.configuration.ElementsConfig;
 import gentree.client.visualization.elements.configuration.ImageFiles;
+import gentree.client.visualization.elements.configuration.Manager;
+import gentree.client.visualization.elements.configuration.ManagerProvider;
 import gentree.client.visualization.service.implementation.GenTreeDrawingServiceImpl;
-import gentree.common.configuration.enums.Age;
-import gentree.common.configuration.enums.Gender;
-import gentree.common.configuration.enums.Race;
-import gentree.common.configuration.enums.RelationType;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -46,7 +41,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.util.Callback;
 import javafx.util.Duration;
 import lombok.Getter;
 import lombok.Setter;
@@ -63,7 +57,7 @@ import java.util.List;
 @Getter
 @Setter
 @Log4j2
-public class ScreenManager implements ContextProvider {
+public class ScreenManager implements Manager {
 
     public static final ScreenManager INSTANCE = new ScreenManager();
     public static final GenTreeContext context = GenTreeContext.INSTANCE;
@@ -79,7 +73,9 @@ public class ScreenManager implements ContextProvider {
     private ScreenMainController screenMainController;
     private MainMenuController mainMenuController;
     private MainFooterController mainFooterController;
+
     private ScreenWelcomeController screenWelcomeController;
+
     private RootWindowController rootWindowController;
     private GenTreeDrawingService genTreeDrawingService;
     /*
@@ -103,55 +99,69 @@ public class ScreenManager implements ContextProvider {
         LAST_PATH = System.getProperty("user.home");
     }
 
-
-    public void init() {
-        configureStatics();
-        initRoot();
-        mainFooterController = (MainFooterController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_FOOTER_FXML, Where.BOTTOM);
-        mainMenuController = (MainMenuController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_MENU_FXML, Where.TOP);
-        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
-
-        simContextMenu = new SimContextMenu();
-        relationContextMenu = new RelationContextMenu();
-
-        this.scene = new Scene(mainWindowBorderPane);
-        this.stage.setScene(this.scene);
-        this.stage.setTitle(AppTitles.APP_TITLE);
-        this.stage.setHeight(750);
-        this.stage.setWidth(1200);
-        this.stage.setMinHeight(750);
-        this.stage.setMinWidth(1200);
-        this.stage.show();
+    private synchronized static void initStage(Stage stage) {
+        stage.setTitle(AppTitles.APP_TITLE);
+        stage.setHeight(750);
+        stage.setWidth(1200);
+        stage.setMinHeight(750);
+        stage.setMinWidth(1200);
+        stage.show();
     }
 
+    public void init(Stage stage) {
+        this.stage = stage;
+        simContextMenu = new SimContextMenu();
+        relationContextMenu = new RelationContextMenu();
+        configureStatics();
+        initRoot();
+    }
 
     /**
      * Configure Singletons
      */
     private void configureStatics() {
-        FamilyMember.setContextProviderProperty(this);
-        RelationReference.setContextProviderProperty(this);
-        RelationTypeElement.setContextProviderProperty(this);
+        ManagerProvider.INSTANCE.setManager(this);
+
         PhotoMarshaller.addIgnoredPaths(ImageFiles.GENERIC_FEMALE.toString(),
                 ImageFiles.GENERIC_FEMALE.toString());
         Member.setDefaultFemaleLocation(ImageFiles.GENERIC_FEMALE.toString());
         Member.setDefaultMaleLocation(ImageFiles.GENERIC_MALE.toString());
+
+
         GenTreeDrawingServiceImpl.setContext(context);
     }
 
+    /**
+     * This function initialize Root BorderPane with his children
+     */
     private void initRoot() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FilesFXML.ROOT_WINDOW_FXML.toString()));
         try {
             this.mainWindowBorderPane = ((BorderPane) loader.load());
             this.rootWindowController = loader.getController();
+            initDefaultControllers();
+            this.scene = new Scene(mainWindowBorderPane);
+            stage.setScene(scene);
+            initStage(this.stage);
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
+            showError(ErrorMessages.TITLE_ERROR_INIT_ROOT, ErrorMessages.HEADER_ERROR_INIT_ROOT, ex.getMessage());
         }
+
     }
 
+    /**
+     * This method load default view of application after Launch. </br>
+     * Set Top, Bottom and Center Panes info Root BorderPane
+     */
+    private void initDefaultControllers() {
+        mainFooterController = (MainFooterController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_FOOTER_FXML, Where.BOTTOM);
+        mainMenuController = (MainMenuController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_MENU_FXML, Where.TOP);
+        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
+    }
 
     public FXMLPane loadFxml(BorderPane border, FilesFXML fxml, Where where) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
@@ -206,7 +216,6 @@ public class ScreenManager implements ContextProvider {
         }
     }
 
-
     public void showNewDialog(ObservableList<Realm> list, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
@@ -225,7 +234,6 @@ public class ScreenManager implements ContextProvider {
             ex.printStackTrace();
         }
     }
-
 
     public FXMLDialogWithMemberController showNewDialog(Member member, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
@@ -247,7 +255,6 @@ public class ScreenManager implements ContextProvider {
 
         return null;
     }
-
 
     public void showNewDialog(Relation r, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
@@ -370,7 +377,7 @@ public class ScreenManager implements ContextProvider {
         return null;
     }
 
-    public FXMLPane loadAdditionalFxmltoAnchorPane(AnchorPane anchor, FilesFXML fxml) {
+    public FXMLPane loadAdditionalFxmlToAnchorPane(AnchorPane anchor, FilesFXML fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
         try {
             anchor.getChildren().addAll((AnchorPane) loader.load());
@@ -409,7 +416,6 @@ public class ScreenManager implements ContextProvider {
         }
         return path;
     }
-
 
     public String setImageIntoImageView(ImageView imv) {
         File file = openImageFileChooser();
@@ -473,8 +479,7 @@ public class ScreenManager implements ContextProvider {
     }
 
     public void reloadScreenWelcomeController() {
-        System.out.println("Reload ScreenWelcome");
-       screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
+        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
         context.setService(null);
     }
 
@@ -490,13 +495,10 @@ public class ScreenManager implements ContextProvider {
 
     @Override
     public void showSimContextMenu(FamilyMember familyMember, ContextMenuEvent event) {
-
         simContextMenu.show(familyMember.getMember(), familyMember, event);
     }
 
-
     public void showSimContextMenu(Member m, Node node, ContextMenuEvent event) {
-
         simContextMenu.show(m, node, event);
     }
 
@@ -528,11 +530,6 @@ public class ScreenManager implements ContextProvider {
     public void register(ScreenMainController controller) {
         this.screenMainController = controller;
     }
-
-
-    /*
-    Cell Factory
-    */
 
     public void register(GenTreeDrawingService drawingService) {
         this.genTreeDrawingService = drawingService;

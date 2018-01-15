@@ -1,12 +1,11 @@
 package gentree.client.visualization.elements;
 
 import gentree.client.desktop.domain.Relation;
-import gentree.client.visualization.elements.configuration.ContextProvider;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import gentree.client.visualization.elements.configuration.ManagerProvider;
+import javafx.event.EventHandler;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +17,10 @@ import lombok.Setter;
 @Setter
 public class RelationTypeElement extends RelationTypeCard {
 
-    private static ContextProvider CONTEXT_PROVIDER_PROPERTY;
-    private ChangeListener<? super ContextProvider> contextProviderListener = this::contextProviderChange;
+    private ManagerProvider provider = ManagerProvider.INSTANCE;
+
+    private EventHandler<? super ContextMenuEvent> contextMenuEvent = (EventHandler<ContextMenuEvent>) this::contextMenuHandle;
+    private EventHandler<? super MouseEvent> mouseClickEvent = (EventHandler<MouseEvent>) this::mouseEventHandle;
 
     {
         init();
@@ -33,9 +34,6 @@ public class RelationTypeElement extends RelationTypeCard {
         super(relation);
     }
 
-    public static void setContextProviderProperty(ContextProvider contextProviderProperty) {
-        CONTEXT_PROVIDER_PROPERTY = contextProviderProperty;
-    }
 
     private void init() {
         dropShadow = new DropShadow();
@@ -47,16 +45,8 @@ public class RelationTypeElement extends RelationTypeCard {
             System.out.println("Relation " + this.getRelation().get() + " -> Has reference   " + this.getRelation().get().getReferenceNumber());
         });
 
-
-        if (CONTEXT_PROVIDER_PROPERTY != null) {
-            this.setOnContextMenuRequested(event -> CONTEXT_PROVIDER_PROPERTY.showRelationContextMenu(returnThis(), event));
-            this.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && relation.get() != null) {
-                    CONTEXT_PROVIDER_PROPERTY.showInfoRelation(relation.get());
-                }
-            });
-
-        }
+            this.setOnContextMenuRequested(contextMenuEvent);
+            this.setOnMouseClicked(mouseClickEvent);
     }
 
     private void initShadow() {
@@ -71,28 +61,32 @@ public class RelationTypeElement extends RelationTypeCard {
     }
 
 
-    private void contextProviderChange(ObservableValue<? extends ContextProvider> observable, ContextProvider oldValue, ContextProvider newValue) {
-        if (newValue == null) {
-            this.setOnContextMenuRequested(null);
-            this.setOnMouseClicked(null);
-        } else {
-            this.setOnContextMenuRequested(event -> newValue.showRelationContextMenu(returnThis(), event));
-            this.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && relation.get() != null) {
-                    newValue.showInfoRelation(relation.get());
-                }
-            });
-        }
-    }
-
     @Override
     public void clean() {
         super.clean();
         this.setOnMouseClicked(null);
         this.setOnContextMenuRequested(null);
+        getChildren().clear();
         relation.setValue(null);
+        relation = null;
         relationType.setValue(null);
+        relationType = null;
 
-        contextProviderListener = null;
+        provider = null;
+
+        contextMenuEvent = null;
+        mouseClickEvent = null;
+
+    }
+
+
+    private void mouseEventHandle(MouseEvent event) {
+        if (event.getClickCount() == 2 && relation.get() != null) {
+            provider.showInfoRelation(relation.get());
+        }
+    }
+
+    private void contextMenuHandle(ContextMenuEvent event) {
+        provider.showRelationContextMenu(returnThis(), event);
     }
 }

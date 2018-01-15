@@ -2,6 +2,7 @@ package gentree.client.visualization.elements;
 
 import gentree.client.desktop.domain.Member;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
+import gentree.client.visualization.elements.configuration.ElementsConfig;
 import gentree.client.visualization.elements.configuration.ImageFiles;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,6 +31,7 @@ public class FamilyMemberCard extends AnchorPane implements AutoCleanable {
 
     private final static int MEMBER_WIDTH = 133;
     private final static int MEMBER_HEIGHT = 188;
+    protected ElementsConfig ec = ElementsConfig.INSTANCE;
 
     @FXML
     protected ImageView photoSim;
@@ -54,7 +56,6 @@ public class FamilyMemberCard extends AnchorPane implements AutoCleanable {
 
     private ObjectProperty<Member> member;
     private ChangeListener<Object> listener = this::objectChange;
-
     private ChangeListener<? super Member> memberListener = this::memberChange;
 
     {
@@ -70,6 +71,7 @@ public class FamilyMemberCard extends AnchorPane implements AutoCleanable {
 
     public FamilyMemberCard(Member member, String path) {
         super();
+        getChildren().clear();
         initialize(path);
         this.member.addListener(memberListener);
         this.member.setValue(member);
@@ -151,8 +153,11 @@ public class FamilyMemberCard extends AnchorPane implements AutoCleanable {
         this.member.removeListener(memberListener);
         this.member.get().getProperties().forEach(p -> p.removeListener(listener));
         this.member.setValue(null);
+        this.member = null;
+
         photoSim.setImage(null);
         memberListener = null;
+        listener = null;
     }
 
     private void initClip() {

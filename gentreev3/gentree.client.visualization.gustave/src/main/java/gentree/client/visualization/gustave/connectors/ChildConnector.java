@@ -72,7 +72,7 @@ public class ChildConnector extends LineConnector {
     public void clean() {
         cleanListeners();
         super.clean();
-
+        subBorderPane.getChildren().remove(line.get());
         subBorderPane = null;
         panelChild = null;
 

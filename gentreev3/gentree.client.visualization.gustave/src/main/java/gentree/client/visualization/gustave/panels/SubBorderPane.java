@@ -10,6 +10,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +25,11 @@ public abstract class SubBorderPane extends BorderPane implements AutoCleanable 
      */
     protected final static double RELATION_HEIGHT = 280;
 
-    private final ObjectProperty<SubBorderPane> parentPane;
-    private final ObjectProperty<FamilyGroup> familyGroup;
+    @Setter(AccessLevel.NONE)
+    private ObjectProperty<SubBorderPane> parentPane;
+
+    @Setter(AccessLevel.NONE)
+    private ObjectProperty<FamilyGroup> familyGroup;
     private ChangeListener<? super SubBorderPane> parentPaneListener = this::parentPaneChanged;
 
 
@@ -59,9 +63,14 @@ public abstract class SubBorderPane extends BorderPane implements AutoCleanable 
     @Override
     public void clean() {
         parentPane.removeListener(parentPaneListener);
+
         familyGroup.unbind();
         parentPane.setValue(null);
+        parentPane = null;
+
         familyGroup.setValue(null);
+        familyGroup = null;
+
         parentPaneListener = null;
     }
 

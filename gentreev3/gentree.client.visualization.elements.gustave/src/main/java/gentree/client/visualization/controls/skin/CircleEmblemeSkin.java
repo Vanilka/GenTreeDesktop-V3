@@ -3,6 +3,7 @@ package gentree.client.visualization.controls.skin;
 import gentree.client.visualization.controls.CircleEmbleme;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.SkinBase;
@@ -19,13 +20,12 @@ import lombok.Getter;
 public class CircleEmblemeSkin extends SkinBase<CircleEmbleme> implements AutoCleanable {
 
     @Getter
-    private final StackPane backgroundPane;
-
+    private StackPane backgroundPane;
     private ImageView imgView;
 
     private boolean invalidate = false;
-    private final InvalidationListener invalidListener = observable -> invalidate = true;
 
+    private  InvalidationListener invalidListener = this::invalidated;
     private ChangeListener<String> pathListener = this::pathChanged;
 
     {
@@ -81,6 +81,17 @@ public class CircleEmblemeSkin extends SkinBase<CircleEmbleme> implements AutoCl
     @Override
     public void clean() {
 
+
+        backgroundPane.getChildren().clear();
+        backgroundPane = null;
+
+        imgView.setImage(null);
+        imgView = null;
+
+        invalidListener = null;
+        pathListener = null;
+
+        getChildren().clear();
     }
 
     protected void initBorder(Color color, Pane node) {
@@ -89,5 +100,9 @@ public class CircleEmblemeSkin extends SkinBase<CircleEmbleme> implements AutoCl
                         BorderStrokeStyle.SOLID,
                         CornerRadii.EMPTY,
                         BorderWidths.DEFAULT)));
+    }
+
+    private void invalidated(Observable observable) {
+        invalidate = true;
     }
 }

@@ -6,7 +6,7 @@ import gentree.client.visualization.elements.FamilyMember;
 import gentree.client.visualization.elements.RelationTypeElement;
 import javafx.scene.input.ContextMenuEvent;
 
-public interface ContextProvider {
+public interface Manager {
 
     void showRelationContextMenu(RelationTypeElement relationTypeElement, ContextMenuEvent event);
 

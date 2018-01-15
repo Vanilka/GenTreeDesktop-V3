@@ -3,6 +3,7 @@ package gentree.client.visualization.controls.skin;
 import gentree.client.visualization.controls.HeaderPane;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.*;
@@ -17,10 +18,10 @@ public class HeaderPaneSkin extends SkinBase<HeaderPane> implements AutoCleanabl
     private final Color default_color = Color.web("#0188AE");
 
     @Getter
-    private final AnchorPane backgroundPane;
-    private final Label title;
+    private AnchorPane backgroundPane;
+    private Label title;
     private boolean invalidate = false;
-    private final InvalidationListener invalidListener = observable -> invalidate = true;
+    private InvalidationListener invalidListener = this::invalidated;
 
     {
         backgroundPane = new AnchorPane();
@@ -48,9 +49,6 @@ public class HeaderPaneSkin extends SkinBase<HeaderPane> implements AutoCleanabl
         title.textProperty().bind(getSkinnable().titleProperty());
     }
 
-    private void initDefaultSkin() {
-
-    }
 
     protected void initBorder(Color color, Pane node) {
         node.setBorder(new Border
@@ -67,5 +65,20 @@ public class HeaderPaneSkin extends SkinBase<HeaderPane> implements AutoCleanabl
 
         getSkinnable().prefWidthProperty().unbind();
         getSkinnable().prefHeightProperty().unbind();
+
+        title.textProperty().unbind();
+
+        invalidListener = null;
+        title = null;
+
+        getChildren().clear();
+
+        backgroundPane.getChildren().clear();
+        backgroundPane = null;
+
+    }
+
+    private void invalidated(Observable observable) {
+        invalidate = true;
     }
 }

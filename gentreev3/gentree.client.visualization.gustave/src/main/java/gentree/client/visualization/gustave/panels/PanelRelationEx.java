@@ -47,25 +47,29 @@ public class PanelRelationEx extends SubRelationPane implements RelationPane {
     /*
      * CLEANABLE
      */
-    @Getter
-    private final FamilyMember spouseCard;
 
     @Getter
-    private final RelationTypeElement relationTypeElement;
+    private FamilyMember spouseCard;
 
-    private final ObservableList<PanelChild> children;
-    private final ParentToChildrenConnector childrenConnector;
-    private final SpouseExConnector spouseExConnector;
-    private final RelationReference spouseRelationReference;
-    private final RelationReference thisRelationReference;
+    @Getter
+    private RelationTypeElement relationTypeElement;
+
+    private ObservableList<PanelChild> children;
+    private ParentToChildrenConnector childrenConnector;
+    private SpouseExConnector spouseExConnector;
+    private RelationReference spouseRelationReference;
+    private RelationReference thisRelationReference;
 
     /* ******************** */
 
-    private final ObjectProperty<Member> spouse;
-    private final ObjectProperty<Relation> thisRelation;
-    private final ObjectProperty<Relation> spouseBornRelation;
-    private final ObjectProperty<RelationType> relationType;
-    private ChangeListener<? super Member> spouseListener = this::spuseChanged;
+    private ObjectProperty<Member> spouse;
+    private ObjectProperty<Relation> thisRelation;
+    private ObjectProperty<Relation> spouseBornRelation;
+    private ObjectProperty<RelationType> relationType;
+
+    /* ******************** */
+
+    private ChangeListener<? super Member> spouseListener = this::spouseChanged;
     private ChangeListener<? super Relation> spouseBornRelationListener = this::spouseBornRelationChanged;
     private ChangeListener<? super Relation> thisRelationListener = this::thisRelationChanged;
     private ListChangeListener<? super PanelChild> childrenListListener = this::childrenListChange;
@@ -135,7 +139,6 @@ public class PanelRelationEx extends SubRelationPane implements RelationPane {
         Listeners
      */
 
-
     private void initListeners() {
         spouse.addListener(spouseListener);
         thisRelation.addListener(thisRelationListener);
@@ -181,34 +184,53 @@ public class PanelRelationEx extends SubRelationPane implements RelationPane {
         spouseBornRelation.removeListener(spouseBornRelationListener);
         children.removeListener(childrenListListener);
         cleanElementPositionListeners();
+
+        childrenListListener = null;
+        spouseListener = null;
+        spouseBornRelationListener = null;
+        thisRelationListener = null;
     }
 
     private void setElementsNull() {
         spouse.setValue(null);
+        spouse = null;
+
         thisRelation.setValue(null);
+        thisRelation = null;
+
         spouseBornRelation.setValue(null);
+        spouseBornRelation = null;
+
         relationType.setValue(null);
+        relationType = null;
+
+        childrenConnector = null;
+        spouseExConnector = null;
+        spouseRelationReference = null;
+        thisRelationReference = null;
     }
 
     @Override
     public void clean() {
         super.clean();
         cleanListeners();
-
+        getChildren().clear();
         spouseCard.clean();
+        spouseCard = null;
+
         relationTypeElement.clean();
+
         children.forEach(PanelChild::clean);
+        children.clear();
+        children = null;
+
         childrenConnector.clean();
         spouseExConnector.clean();
         spouseRelationReference.clean();
         thisRelationReference.clean();
 
-        setElementsNull();
 
-        childrenListListener = null;
-        spouseListener = null;
-        spouseBornRelationListener = null;
-        thisRelationListener = null;
+        setElementsNull();
 
 
     }
@@ -223,7 +245,6 @@ public class PanelRelationEx extends SubRelationPane implements RelationPane {
         return relationTypeElement;
     }
 
-
     @Override
     protected double computeMinWidth(double height) {
         if (children.isEmpty()) return super.computePrefWidth(height);
@@ -235,7 +256,6 @@ public class PanelRelationEx extends SubRelationPane implements RelationPane {
 
         return super.computeMinWidth(height) + offset;
     }
-
 
     private void childrenListChange(ListChangeListener.Change<? extends PanelChild> c) {
         while (c.next()) {
@@ -255,7 +275,7 @@ public class PanelRelationEx extends SubRelationPane implements RelationPane {
         }
     }
 
-    private void spuseChanged(ObservableValue<? extends Member> observable, Member oldValue, Member newValue) {
+    private void spouseChanged(ObservableValue<? extends Member> observable, Member oldValue, Member newValue) {
         relation.getChildren().removeAll();
         if (newValue != null) {
             spouseCard.setMember(newValue);

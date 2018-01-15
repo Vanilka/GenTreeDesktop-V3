@@ -300,4 +300,11 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
         this.languageChooser.setCellFactory(new LanguageCellFactory());
         this.languageChooser.setButtonCell(new LanguageCell());
     }
+
+
+    @FXML
+    public void doGC(ActionEvent actionEvent) {
+        System.out.println("Do GC");
+        System.gc();
+    }
 }

@@ -22,10 +22,12 @@ public class SpouseConnector extends LineConnector {
 
     private static final Color COLOR_EX = Color.web("#85a2a3");
     private static final Color COLOR_CURRENT = Color.web("#5F9EA0");
-    private final Line lineRelationToSim;
-    private final Line lineSimConnectAllEx;
-    private final Line lineSimConnectSpouse;
+
+    private Line lineRelationToSim;
+    private Line lineSimConnectAllEx;
+    private Line lineSimConnectSpouse;
     private PanelChild panelChild;
+
     private ChangeListener<? super Bounds> boundChangeCauseDrawingListener = this::boundChangeCauseDrawing;
     private ChangeListener<? super Bounds> boundsExListener = this::boundsExChange;
     private ChangeListener<? super PanelRelationCurrent> panelRelationCurrentListener = this::panelRelationCurrentChange;
@@ -52,7 +54,6 @@ public class SpouseConnector extends LineConnector {
                 panelChild.getPanelRelationCurrent().get() == null, panelChild.getPanelRelationCurrent());
 
         panelChild.getChildren().add(0, lineSimConnectAllEx);
-
         panelChild.getChildren().add(0, lineSimConnectSpouse);
         panelChild.getChildren().add(1, lineRelationToSim);
         panelChild.getChildren().add(2, getLine());
@@ -116,6 +117,7 @@ public class SpouseConnector extends LineConnector {
 
     @Override
     public void clean() {
+
         panelChild.panelSingleProperty().removeListener(panelSingleListener);
         if (panelChild.getPanelSingle().get() != null) {
             panelChild.getPanelSingle().get().boundsInParentProperty().removeListener(boundChangeCauseDrawingListener);
@@ -134,6 +136,7 @@ public class SpouseConnector extends LineConnector {
             panelChild.getPanelRelationCurrent().get().getSpouseCard().boundsInParentProperty().removeListener(boundChangeCauseDrawingListener);
         }
 
+
         lineSimConnectAllEx.visibleProperty().unbind();
         lineSimConnectSpouse.visibleProperty().unbind();
         lineRelationToSim.visibleProperty().unbind();
@@ -141,12 +144,21 @@ public class SpouseConnector extends LineConnector {
 
         super.clean();
 
+        panelChild.getChildren().remove(lineSimConnectAllEx);
+        panelChild.getChildren().remove(lineSimConnectSpouse);
+        panelChild.getChildren().remove(lineRelationToSim);
+        panelChild.getChildren().remove(getLine());
+
         panelChild = null;
 
         boundChangeCauseDrawingListener = null;
         boundsExListener = null;
         panelRelationCurrentListener = null;
         panelSingleListener = null;
+
+        lineRelationToSim = null;
+        lineSimConnectAllEx = null;
+        lineSimConnectSpouse = null;
 
     }
 
@@ -194,11 +206,6 @@ public class SpouseConnector extends LineConnector {
             lineSimConnectAllEx.setEndY(p2.getY());
 
         }
-    }
-
-
-    private void drawSpouseFond() {
-
     }
 
     protected Bounds getRelativeBounds(Node node) {

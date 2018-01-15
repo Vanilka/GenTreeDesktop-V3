@@ -32,11 +32,14 @@ public class FamilyGroup extends AnchorPane implements AutoCleanable {
 
     @FXML
     private HeaderPane PANEL_HEADER;
+
     @FXML
     private AnchorPane content;
-    @FXML
 
+    @FXML
     private HBox contentHbox;
+
+
     private ObjectProperty<Relation> rootRelation;
     private ChangeListener<? super Relation> rootRelationListener = this::rootRelationChanged;
 
@@ -113,18 +116,32 @@ public class FamilyGroup extends AnchorPane implements AutoCleanable {
     @Override
     public void clean() {
         selfClean();
+        getChildren().clear();
         contentHbox.getChildren().forEach(c -> {
             if(c instanceof AutoCleanable) {
                 ((AutoCleanable) c).clean();
             }
         });
+        contentHbox.getChildren().clear();
+        contentHbox = null;
+
+
+
     }
 
     public void selfClean() {
         rootRelation.removeListener(rootRelationListener);
         setRootRelation(null);
+        rootRelation = null;
+        rootRelationListener = null;
+
         PANEL_HEADER.titleProperty().unbind();
         PANEL_HEADER.clean();
+        PANEL_HEADER = null;
+
+        content.getChildren().clear();
+        content = null;
+
     }
 
 

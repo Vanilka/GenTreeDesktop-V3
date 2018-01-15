@@ -56,6 +56,7 @@ public class SpouseExConnector extends LineConnector {
 
         super.clean();
 
+        panelRelationEx.getChildren().remove(getLine());
         panelRelationEx = null;
         boundsListener = null;
     }

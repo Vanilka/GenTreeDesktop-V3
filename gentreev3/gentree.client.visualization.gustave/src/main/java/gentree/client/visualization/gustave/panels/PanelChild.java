@@ -41,36 +41,44 @@ public class PanelChild extends SubBorderPane {
     private final static double PADDING_RIGHT = 10.0;
     private final static double PADDING_BOTTOM = 0.0;
 
-    @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private final AnchorPane panelSinglePane;
+    private ObjectProperty<PanelSingle> panelSingle;
 
+    @Setter(AccessLevel.NONE)
+    private ObjectProperty<PanelRelationCurrent> panelRelationCurrent;
+
+    @Setter(AccessLevel.NONE)
+    private ObservableList<PanelRelationEx> panelRelationExList;
+
+    @Setter(AccessLevel.NONE)
+    private ObjectProperty<Member> member;
 
     @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private final AnchorPane panelRelationCurrentPane;
+    private AnchorPane panelSinglePane;
+
+    @Getter(AccessLevel.NONE)
+    private AnchorPane panelRelationCurrentPane;
 
     @Getter
-    private final HBox panelRelationExPane;
+    @Setter(AccessLevel.NONE)
+    private HBox panelRelationExPane;
 
-
-    private final ObjectProperty<PanelSingle> panelSingle;
-    private final ObjectProperty<PanelRelationCurrent> panelRelationCurrent;
-    private final ObservableList<PanelRelationEx> panelRelationExList;
-    private final ObjectProperty<Member> member;
+    @Setter(AccessLevel.NONE)
     private SpouseConnector spouseConnector;
 
-
+    @Setter(AccessLevel.NONE)
     private ListChangeListener<? super PanelRelationEx> panelRelationExListener = this::panelRelationExChanged;
+    @Setter(AccessLevel.NONE)
     private ChangeListener<? super PanelRelationCurrent> panelRelationCurrentListener = this::panelRelationCurrentChanged;
+    @Setter(AccessLevel.NONE)
     private ChangeListener<? super PanelSingle> panelSingleListener = this::panelSingleChanged;
+    @Setter(AccessLevel.NONE)
     private ChangeListener<? super FamilyGroup> familyGroupListener = this::familyGroupChanged;
 
     {
         panelSinglePane = new AnchorPane();
         panelRelationCurrentPane = new AnchorPane();
         panelRelationExPane = new HBox();
-
         member = new SimpleObjectProperty<>();
         panelSingle = new SimpleObjectProperty<>();
         panelRelationCurrent = new SimpleObjectProperty<>();
@@ -158,7 +166,7 @@ public class PanelChild extends SubBorderPane {
                 //  c.getRemoved().forEach(PanelRelationEx::clean);
                 panelRelationExPane.getChildren().removeAll(c.getRemoved());
                 c.getRemoved().forEach(removed -> {
-                    if(removed instanceof AutoCleanable) ((AutoCleanable) removed).clean();
+                    if (removed instanceof AutoCleanable) ((AutoCleanable) removed).clean();
                 });
             }
         }
@@ -173,17 +181,28 @@ public class PanelChild extends SubBorderPane {
     }
 
     public void setElementsNull() {
+
         member.setValue(null);
+        member = null;
+
         panelSingle.setValue(null);
+        panelSingle = null;
+
         panelRelationCurrent.setValue(null);
+        panelRelationCurrent = null;
+
         panelRelationExList.clear();
+        panelRelationExList = null;
+
         spouseConnector = null;
+
     }
 
     public void clean() {
         super.clean();
         cleanListeners();
 
+        getChildren().clear();
         if (panelRelationCurrent.get() != null) {
             panelRelationCurrent.get().clean();
         }
@@ -193,6 +212,7 @@ public class PanelChild extends SubBorderPane {
         spouseConnector.clean();
 
         setElementsNull();
+
         panelSingleListener = null;
         panelRelationCurrentListener = null;
         panelRelationExListener = null;
@@ -237,8 +257,8 @@ public class PanelChild extends SubBorderPane {
         panelRelationCurrent.setParentPane(this);
     }
 
-    private  void familyGroupChanged(ObservableValue<? extends FamilyGroup> observable, FamilyGroup oldValue, FamilyGroup newValue) {
-        if(getMember() != null && newValue != null) {
+    private void familyGroupChanged(ObservableValue<? extends FamilyGroup> observable, FamilyGroup oldValue, FamilyGroup newValue) {
+        if (getMember() != null && newValue != null) {
             getMember().setNodeReferenceNumber(newValue.getIdNode());
         }
     }

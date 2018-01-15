@@ -2,7 +2,6 @@ package gentree.client.visualization.gustave.panels;
 
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
-import gentree.client.visualization.elements.FamilyGroup;
 import gentree.client.visualization.elements.FamilyMember;
 import gentree.client.visualization.elements.RelationReference;
 import gentree.client.visualization.gustave.connectors.ParentToChildrenConnector;
@@ -41,21 +40,20 @@ public class PanelSingle extends SubRelationPane implements RelationPane {
     private final static double PADDING_RIGHT = 10.0;
     private final static double PADDING_BOTTOM = 0.0;
 
-    private final Pane pane;
+    private Pane pane;
 
     /*  ***************
         Cleanable
      ***************  */
-    private final FamilyMember member;
-    private final ObjectProperty<Relation> thisRelation;
-    private final ObservableList<PanelChild> childrenPanels;
-    private final ParentToChildrenConnector childrenConnector;
-    private final RelationReference thisRelationReference;
+    private FamilyMember member;
+    private ObjectProperty<Relation> thisRelation;
+    private ObservableList<PanelChild> childrenPanels;
+    private ParentToChildrenConnector childrenConnector;
+    private RelationReference thisRelationReference;
 
     /* *************** */
-
-    private ListChangeListener<? super PanelChild> childrenListListener = this::childrenListChanged;
     private ChangeListener<? super Relation> thisRelationListener = this::thisRelationChanged;
+    private ListChangeListener<? super PanelChild> childrenListListener = this::childrenListChanged;
 
 
     /*
@@ -146,6 +144,8 @@ public class PanelSingle extends SubRelationPane implements RelationPane {
         thisRelation.removeListener(thisRelationListener);
         childrenPanels.removeListener(childrenListListener);
         cleanRelationElementsPositionListener();
+        childrenListListener = null;
+        thisRelationListener = null;
     }
 
 
@@ -159,16 +159,25 @@ public class PanelSingle extends SubRelationPane implements RelationPane {
     public void clean() {
         super.clean();
         cleanListeners();
+        getChildren().clear();
         member.clean();
         childrenPanels.forEach(PanelChild::clean);
         childrenConnector.clean();
         thisRelationReference.clean();
-
-        childrenListListener = null;
-        thisRelationListener = null;
+        setElementsNull();
 
     }
 
+    private void setElementsNull() {
+
+        member = null;
+        thisRelation.setValue(null);
+        thisRelation = null;
+        childrenPanels.clear();
+        childrenPanels = null;
+        childrenConnector = null;
+        thisRelationReference = null;
+    }
 
     @Override
     public void addChild(PanelChild child) {

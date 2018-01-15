@@ -5,7 +5,6 @@ import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.FamilyMember;
 import gentree.client.visualization.elements.RelationReference;
 import gentree.client.visualization.elements.RelationTypeElement;
-import gentree.client.visualization.elements.configuration.AutoCleanable;
 import gentree.client.visualization.gustave.connectors.ParentToChildrenConnector;
 import gentree.common.configuration.enums.RelationType;
 import javafx.beans.binding.Bindings;
@@ -47,23 +46,23 @@ public class PanelRelationCurrent extends SubRelationPane implements RelationPan
 
 
     @Getter
-    private final FamilyMember spouseCard;
+    private FamilyMember spouseCard;
     @Getter
-    private final RelationTypeElement relationTypeElement;
-    private final ObservableList<PanelChild> children;
-    private final RelationReference thisRelationReference;
-    private final RelationReference spouseRelationReference;
+    private RelationTypeElement relationTypeElement;
+    private ObservableList<PanelChild> children;
+    private RelationReference thisRelationReference;
+    private RelationReference spouseRelationReference;
 
-
-    private final ObjectProperty<Relation> spouseBornRelation;
-    private final ObjectProperty<RelationType> relationType;
-    private final ObjectProperty<Member> spouse;
-    private final ObjectProperty<Relation> thisRelation;
+    private ObjectProperty<Relation> spouseBornRelation;
+    private ObjectProperty<RelationType> relationType;
+    private ObjectProperty<Member> spouse;
+    private ObjectProperty<Relation> thisRelation;
     private ParentToChildrenConnector childrenConnector;
-    private ListChangeListener<? super PanelChild> childrenListListener = this::childrenListChanged;
+
     private ChangeListener<? super Relation> spouseBornRelationListener = this::spouseBordRelationChanged;
     private ChangeListener<? super Relation> thisRelationListener = this::thisRelationChanged;
     private ChangeListener<? super Member> spouseListener = this::spouseChanged;
+    private ListChangeListener<? super PanelChild> childrenListListener = this::childrenListChanged;
 
     {
         relation = new Pane();
@@ -143,11 +142,21 @@ public class PanelRelationCurrent extends SubRelationPane implements RelationPan
 
         childrenBox.prefWidthProperty().bind(relation.widthProperty());
 
-        relationTypeElement.layoutYProperty().bind(spouseCard.heightProperty().subtract(relationTypeElement.heightProperty()).divide(2));
+        relationTypeElement.layoutYProperty()
+                .bind(spouseCard.heightProperty()
+                        .subtract(relationTypeElement.heightProperty()).divide(2));
+
         spouseCard.layoutXProperty().bind(relationTypeElement.layoutXProperty().add(200));
 
-        thisRelationReference.layoutXProperty().bind(relationTypeElement.layoutXProperty().add(relationTypeElement.widthProperty().subtract(thisRelationReference.widthProperty()).divide(2)));
-        thisRelationReference.layoutYProperty().bind(relationTypeElement.layoutYProperty().add(relationTypeElement.prefHeightProperty()));
+        thisRelationReference.layoutXProperty()
+                .bind(relationTypeElement.layoutXProperty()
+                        .add(relationTypeElement.widthProperty()
+                                .subtract(thisRelationReference.widthProperty())
+                                .divide(2)));
+
+        thisRelationReference.layoutYProperty()
+                .bind(relationTypeElement.layoutYProperty()
+                        .add(relationTypeElement.prefHeightProperty()));
 
         spouseRelationReference.layoutXProperty().bind(spouseCard.layoutXProperty().add(30));
         spouseRelationReference.layoutYProperty().bind(spouseCard.layoutYProperty().subtract(60));
@@ -159,24 +168,6 @@ public class PanelRelationCurrent extends SubRelationPane implements RelationPan
                 .otherwise(100));
     }
 
-    private void cleanListeners() {
-        spouse.removeListener(spouseListener);
-        thisRelation.removeListener(thisRelationListener);
-        spouseBornRelation.removeListener(spouseBornRelationListener);
-        children.removeListener(childrenListListener);
-        cleanElementsPositionListener();
-    }
-
-    private void cleanElementsPositionListener() {
-        childrenBox.prefWidthProperty().unbind();
-        relationTypeElement.layoutYProperty().unbind();
-        spouseCard.layoutXProperty().unbind();
-        thisRelationReference.layoutXProperty().unbind();
-        thisRelationReference.layoutYProperty().unbind();
-        spouseRelationReference.layoutXProperty().unbind();
-        spouseRelationReference.layoutYProperty().unbind();
-        relationTypeElement.layoutXProperty().unbind();
-    }
 
     @Override
     public Node getConnectionNode() {
@@ -199,32 +190,67 @@ public class PanelRelationCurrent extends SubRelationPane implements RelationPan
         return b == null ? null : new Point2D(b.getMinX() + b.getWidth() / 2, b.getMinY() + b.getHeight());
     }
 
-    private void setElementsNull() {
-        relationTypeElement.setRelation(null);
-        children.clear();
-        childrenConnector = null;
-        thisRelation.setValue(null);
-        spouse.setValue(null);
-
-    }
 
     @Override
     public void clean() {
         super.clean();
         cleanListeners();
+        getChildren().clear();
+        runCleanOnObjectsAndLists();
+        setPropertiesNull();
+    }
 
+    private void setPropertiesNull() {
+
+        spouseCard = null;
+        relationTypeElement = null;
+        children.clear();
+        children = null;
+        thisRelationReference = null;
+        spouseRelationReference = null;
+        childrenConnector = null;
+
+        spouseBornRelation.setValue(null);
+        spouseBornRelation = null;
+        relationType.setValue(null);
+        relationType = null;
+        spouse.setValue(null);
+        spouse = null;
+        thisRelation.setValue(null);
+        thisRelation = null;
+    }
+
+    private void runCleanOnObjectsAndLists() {
+        spouseCard.clean();
         relationTypeElement.clean();
         children.forEach(PanelChild::clean);
         childrenConnector.clean();
         thisRelationReference.clean();
         spouseRelationReference.clean();
+    }
 
-        setElementsNull();
+    private void cleanListeners() {
+        spouse.removeListener(spouseListener);
+        thisRelation.removeListener(thisRelationListener);
+        spouseBornRelation.removeListener(spouseBornRelationListener);
+        children.removeListener(childrenListListener);
+        cleanElementsPositionListener();
 
-        childrenListListener = null;
         spouseBornRelationListener = null;
         thisRelationListener = null;
         spouseListener = null;
+        childrenListListener = null;
+    }
+
+    private void cleanElementsPositionListener() {
+        childrenBox.prefWidthProperty().unbind();
+        relationTypeElement.layoutYProperty().unbind();
+        spouseCard.layoutXProperty().unbind();
+        thisRelationReference.layoutXProperty().unbind();
+        thisRelationReference.layoutYProperty().unbind();
+        spouseRelationReference.layoutXProperty().unbind();
+        spouseRelationReference.layoutYProperty().unbind();
+        relationTypeElement.layoutXProperty().unbind();
     }
 
 

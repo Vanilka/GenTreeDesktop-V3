@@ -2,11 +2,15 @@ package gentree.client.visualization.elements;
 
 import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
-import gentree.client.visualization.elements.configuration.ContextProvider;
+import gentree.client.visualization.elements.configuration.Manager;
+import gentree.client.visualization.elements.configuration.ManagerProvider;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -17,18 +21,21 @@ import javafx.scene.text.Text;
  */
 public class RelationReference extends StackPane implements AutoCleanable {
 
-    private static ContextProvider CONTEXT_PROVIDER_PROPERTY;
-
     private static final Color color1 = Color.web("#ED0C44");
     private static final Color border1 = Color.web("#aa0b33");
     private static final Color border2 = Color.web("#ff144f");
     private final Polygon etiquete = new Polygon();
-    private final ObjectProperty<RelationReferenceType> relationReferenceType = new SimpleObjectProperty<>();
-    private final ObjectProperty<Relation> relation = new SimpleObjectProperty<>();
+
     private Text text = new Text();
 
+    private ManagerProvider provider = ManagerProvider.INSTANCE;
 
-    private ChangeListener<? super ContextProvider> contextListener = this::contextChange;
+    private EventHandler<? super ContextMenuEvent> contextMenuEvent = (EventHandler<ContextMenuEvent>) this::contextMenuHandle;
+    private EventHandler<? super MouseEvent> mouseClickEvent = (EventHandler<MouseEvent>) this::mouseEventHandle;
+
+
+    private ObjectProperty<RelationReferenceType> relationReferenceType = new SimpleObjectProperty<>();
+    private ObjectProperty<Relation> relation = new SimpleObjectProperty<>();
     private ChangeListener<? super RelationReferenceType> relationTypeListener = this::relationTypeChange;
     private ChangeListener<? super Relation> relationListener = this::relationChange;
 
@@ -41,9 +48,6 @@ public class RelationReference extends StackPane implements AutoCleanable {
         this.relationReferenceType.setValue(type);
     }
 
-    public static void setContextProviderProperty(ContextProvider contextProviderProperty) {
-        CONTEXT_PROVIDER_PROPERTY = contextProviderProperty;
-    }
 
     private void init() {
         initColors();
@@ -51,14 +55,8 @@ public class RelationReference extends StackPane implements AutoCleanable {
         getChildren().addAll(etiquete, text);
         this.setVisible(false);
 
-        if (CONTEXT_PROVIDER_PROPERTY != null) {
-            this.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && relation.get() != null) {
-                    CONTEXT_PROVIDER_PROPERTY.showInfoRelation(relation.get());
-                }
-            });
+        // this.setOnMouseClicked(mouseClickEvent);
 
-        }
     }
 
     private void initListeners() {
@@ -69,6 +67,7 @@ public class RelationReference extends StackPane implements AutoCleanable {
     private void cleanListeners() {
         relation.removeListener(relationListener);
         relationReferenceType.removeListener(relationTypeListener);
+
         this.setOnMouseClicked(null);
 
         text.textProperty().unbind();
@@ -78,12 +77,21 @@ public class RelationReference extends StackPane implements AutoCleanable {
     @Override
     public void clean() {
         cleanListeners();
+        getChildren().clear();
         setRelation(null);
-        setRelationReferenceType(null);
+        relation = null;
 
-        contextListener = null;
+        setRelationReferenceType(null);
+        relationReferenceType = null;
+
         relationTypeListener = null;
         relationListener = null;
+
+        contextMenuEvent = null;
+        mouseClickEvent = null;
+
+        provider = null;
+
     }
 
     private void relationChange(ObservableValue<? extends Relation> observable, Relation oldValue, Relation newValue) {
@@ -113,7 +121,7 @@ public class RelationReference extends StackPane implements AutoCleanable {
         }
     }
 
-    private void contextChange(ObservableValue<? extends ContextProvider> observable, ContextProvider oldValue, ContextProvider newValue) {
+    private void contextChange(ObservableValue<? extends Manager> observable, Manager oldValue, Manager newValue) {
         if (newValue == null) {
             this.setOnMouseClicked(null);
         } else {
@@ -176,6 +184,16 @@ public class RelationReference extends StackPane implements AutoCleanable {
 
     public ObjectProperty<Relation> relationProperty() {
         return relation;
+    }
+
+    private void mouseEventHandle(MouseEvent event) {
+        if (event.getClickCount() == 2 && relation.get() != null) {
+            provider.showInfoRelation(relation.get());
+        }
+    }
+
+    private void contextMenuHandle(ContextMenuEvent event) {
+        //  provider.showRelationContextMenu(returnThis(), event);
     }
 
     public enum RelationReferenceType {

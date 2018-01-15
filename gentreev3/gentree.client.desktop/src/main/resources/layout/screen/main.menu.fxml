@@ -52,6 +52,11 @@
                     <MenuItem mnemonicParsing="false" text="About"/>
                 </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Admin Menu">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="GC" onAction="#doGC"/>
+                </items>
+            </Menu>
         </menus>
     </MenuBar>
     <ComboBox id="languageChooser" fx:id="languageChooser" prefWidth="110.0" AnchorPane.bottomAnchor="0.0"

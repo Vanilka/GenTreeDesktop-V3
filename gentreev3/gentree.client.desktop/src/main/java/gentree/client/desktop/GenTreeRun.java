@@ -23,8 +23,7 @@ public class GenTreeRun extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        sc.setStage(stage);
-        sc.init();
+        sc.init(stage);
     }
 
 }

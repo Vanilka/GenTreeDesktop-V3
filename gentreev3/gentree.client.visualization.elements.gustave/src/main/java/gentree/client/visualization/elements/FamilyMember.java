@@ -3,15 +3,12 @@ package gentree.client.visualization.elements;
 import gentree.client.desktop.domain.Member;
 import gentree.client.visualization.controls.CircleEmbleme;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
-import gentree.client.visualization.elements.configuration.ContextProvider;
 import gentree.client.visualization.elements.configuration.ElementsConfig;
+import gentree.client.visualization.elements.configuration.ManagerProvider;
 import gentree.common.configuration.enums.Age;
 import gentree.common.configuration.enums.Gender;
 import gentree.common.configuration.enums.Race;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
@@ -24,10 +21,11 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
 
     private final static int MEMBER_WIDTH = 140;
     private final static int MEMBER_HEIGHT = 220;
-    private final static ElementsConfig ec = ElementsConfig.INSTANCE;
     private final static String pathfxml = "/layout/elements/family.member.fxml";
-    private static ContextProvider CONTEXT_PROVIDER_PROPERTY;
-    private ChangeListener<? super ContextProvider> contextListener = this::contextChanged;
+
+    private ManagerProvider provider = ManagerProvider.INSTANCE;
+    private EventHandler<? super ContextMenuEvent> contextMenuEvent = (EventHandler<ContextMenuEvent>) this::contextMenuHandle;
+    private EventHandler<? super MouseEvent> mouseClickEvent = (EventHandler<MouseEvent>) this::mouseEventHandle;
 
 
     @FXML
@@ -50,20 +48,13 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
         this(null);
     }
 
-    public static void setContextProviderProperty(ContextProvider contextProviderProperty) {
-        CONTEXT_PROVIDER_PROPERTY = contextProviderProperty;
-    }
-
     private void initialize() {
 
         this.setOnMouseEntered(this::mouseEnterEvent);
-
         this.setOnMouseExited(this::mouseExitedEvent);
 
-        if (CONTEXT_PROVIDER_PROPERTY != null) {
-            this.setOnContextMenuRequested(this::handleContextMenuRequest);
-            this.setOnMouseClicked(this::HandleMouseClicked);
-        }
+        this.setOnContextMenuRequested(contextMenuEvent);
+        this.setOnMouseClicked(mouseClickEvent);
     }
 
 
@@ -84,32 +75,30 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
     @Override
     public void clean() {
         super.clean();
-       // CONTEXT_PROVIDER_PROPERTY.removeListener(contextListener);
+        getChildren().clear();
         this.setOnContextMenuRequested(null);
         this.setOnMouseClicked(null);
 
-        setMember(null);
-        contextListener = null;
+        this.provider = null;
+        this.ec = null;
+        this.mouseClickEvent = null;
+        this.contextMenuEvent = null;
+
+
+        GENDER_IMG.clean();
+        GENDER_IMG = null;
+
+        RACE_IMG.clean();
+        RACE_IMG = null;
+
+        AGE_IMG.clean();
+        AGE_IMG = null;
+
 
     }
-
 
     private FamilyMember returnThis() {
         return this;
-    }
-
-    private void contextChanged(ObservableValue<? extends ContextProvider> observable, ContextProvider oldValue, ContextProvider newValue) {
-        if (newValue == null) {
-            this.setOnContextMenuRequested(null);
-            this.setOnMouseClicked(null);
-        } else {
-            this.setOnContextMenuRequested(event -> newValue.showSimContextMenu(returnThis(), event));
-            this.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && getMember() != null) {
-                    newValue.showInfoSim(getMember());
-                }
-            });
-        }
     }
 
     private void mouseEnterEvent(MouseEvent t) {
@@ -125,13 +114,13 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
         rectanglePhotoFond.setStroke(color);
     }
 
-    private void HandleMouseClicked(MouseEvent event) {
+    private void mouseEventHandle(MouseEvent event) {
         if (event.getClickCount() == 2 && getMember() != null) {
-            CONTEXT_PROVIDER_PROPERTY.showInfoSim(getMember());
+            provider.showInfoSim(getMember());
         }
     }
 
-    private void handleContextMenuRequest(ContextMenuEvent event) {
-        CONTEXT_PROVIDER_PROPERTY.showSimContextMenu(returnThis(), event);
+    private void contextMenuHandle(ContextMenuEvent event) {
+        provider.showSimContextMenu(returnThis(), event);
     }
 }

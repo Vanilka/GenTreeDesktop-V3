@@ -22,6 +22,7 @@ import javafx.util.Callback;
  * Created by vanilka on 11/01/2018.
  */
 public class CellFactoryProvider {
+
     public static final Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>> PHOTO_VALUE_FACTORY = getPhotoValueFactory();
     public static final Callback<ListView<RelationType>, ListCell<RelationType>> CUSTOM_RELATION_LIST_CELL = getCustomRelationListCell();
     public static final Callback<ListView<Realm>, ListCell<Realm>> CUSTOM_REALM_LIST_CELL = getCustomRealmListCell();
@@ -29,10 +30,12 @@ public class CellFactoryProvider {
     public static final Callback<ListView<Age>, ListCell<Age>> AGE_LIST_CELL = getAgeListCell();
     public static final Callback<ListView<Gender>, ListCell<Gender>> GENDER_LIST_CELL = getGenderListCell();
     public static final Callback<TableColumn<Relation, RelationType>, TableCell<Relation, RelationType>> RELATION_TYPE_CELL_FACTORY = getRelationTypeCellFactory();
+
     private static final String TABLE_RELATION_SIM_RIGHT = "RIGHT";
     private static final String TABLE_RELATION_SIM_LEFT = "LEFT";
     private static int TABLE_IMAGE_MEMBER_HEIGHT = 80;
     private static int TABLE_IMAGE_MEMBER_WIDTH = 60;
+
     public static final Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>> MEMBER_LEFT_CELL_FACTORY = getMemberCellFactory(TABLE_RELATION_SIM_LEFT);
     public static final Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>> MEMBER_RIGHT_CELL_FACTORY = getMemberCellFactory(TABLE_RELATION_SIM_RIGHT);
     public static final Callback<TableColumn<Member, String>, TableCell<Member, String>> SIM_PHOTO_CELL_FACTORY = getPhotoCellFactory();
@@ -297,7 +300,6 @@ public class CellFactoryProvider {
         return callback;
 
     }
-
 
     private static ImageView setGraphicToImageView(String path, int width, int height) {
         ImageView imv = new ImageView(path);

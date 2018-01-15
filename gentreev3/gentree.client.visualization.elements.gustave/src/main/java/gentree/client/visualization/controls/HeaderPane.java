@@ -24,10 +24,9 @@ public class HeaderPane extends Control implements AutoCleanable {
 
     private static final String DEFAULT_CLASS_NAME = "header-pane";
 
-    private final SimpleStringProperty title = new SimpleStringProperty("Header Title");
+    private  SimpleStringProperty title = new SimpleStringProperty("Header Title");
 
-
-    private final ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
+    private ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
         @Override
         public Object getBean() {
             return HeaderPane.this;
@@ -67,6 +66,10 @@ public class HeaderPane extends Control implements AutoCleanable {
         if (getSkin() instanceof AutoCleanable) {
             ((AutoCleanable) getSkin()).clean();
         }
+        getChildren().clear();
+        onAction = null;
+        title = null;
+        setSkin(null);
     }
 
     private void initialize() {

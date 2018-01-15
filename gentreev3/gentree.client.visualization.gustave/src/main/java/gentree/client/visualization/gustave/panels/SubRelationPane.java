@@ -3,7 +3,9 @@ package gentree.client.visualization.gustave.panels;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by Martyna SZYMKOWIAK on 04/09/2017.
@@ -11,7 +13,8 @@ import lombok.Getter;
 public abstract class SubRelationPane extends SubBorderPane {
 
     @Getter
-    protected final HBox childrenBox;
+    @Setter(AccessLevel.NONE)
+    protected HBox childrenBox;
 
     SubRelationPane() {
         childrenBox = new HBox();

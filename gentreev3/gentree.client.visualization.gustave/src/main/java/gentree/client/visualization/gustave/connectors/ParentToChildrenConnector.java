@@ -62,6 +62,7 @@ public class ParentToChildrenConnector extends LineConnector {
 
     @Override
     public void clean() {
+        subBorderPane.getChildren().remove(line.get());
         cleanListeners();
         super.clean();
         betweenChildrenConnector.clean();
