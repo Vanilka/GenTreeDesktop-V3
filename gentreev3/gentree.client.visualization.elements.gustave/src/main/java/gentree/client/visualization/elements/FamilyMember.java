@@ -10,8 +10,12 @@ import gentree.common.configuration.enums.Gender;
 import gentree.common.configuration.enums.Race;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 /**
@@ -102,11 +106,18 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
     }
 
     private void mouseEnterEvent(MouseEvent t) {
-        setStrokeColor(Color.valueOf("#64bf37"));
+       // setStrokeColor(Color.valueOf("#0188AE"));
+        setColorOnBackground(Color.valueOf("#0B4F6C"));
     }
 
     private void mouseExitedEvent(MouseEvent t) {
-        setStrokeColor(Color.WHITE);
+       // setStrokeColor(Color.WHITE);
+        setColorOnBackground(Color.valueOf("#7f8d8a"));
+    }
+
+    private void setColorOnBackground(Color color) {
+        rectangleFond.setFill(color);
+       // rectanglePhotoFond.setFill(color);
     }
 
     private void setStrokeColor(Color color) {

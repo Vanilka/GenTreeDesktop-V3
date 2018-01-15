@@ -158,8 +158,8 @@ public class PanelRelationCurrent extends SubRelationPane implements RelationPan
                 .bind(relationTypeElement.layoutYProperty()
                         .add(relationTypeElement.prefHeightProperty()));
 
-        spouseRelationReference.layoutXProperty().bind(spouseCard.layoutXProperty().add(30));
-        spouseRelationReference.layoutYProperty().bind(spouseCard.layoutYProperty().subtract(60));
+        spouseRelationReference.layoutXProperty().bind(spouseCard.layoutXProperty().add(42));
+        spouseRelationReference.layoutYProperty().bind(spouseCard.layoutYProperty().subtract(70));
 
         relationTypeElement.layoutXProperty().bind(Bindings.when(Bindings.isNotEmpty(children))
                 .then(childrenConnector.getLine().startXProperty()
@@ -273,14 +273,14 @@ public class PanelRelationCurrent extends SubRelationPane implements RelationPan
 
     @Override
     protected double computePrefWidth(double height) {
-        if (children.isEmpty()) return super.computePrefWidth(height);
-
-        Double offset = 0.0;
-        Double maxRelationWidth = spouseCard.getLayoutX() + spouseCard.getWidth();
+        //if (children.isEmpty()) return super.computePrefWidth(height);
+        /*
+        Double offset = 0.0;*/
+        /*
         if (maxRelationWidth > relation.getWidth()) {
-            offset = maxRelationWidth - relation.getWidth() + 20;
-        }
-        return super.computePrefWidth(height) + offset;
+            offset = maxRelationWidth - relation.getWidth();
+        }*/
+        return spouseCard.getLayoutX() + spouseCard.getWidth() + 150;
     }
 
     private void childrenListChanged(ListChangeListener.Change<? extends PanelChild> c) {

@@ -36,10 +36,6 @@ public class RelationTypeElement extends RelationTypeCard {
 
 
     private void init() {
-        dropShadow = new DropShadow();
-        initShadow();
-        this.setOnMouseEntered(t -> circle.setEffect(dropShadow));
-        this.setOnMouseExited(t -> circle.setEffect(null));
 
         this.setOnMouseClicked(event -> {
             System.out.println("Relation " + this.getRelation().get() + " -> Has reference   " + this.getRelation().get().getReferenceNumber());
@@ -49,12 +45,6 @@ public class RelationTypeElement extends RelationTypeCard {
             this.setOnMouseClicked(mouseClickEvent);
     }
 
-    private void initShadow() {
-        dropShadow.setRadius(10.0f);
-        dropShadow.setOffsetX(3);
-        dropShadow.setOffsetY(3);
-        dropShadow.setColor(Color.color(0.7, 0.7, 0.2));
-    }
 
     private RelationTypeElement returnThis() {
         return this;

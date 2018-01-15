@@ -39,7 +39,6 @@ public class FamilyGroup extends AnchorPane implements AutoCleanable {
     @FXML
     private HBox contentHbox;
 
-
     private ObjectProperty<Relation> rootRelation;
     private ChangeListener<? super Relation> rootRelationListener = this::rootRelationChanged;
 

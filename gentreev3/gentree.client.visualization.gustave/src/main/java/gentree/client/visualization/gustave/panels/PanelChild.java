@@ -262,4 +262,6 @@ public class PanelChild extends SubBorderPane {
             getMember().setNodeReferenceNumber(newValue.getIdNode());
         }
     }
+
+
 }

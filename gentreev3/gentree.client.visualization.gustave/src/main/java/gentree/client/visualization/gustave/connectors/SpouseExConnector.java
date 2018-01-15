@@ -81,8 +81,8 @@ public class SpouseExConnector extends LineConnector {
         Bounds relationTypeBounds = getRelativeBounds(relationType);
         Point2D relationTypePoint = getLeftPoint(relationTypeBounds);
 
-        getLine().setStartX(spousePoint.getX());
-        getLine().setStartY(spousePoint.getY());
+        getLine().setStartX(spousePoint.getX() - 10);
+        getLine().setStartY(spousePoint.getY() + 3);
         getLine().setEndX(relationTypePoint.getX());
         getLine().setEndY(relationTypePoint.getY());
 

@@ -20,8 +20,11 @@ import javafx.scene.shape.Line;
  */
 public class SpouseConnector extends LineConnector {
 
-    private static final Color COLOR_EX = Color.web("#85a2a3");
-    private static final Color COLOR_CURRENT = Color.web("#5F9EA0");
+/*    private static final Color COLOR_EX = Color.web("#85a2a3");
+    private static final Color COLOR_CURRENT = Color.web("#5F9EA0");*/
+
+    private static final Color COLOR_EX = Color.web("#5f7277");
+    private static final Color COLOR_CURRENT = Color.web("#0399c6");
 
     private Line lineRelationToSim;
     private Line lineSimConnectAllEx;
@@ -39,9 +42,7 @@ public class SpouseConnector extends LineConnector {
         this.lineSimConnectAllEx = new Line();
         this.lineSimConnectSpouse = new Line();
         this.panelChild = panelChild;
-        initLineProperties(lineRelationToSim);
-        initLineProperties(lineSimConnectAllEx, COLOR_EX, 100.0);
-        initLineProperties(lineSimConnectSpouse, COLOR_CURRENT, 100.0);
+
         initLines();
         initListener();
     }
@@ -59,8 +60,8 @@ public class SpouseConnector extends LineConnector {
         panelChild.getChildren().add(2, getLine());
 
         initLineProperties(lineRelationToSim);
-        initLineProperties(lineSimConnectAllEx, COLOR_EX, 100.0);
-        initLineProperties(lineSimConnectSpouse, COLOR_CURRENT, 100.0);
+        initLineProperties(lineSimConnectAllEx, COLOR_EX, 80.0, true);
+        initLineProperties(lineSimConnectSpouse, COLOR_CURRENT, 80.0, true);
 
         lineSimConnectAllEx.visibleProperty().bind(exEmpty.not());
         lineSimConnectSpouse.visibleProperty().bind(currentEmpty.not());
@@ -174,6 +175,16 @@ public class SpouseConnector extends LineConnector {
         }
     }
 
+    /**
+     * Function that set Coordinate for lines : </br>
+     * <li> lineRelationToSim -> Black line from sim to RelationType</li>
+     * <li> Line -> Black line from relation  to Spouse</li>
+     * <li> lineSimConnectSpouse ->  Colored line, beeing fond for connection</li>
+     *
+     * @param sim          Sim (FamilyMember) main in relation
+     * @param relationType embleme of relation type
+     * @param spouse       Spouse (FamilyMember) of relation current
+     */
     private void drawLine(FamilyMember sim, RelationTypeElement relationType, FamilyMember spouse) {
         Bounds simBounds = getRelativeBounds(sim);
         Point2D simPoint = getRightPoint(simBounds);
@@ -186,9 +197,9 @@ public class SpouseConnector extends LineConnector {
         Point2D spousePoint = getLeftPoint(spouseBounds);
         Point2D spouseRightPoint = getRightPoint(spouseBounds);
 
-        setLineCoordinates(lineRelationToSim, simPoint.getX(), simPoint.getY(), relationTypePointLeft.getX(), relationTypePointLeft.getY());
-        setLineCoordinates(getLine(), relationTypePointRight.getX(), relationTypePointRight.getY(), spousePoint.getX(), spousePoint.getY());
-        setLineCoordinates(lineSimConnectSpouse, simPoint.getX(), simPoint.getY(), spouseRightPoint.getX() + 10, spouseRightPoint.getY());
+        setLineCoordinates(lineRelationToSim, simPoint.getX() - 15, simPoint.getY() + 2.5, relationTypePointLeft.getX(), relationTypePointLeft.getY());
+        setLineCoordinates(getLine(), relationTypePointRight.getX(), relationTypePointRight.getY(), spousePoint.getX() + 15, spousePoint.getY() + 2.5);
+        setLineCoordinates(lineSimConnectSpouse, simPoint.getX() - 40, simPoint.getY(), spouseRightPoint.getX() + 10, spouseRightPoint.getY());
 
     }
 
@@ -200,7 +211,7 @@ public class SpouseConnector extends LineConnector {
             Bounds b2 = getRelativeBounds(panelChild.getPanelSingle().get().getMember());
             Point2D p2 = getLeftPoint(b2);
 
-            lineSimConnectAllEx.setStartX(p2.getX());
+            lineSimConnectAllEx.setStartX(p2.getX() + 40);
             lineSimConnectAllEx.setStartY(p2.getY());
             lineSimConnectAllEx.setEndX(p1.getX());
             lineSimConnectAllEx.setEndY(p2.getY());
