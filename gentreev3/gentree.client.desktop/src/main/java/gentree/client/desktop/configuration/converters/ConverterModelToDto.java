@@ -67,4 +67,11 @@ public class ConverterModelToDto {
         return dto;
     }
 
+    public RelationDTO convertSimple(Relation r) {
+        RelationDTO dto = convertLazy(r);
+        dto.setActive(r.getActive());
+        dto.setType(r.getType());
+        return dto;
+    }
+
 }

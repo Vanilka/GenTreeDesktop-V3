@@ -551,6 +551,10 @@
     Combobox
  */
 
+.blue-transparent-background {
+    -fx-background-color: rgba(11, 61, 82, 0.78) !important;
+
+}
 .combobox {
     -fx-background-color: -gentree-color-7;
 }

@@ -3,6 +3,7 @@ package gentree.client.desktop.controllers.screen;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import gentree.client.desktop.configuration.CellFactoryProvider;
 import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.Realm;
 import gentree.client.desktop.configuration.enums.FilesFXML;
@@ -69,7 +70,11 @@ public class PaneLogonController implements Initializable, FXMLController, FXMLA
         log.trace(LogMessages.MSG_CTRL_INITIALIZATION);
         this.languageBundle.setValue(resources);
 
+        REALM_BOX.setCellFactory(CellFactoryProvider.CUSTOM_REALM_LIST_CELL);
+        REALM_BOX.setButtonCell(CellFactoryProvider.CUSTOM_REALM_LIST_CELL.call(null));
+
         REALM_BOX.setItems(GenTreeProperties.INSTANCE.getRealmConfig().getRealms());
+
 
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
     }

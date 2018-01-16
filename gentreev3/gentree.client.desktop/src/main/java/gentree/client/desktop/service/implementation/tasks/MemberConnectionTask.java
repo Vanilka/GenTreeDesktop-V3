@@ -72,7 +72,6 @@ public class MemberConnectionTask extends ConnectionTask {
         return serviceResponse;
     }
 
-
     public ServiceResponse deleteMember(Member m) {
         ServiceResponse serviceResponse = null;
         MemberDTO dto = cmd.convert(m);

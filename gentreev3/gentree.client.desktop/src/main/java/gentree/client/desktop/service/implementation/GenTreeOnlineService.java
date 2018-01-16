@@ -108,16 +108,38 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
 
     @Override
     public ServiceResponse moveChildrenToNewRelation(Relation to, List<Member> children) {
+        children.forEach(c -> {
+            if (!to.getChildren().contains(c)) {
+                to.addChildren(c);
+            }
+        });
+
+        ServiceResponse response = rcs.addRelation(to);
         return null;
     }
 
     @Override
     public ServiceResponse updateRelation(Relation relation) {
+        ServiceResponse response = rcs.updateRelation(relation);
+        if(response instanceof  RelationListResponse) {
+            getCurrentFamily().getRelations().clear();
+            getCurrentFamily().getRelations().addAll(((RelationListResponse) response).getList());
+            invalidate();
+        }
         return null;
     }
 
     @Override
     public ServiceResponse moveChildFromRelation(Member m, Relation oldRelation, Relation newRelation) {
+
+        if (!getCurrentFamily().getRelations().contains(newRelation)) {
+            addRelation(newRelation);
+        }
+
+        oldRelation.getChildren().remove(m);
+        newRelation.getChildren().add(m);
+
+        ServiceResponse response = rcs.addRelation(newRelation);
         return null;
     }
 

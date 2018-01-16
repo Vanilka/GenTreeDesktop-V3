@@ -53,7 +53,7 @@ public class RelationTypeElement extends RelationTypeCard {
 
     @Override
     public void clean() {
-        super.clean();
+      /*  super.clean();
         this.setOnMouseClicked(null);
         this.setOnContextMenuRequested(null);
         getChildren().clear();
@@ -66,7 +66,7 @@ public class RelationTypeElement extends RelationTypeCard {
 
         contextMenuEvent = null;
         mouseClickEvent = null;
-
+*/
     }
 
 

@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.ContextMenuEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,30 +29,50 @@ public class RelationContextMenu extends ContextMenu {
     private MenuItem itemAddChildren = new MenuItem("AddChildren");
     private MenuItem itemRemove = new MenuItem("RemoveRelation");
     private Menu menuChangeType = new Menu("changeType");
+    private Menu menuChangeActive = new Menu("ChangeActive");
+    private MenuItem yes = new MenuItem("Active");
+    private MenuItem no = new MenuItem("No Active");
 
     public RelationContextMenu() {
         super();
         initItems();
-        this.getItems().addAll(menuChangeType, itemAddChildren, itemRemove);
+        this.getItems().addAll(menuChangeActive, menuChangeType, itemAddChildren, itemRemove);
     }
 
     public void show(RelationTypeElement r, ContextMenuEvent event) {
         this.relationTypeElement = r;
+
+        boolean isActive = r.getRelation().get().getActive();
+        yes.setDisable(isActive);
+        no.setDisable(!isActive);
+
         show(r, event.getScreenX(), event.getScreenY());
     }
 
     private void initItems() {
+        initMenuChangeActive();
         initItemAddChildren();
         initMenuChangeType();
         initRemoveRelation();
     }
 
+    private void initMenuChangeActive() {
+
+        yes.setOnAction(event -> updateActiveRelation(relationTypeElement.getRelation().get(), true));
+        no.setOnAction(event -> updateActiveRelation(relationTypeElement.getRelation().get(), false));
+
+        List<MenuItem> activeItems = new ArrayList<>(Arrays.asList(yes, no));
+        menuChangeActive.getItems().addAll(activeItems);
+    }
+
     private void initMenuChangeType() {
+
         List<MenuItem> changeTypeItems = new ArrayList<>();
 
         for (RelationType relationType : RelationType.values()) {
             changeTypeItems.add(createMenuItemFromRelationType(relationType));
         }
+
         menuChangeType.getItems().addAll(changeTypeItems);
     }
 
@@ -63,7 +84,11 @@ public class RelationContextMenu extends ContextMenu {
             relation.setType(relationType);
             context.getService().updateRelation(relation);
         });
-        item.setOnAction(event -> relationTypeElement.getRelation().get().setType(relationType));
+        item.setOnAction(event -> {
+            relationTypeElement.getRelation().get().setType(relationType);
+            context.getService().updateRelation(relationTypeElement.getRelation().get());
+
+        });
         return item;
     }
 
@@ -74,5 +99,11 @@ public class RelationContextMenu extends ContextMenu {
     private void initRemoveRelation() {
         itemRemove.setOnAction(event -> context.getService().removeRelation(relationTypeElement.getRelation().get()));
     }
+
+    private void updateActiveRelation(Relation r , boolean active){
+        r.setActive(active);
+        context.getService().updateRelation(r);
+    }
+
 
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.net.URL?>
+<?import javafx.scene.layout.Pane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="screenMainAnchorPane" fx:id="SCREEN_LOGON_REGISTER"
             styleClass="mainAnchorPane" xmlns="http://javafx.com/javafx/8.0.131"
             fx:controller="gentree.client.desktop.controllers.screen.ScreenLoginRegisterController"
@@ -10,7 +11,7 @@
         <URL value="@/layout/style/gentreestyle.css"/>
     </stylesheets>
     <children>
-        <AnchorPane
+        <Pane
                 id="logonForm"
                 fx:id="LOGON_FORM"
                 minHeight="400"
@@ -19,7 +20,7 @@
                 prefWidth="300"
                 styleClass="transparentPane"
                 AnchorPane.rightAnchor="60.0"/>
-        <AnchorPane
+        <Pane
                 id="registerForm"
                 fx:id="REGISTER_FORM"
                 styleClass="transparentPane"

@@ -6,9 +6,12 @@ import gentree.client.desktop.controllers.FXMLAnchorPane;
 import gentree.client.desktop.controllers.FXMLController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import lombok.extern.log4j.Log4j2;
 
 import java.net.URL;
@@ -24,12 +27,14 @@ public class ScreenLoginRegisterController implements Initializable, FXMLControl
     private AnchorPane SCREEN_LOGON_REGISTER;
 
     @FXML
-    private AnchorPane LOGON_FORM;
+    private Pane LOGON_FORM;
 
     @FXML
-    private AnchorPane REGISTER_FORM;
+    private Pane REGISTER_FORM;
 
     private PaneLogonController logonController;
+
+    private ChangeListener<? super Number> mainAnchorPaneHeightListener = this::heightChange;
 
 
     @FXML
@@ -41,9 +46,7 @@ public class ScreenLoginRegisterController implements Initializable, FXMLControl
 
         this.languageBundle.setValue(resources);
         initLogonForm();
-        addTopOffsetListener(this.LOGON_FORM);
-        addTopOffsetListener(this.REGISTER_FORM);
-        addLeftOffsetListener(this.REGISTER_FORM);
+        addTopOffsetListener();
         this.LOGON_FORM.resize(300, 400);
         this.REGISTER_FORM.resize(400, 500);
 
@@ -60,21 +63,23 @@ public class ScreenLoginRegisterController implements Initializable, FXMLControl
         logonController = (PaneLogonController) sm.loadFxml( LOGON_FORM, FilesFXML.PANE_LOGON_FXML);
     }
 
-    public void addTopOffsetListener(AnchorPane pane) {
-        // pane.layoutYProperty().bind(SCREEN_LOGON_REGISTER.heightProperty().subtract(pane.heightProperty().divide(2)));
-    }
+    public void addTopOffsetListener() {
+        this.SCREEN_LOGON_REGISTER.heightProperty().addListener(mainAnchorPaneHeightListener); }
 
-    public void addLeftOffsetListener(AnchorPane pane) {
-        //pane.layoutXProperty().bind(SCREEN_LOGON_REGISTER.widthProperty().subtract(pane.widthProperty().divide(2)));
-    }
 
     public void cleanListeners() {
         cleanBinding(this.LOGON_FORM);
         cleanBinding(this.REGISTER_FORM);
     }
 
-    public void cleanBinding(AnchorPane pane) {
-        //  pane.layoutYProperty().unbind();
-        //    pane.layoutXProperty().unbind();
+    public void cleanBinding(Pane pane) {
+       SCREEN_LOGON_REGISTER.heightProperty().removeListener(mainAnchorPaneHeightListener);
+       mainAnchorPaneHeightListener = null;
+    }
+
+    private void heightChange(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        double y = (newValue.doubleValue() - LOGON_FORM.getHeight()) / 2;
+        System.out.println();
+        LOGON_FORM.setLayoutY(y);
     }
 }

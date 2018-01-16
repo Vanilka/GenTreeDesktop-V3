@@ -1,6 +1,5 @@
 package gentree.client.visualization.service.implementation;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
@@ -8,9 +7,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created by Martyna SZYMKOWIAK on 02/11/2017.
@@ -49,6 +52,7 @@ public class GenTreeImageGenerator {
 
     private void initParameters() {
         snapshotParameters.setFill(Color.TRANSPARENT);
+        snapshotParameters.setDepthBuffer(false);
     }
 
     private void initHeader() {
@@ -62,11 +66,19 @@ public class GenTreeImageGenerator {
 
     }
 
-    public WritableImage doScreen(Node nodeContent, String text) {
+    public WritableImage doScreen(Pane nodeContent, String text) {
         this.title.setText(text);
         content.getChildren().clear();
         content.getChildren().add(new ImageView(nodeContent.snapshot(snapshotParameters, null)));
         generateImagePane();
+        try {
+            PngEncoderFX encoderFX = new PngEncoderFX(nodeContent.snapshot(snapshotParameters, null), true);
+            byte[] bytes = encoderFX.pngEncode();
+            Files.write(Paths.get("./objetcOnco.png"), bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Scene scene = new Scene(imagePane);
         return scene.snapshot(null);
     }

@@ -115,5 +115,7 @@ public class RestConnectionService {
         connectionService.setWebTarget(realm);
     }
 
-
+    public ServiceResponse updateRelation(Relation relation) {
+        return rct.updateRelation(relation);
+    }
 }
