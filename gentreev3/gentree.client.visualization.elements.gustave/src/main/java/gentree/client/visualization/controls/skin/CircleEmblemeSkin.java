@@ -27,6 +27,7 @@ public class CircleEmblemeSkin extends SkinBase<CircleEmbleme> implements AutoCl
 
     private  InvalidationListener invalidListener = this::invalidated;
     private ChangeListener<String> pathListener = this::pathChanged;
+    private ChangeListener<Image> imageListener = this::imageChanged;
 
     {
         backgroundPane = new StackPane();
@@ -47,6 +48,17 @@ public class CircleEmblemeSkin extends SkinBase<CircleEmbleme> implements AutoCl
         }
     }
 
+    private void imageChanged(ObservableValue<? extends Image> observableValue, Image oldValue, Image newValue) {
+    try {
+        this.imgView.setImage(newValue);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    }
+
+
+
     private void initialize() {
         initVisualization();
         initListeners();
@@ -56,6 +68,7 @@ public class CircleEmblemeSkin extends SkinBase<CircleEmbleme> implements AutoCl
     private void initListeners() {
         initSizeListeners();
         getSkinnable().imgPathProperty().addListener(pathListener);
+        getSkinnable().imageProperty().addListener(imageListener);
     }
 
     private void initSizeListeners() {
@@ -72,7 +85,9 @@ public class CircleEmblemeSkin extends SkinBase<CircleEmbleme> implements AutoCl
         getChildren().add(backgroundPane);
         backgroundPane.getChildren().addAll(imgView);
 
-        if (getSkinnable().getImgPath() != null) {
+        if(getSkinnable().getImage() != null) {
+            this.imgView.setImage(getSkinnable().getImage());
+        } else if (getSkinnable().getImgPath() != null) {
             this.imgView.setImage(new Image(getSkinnable().getImgPath()));
         }
     }

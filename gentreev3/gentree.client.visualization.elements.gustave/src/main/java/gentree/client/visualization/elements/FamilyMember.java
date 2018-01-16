@@ -3,19 +3,14 @@ package gentree.client.visualization.elements;
 import gentree.client.desktop.domain.Member;
 import gentree.client.visualization.controls.CircleEmbleme;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
-import gentree.client.visualization.elements.configuration.ElementsConfig;
 import gentree.client.visualization.elements.configuration.ManagerProvider;
 import gentree.common.configuration.enums.Age;
 import gentree.common.configuration.enums.Gender;
 import gentree.common.configuration.enums.Race;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 /**
@@ -66,13 +61,13 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
     protected void fillComponents(Member member) {
         super.fillComponents(member);
         if (member == null) {
-            GENDER_IMG.setImgPath(ec.getFlePathOfGender(Gender.M));
-            RACE_IMG.setImgPath(ec.getFilePathOfRace(Race.HUMAIN));
-            AGE_IMG.setImgPath(ec.getFilePathOfAge(Age.YOUNG_ADULT));
+            GENDER_IMG.setImage(ec.getImageOfGender(Gender.M));
+            RACE_IMG.setImage(ec.getImageOfRace(Race.HUMAIN));
+            AGE_IMG.setImage(ec.getImageOfAge(Age.YOUNG_ADULT));
         } else {
-            GENDER_IMG.setImgPath(ec.getFlePathOfGender(member.getGender()));
-            RACE_IMG.setImgPath(ec.getFilePathOfRace(member.getRace()));
-            AGE_IMG.setImgPath(ec.getFilePathOfAge(member.getAge()));
+            GENDER_IMG.setImage(ec.getImageOfGender(member.getGender()));
+            RACE_IMG.setImage(ec.getImageOfRace(member.getRace()));
+            AGE_IMG.setImage(ec.getImageOfAge(member.getAge()));
         }
     }
 

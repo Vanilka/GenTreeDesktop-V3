@@ -32,29 +32,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="525">
-      <file leaf-file-name="PaneLogonController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/PaneLogonController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tab.open.new.project.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/screen/tab.open.new.project.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="41" lean-forward="false" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="screen.logon.register.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/screen/screen.logon.register.fxml">
           <provider selected="true" editor-type-id="text-editor">
@@ -93,55 +70,92 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScreenLoginRegisterController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ScreenLoginRegisterController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/ScreenLoginRegisterController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
-              <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+            <state relative-caret-position="496">
+              <caret line="84" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pane.logon.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/screen/pane.logon.fxml">
+      <file leaf-file-name="ImageFiles.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/configuration/ImageFiles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="29" />
+            <state relative-caret-position="75">
+              <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
         </entry>
       </file>
-      <file leaf-file-name="gentreestyle.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/style/gentreestyle.css">
+      <file leaf-file-name="ElementsConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/configuration/ElementsConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="552" column="0" lean-forward="false" selection-start-line="552" selection-start-column="0" selection-end-line="552" selection-end-column="0" />
+            <state relative-caret-position="297">
+              <caret line="77" column="105" lean-forward="false" selection-start-line="77" selection-start-column="105" selection-end-line="77" selection-end-column="105" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CellFactoryProvider.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FamilyMember.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/FamilyMember.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-435">
+              <caret line="67" column="27" lean-forward="false" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CellFactoryProvider.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/configuration/CellFactoryProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-14">
-              <caret line="25" column="96" lean-forward="false" selection-start-line="25" selection-start-column="96" selection-end-line="25" selection-end-column="96" />
-              <folding />
+            <state relative-caret-position="279">
+              <caret line="80" column="129" lean-forward="false" selection-start-line="80" selection-start-column="129" selection-end-line="80" selection-end-column="129" />
+              <folding>
+                <element signature="method#getMemberCellFactory#0;class#CellFactoryProvider#0" expanded="false" />
+                <element signature="method#getRelationTypeCellFactory#0;class#CellFactoryProvider#0" expanded="false" />
+                <element signature="method#getPhotoCellFactory#0;class#CellFactoryProvider#0" expanded="false" />
+                <element signature="e#8481#9211#0" expanded="true" />
+                <element signature="e#9210#9211#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PaneShowInfoSim.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/PaneShowInfoSim.java">
+      <file leaf-file-name="CircleEmbleme.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/CircleEmbleme.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="156" column="34" lean-forward="false" selection-start-line="156" selection-start-column="20" selection-end-line="156" selection-end-column="34" />
-              <folding />
+            <state relative-caret-position="161">
+              <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+              <folding>
+                <element signature="e#1184#1185#0" expanded="true" />
+                <element signature="e#1221#1222#0" expanded="true" />
+                <element signature="e#2589#2590#0" expanded="true" />
+                <element signature="e#2630#2631#0" expanded="true" />
+                <element signature="e#2661#2662#0" expanded="true" />
+                <element signature="e#2695#2696#0" expanded="true" />
+                <element signature="e#2747#2748#0" expanded="true" />
+                <element signature="e#2775#2776#0" expanded="true" />
+                <element signature="e#2816#2817#0" expanded="true" />
+                <element signature="e#2853#2854#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CircleEmblemeSkin.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/skin/CircleEmblemeSkin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="91" column="9" lean-forward="true" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
+              <folding>
+                <element signature="e#3383#3384#0" expanded="true" />
+                <element signature="e#3416#3417#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -174,9 +188,15 @@
       <find>Jfx</find>
       <find>comb</find>
       <find>mainAnchorPaneHeightListener</find>
+      <find>ImageFiles.</find>
+      <find>.setIma</find>
     </findStrings>
+    <replaceStrings>
+      <replace>new Image(ImageFiles.</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/connectors</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -192,8 +212,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/GenTreeRun.java" />
-        <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/configuration/ErrorMessages.java" />
         <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/MainMenuController.java" />
         <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/screen/main.menu.fxml" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/configuration/EventManagerProvider.java" />
@@ -206,9 +224,7 @@
         <option value="$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/panels/SubRelationPane.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/panels/SubBorderPane.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/skin/HeaderPaneSkin.java" />
-        <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/skin/CircleEmblemeSkin.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/panels/PanelRelationEx.java" />
-        <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/CircleEmbleme.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/HeaderPane.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/FamilyMemberCard.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/MemberCard.java" />
@@ -224,7 +240,6 @@
         <option value="$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/connectors/SpouseExConnector.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/connectors/SpouseConnector.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/resources/layout/elements/family.member.fxml" />
-        <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/FamilyMember.java" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/resources/layout/elements/family.group.fxml" />
         <option value="$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/panels/PanelRelationCurrent.java" />
         <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/service/implementation/ConnectionService.java" />
@@ -243,6 +258,11 @@
         <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/screen/pane.logon.fxml" />
         <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/screen/screen.logon.register.fxml" />
         <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/ScreenLoginRegisterController.java" />
+        <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/skin/CircleEmblemeSkin.java" />
+        <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/CircleEmbleme.java" />
+        <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/FamilyMember.java" />
+        <option value="$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/configuration/ElementsConfig.java" />
+        <option value="$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/configuration/CellFactoryProvider.java" />
       </list>
     </option>
   </component>
@@ -647,139 +667,6 @@
               <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
               <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="desktop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="configuration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="configuration" type="462c0819:PsiDirectoryNode" />
-              <item name="enums" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="screen" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-              <item name="screen" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-              <item name="style" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gentreev3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gentreev3" type="462c0819:PsiDirectoryNode" />
-              <item name="gentree.client.desktop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="traduction" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -945,25 +832,26 @@
       <workItem from="1515872943215" duration="43000" />
       <workItem from="1515873034595" duration="29125000" />
       <workItem from="1516033124005" duration="119000" />
-      <workItem from="1516033864144" duration="20507000" />
+      <workItem from="1516033864144" duration="26402000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68271000" />
+    <option name="totallyTimeSpent" value="74166000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="23" width="1920" height="1104" extended-state="6" />
+    <frame x="1" y="23" width="1920" height="1104" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.49349946" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256579" sideWeight="0.48699892" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24122807" sideWeight="0.276273" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3299025" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24122807" sideWeight="0.723727" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24122807" sideWeight="0.28277355" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.111592636" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24122807" sideWeight="0.71722645" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -971,6 +859,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2659805" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Thread dumps" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -987,7 +876,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.70797414" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1049,44 +937,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/connectors/SpouseConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="25" column="63" lean-forward="true" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.gustave/src/main/java/gentree/client/visualization/gustave/connectors/LineConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-310">
-          <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/FamilyMemberCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9">
-          <caret line="161" column="0" lean-forward="true" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/FamilyMember.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="119" column="9" lean-forward="false" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/resources/layout/elements/family.member.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="18" column="87" lean-forward="false" selection-start-line="18" selection-start-column="81" selection-end-line="18" selection-end-column="87" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/resources/layout/elements/family.group.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -1492,14 +1342,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/configuration/CellFactoryProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="25" column="96" lean-forward="false" selection-start-line="25" selection-start-column="96" selection-end-line="25" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/resources/layout/screen/tab.open.new.project.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
@@ -1580,9 +1422,77 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/ScreenLoginRegisterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+        <state relative-caret-position="496">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/skin/CircleEmblemeSkin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="91" column="9" lean-forward="true" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
+          <folding>
+            <element signature="e#3383#3384#0" expanded="true" />
+            <element signature="e#3416#3417#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/controls/CircleEmbleme.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding>
+            <element signature="e#1184#1185#0" expanded="true" />
+            <element signature="e#1221#1222#0" expanded="true" />
+            <element signature="e#2589#2590#0" expanded="true" />
+            <element signature="e#2630#2631#0" expanded="true" />
+            <element signature="e#2661#2662#0" expanded="true" />
+            <element signature="e#2695#2696#0" expanded="true" />
+            <element signature="e#2747#2748#0" expanded="true" />
+            <element signature="e#2775#2776#0" expanded="true" />
+            <element signature="e#2816#2817#0" expanded="true" />
+            <element signature="e#2853#2854#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/FamilyMember.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-435">
+          <caret line="67" column="27" lean-forward="false" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/configuration/ImageFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gentree.client.visualization.elements.gustave/src/main/java/gentree/client/visualization/elements/configuration/ElementsConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="77" column="105" lean-forward="false" selection-start-line="77" selection-start-column="105" selection-end-line="77" selection-end-column="105" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gentree.client.desktop/src/main/java/gentree/client/desktop/configuration/CellFactoryProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="80" column="129" lean-forward="false" selection-start-line="80" selection-start-column="129" selection-end-line="80" selection-end-column="129" />
+          <folding>
+            <element signature="method#getMemberCellFactory#0;class#CellFactoryProvider#0" expanded="false" />
+            <element signature="method#getRelationTypeCellFactory#0;class#CellFactoryProvider#0" expanded="false" />
+            <element signature="method#getPhotoCellFactory#0;class#CellFactoryProvider#0" expanded="false" />
+            <element signature="e#8481#9211#0" expanded="true" />
+            <element signature="e#9210#9211#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

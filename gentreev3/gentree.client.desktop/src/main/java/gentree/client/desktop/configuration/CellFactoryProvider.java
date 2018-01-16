@@ -89,22 +89,7 @@ public class CellFactoryProvider {
                         super.updateItem(item, empty);
                         ImageView imageview = new ImageView();
                         if (item != null) {
-                            String path;
-                            switch (item) {
-                                case FIANCE:
-                                    path = ImageFiles.RELATION_FIANCE.toString();
-                                    break;
-                                case MARRIED:
-                                    path = ImageFiles.RELATION_MARRIED.toString();
-                                    break;
-                                case LOVE:
-                                    path = ImageFiles.RELATION_LOVE.toString();
-                                    break;
-                                default:
-                                    path = ImageFiles.RELATION_NEUTRAL.toString();
-                                    break;
-                            }
-                            imageview.setImage(new Image(path));
+                            imageview.setImage(ElementsConfig.INSTANCE.getImageOfRelationType(item));
                             imageview.setFitHeight(40);
                             imageview.setFitWidth(40);
                             setGraphic(imageview);
@@ -170,29 +155,10 @@ public class CellFactoryProvider {
                     public void updateItem(RelationType item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
-                            switch (item) {
-                                case NEUTRAL:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_NEUTRAL.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                case LOVE:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_LOVE.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                case FIANCE:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_FIANCE.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                case MARRIED:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_MARRIED.toString(), relationWidth, relationHeight));
-                                    setText("");
-                                    break;
-                                default:
-                                    setGraphic(setGraphicToImageView(ImageFiles.RELATION_NEUTRAL.toString(), relationWidth, relationHeight));
-                                    setText("");
-                            }
+                           setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfRelationType(item), relationWidth, relationHeight));
+                           setText("");
                         } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.RELATION_NEUTRAL.toString(), relationWidth, relationHeight));
+                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfRelationType(RelationType.NEUTRAL), relationWidth, relationHeight));
                             setText("");
                         }
                     }
@@ -235,10 +201,10 @@ public class CellFactoryProvider {
                     public void updateItem(Race item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
-                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getFilePathOfRace(item), 40, 40));
+                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfRace(item), 40, 40));
                             setText("");
                         } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.HUMAIN.toString(), 40, 40));
+                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfRace(Race.HUMAIN), 40, 40));
                             setText("");
                         }
                     }
@@ -260,10 +226,10 @@ public class CellFactoryProvider {
                     public void updateItem(Age item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
-                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getFilePathOfAge(item), 30, 40));
+                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfAge(item), 30, 40));
                             setText("");
                         } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.HUMAIN.toString(), 30, 40));
+                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfAge(Age.YOUNG_ADULT), 30, 40));
                             setText("");
                         }
                     }
@@ -285,10 +251,10 @@ public class CellFactoryProvider {
                     public void updateItem(Gender item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
-                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getFlePathOfGender(item), 30, 30));
+                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfGender(item), 30, 30));
                             setText("");
                         } else {
-                            setGraphic(setGraphicToImageView(ImageFiles.HUMAIN.toString(), 30, 30));
+                            setGraphic(setGraphicToImageView(ElementsConfig.INSTANCE.getImageOfGender(Gender.M), 30, 30));
                             setText("");
                         }
                     }
@@ -307,6 +273,14 @@ public class CellFactoryProvider {
         imv.setFitHeight(height);
         return imv;
     }
+
+    private static ImageView setGraphicToImageView(Image image, int width, int height) {
+        ImageView imv = new ImageView(image);
+        imv.setFitWidth(width);
+        imv.setFitHeight(height);
+        return imv;
+    }
+
 
     private static ImageView setGraphicToImageView(ImageView imv, String path) {
         imv = new ImageView(path);

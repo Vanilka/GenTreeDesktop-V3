@@ -3,11 +3,14 @@ package gentree.client.visualization.controls;
 import gentree.client.visualization.controls.skin.CircleEmblemeSkin;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
 import javafx.beans.NamedArg;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +23,7 @@ public class CircleEmbleme extends Control implements AutoCleanable {
     private static final String DEFAULT_CLASS_NAME = "circle-embleme";
 
     private SimpleStringProperty imgPath = new SimpleStringProperty();
+    private ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
     public CircleEmbleme() {
         initialize();
@@ -30,6 +34,10 @@ public class CircleEmbleme extends Control implements AutoCleanable {
         this();
         this.imgPath.set(imgPath);
 
+    }
+
+    public CircleEmbleme(@NamedArg("image")Image image) {
+        this.image.set(image);
     }
 
     /**
@@ -98,6 +106,18 @@ public class CircleEmbleme extends Control implements AutoCleanable {
 
     public void setImgPath(String imgPath) {
         this.imgPath.set(imgPath);
+    }
+
+    public Image getImage() {
+        return image.get();
+    }
+
+    public ObjectProperty<Image> imageProperty() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image.set(image);
     }
 
     /**
