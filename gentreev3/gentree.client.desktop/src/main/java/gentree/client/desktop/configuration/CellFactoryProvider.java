@@ -41,116 +41,105 @@ public class CellFactoryProvider {
     public static final Callback<TableColumn<Member, String>, TableCell<Member, String>> SIM_PHOTO_CELL_FACTORY = getPhotoCellFactory();
 
     private static Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>> getMemberCellFactory(String parameter) {
-        Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>> callback =
-                new Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>>() {
-                    @Override
-                    public TableCell<Relation, Member> call(TableColumn<Relation, Member> param) {
-                        TableCell<Relation, Member> cell = new TableCell<Relation, Member>() {
-
-                            @Override
-                            protected void updateItem(Member item, boolean empty) {
-                                super.updateItem(item, empty);
-                                ImageView imageview = new ImageView();
-                                if (item != null) {
-                                    imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
-                                    imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
-                                    imageview.setImage(new Image(item.getPhoto()));
-                                    setGraphic(imageview);
-                                } else {
-                                    if (!empty) {
-                                        imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
-                                        imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
-                                        String path = parameter.equals(TABLE_RELATION_SIM_LEFT) ?
-                                                ImageFiles.NO_NAME_FEMALE.toString() : ImageFiles.NO_NAME_MALE.toString();
-                                        imageview.setImage(new Image(path));
-                                        setGraphic(imageview);
-                                    } else {
-                                        setGraphic(null);
-                                    }
-                                }
-                            }
-
-                        };
-                        return cell;
-                    }
-                };
-
-        return callback;
-    }
-
-    private static Callback<TableColumn<Relation, RelationType>, TableCell<Relation, RelationType>> getRelationTypeCellFactory() {
-        Callback<TableColumn<Relation, RelationType>,
-                TableCell<Relation, RelationType>> callback = new Callback<TableColumn<Relation, RelationType>, TableCell<Relation, RelationType>>() {
+        return new Callback<TableColumn<Relation, Member>, TableCell<Relation, Member>>() {
             @Override
-            public TableCell<Relation, RelationType> call(TableColumn<Relation, RelationType> param) {
-                TableCell<Relation, RelationType> cell = new TableCell<Relation, RelationType>() {
+            public TableCell<Relation, Member> call(TableColumn<Relation, Member> param) {
+                return new TableCell<Relation, Member>() {
+
                     @Override
-                    protected void updateItem(RelationType item, boolean empty) {
+                    protected void updateItem(Member item, boolean empty) {
                         super.updateItem(item, empty);
                         ImageView imageview = new ImageView();
                         if (item != null) {
-                            imageview.setImage(ElementsConfig.INSTANCE.getImageOfRelationType(item));
-                            imageview.setFitHeight(40);
-                            imageview.setFitWidth(40);
+                            imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
+                            imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
+                            imageview.setImage(new Image(item.getPhoto()));
                             setGraphic(imageview);
                         } else {
-                            setGraphic(null);
+                            if (!empty) {
+                                imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
+                                imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
+                                String path = parameter.equals(TABLE_RELATION_SIM_LEFT) ?
+                                        ImageFiles.NO_NAME_FEMALE.toString() : ImageFiles.NO_NAME_MALE.toString();
+                                imageview.setImage(new Image(path));
+                                setGraphic(imageview);
+                            } else {
+                                setGraphic(null);
+                            }
                         }
                     }
+
                 };
-                return cell;
             }
         };
-        return callback;
+    }
+
+    private static Callback<TableColumn<Relation, RelationType>, TableCell<Relation, RelationType>> getRelationTypeCellFactory() {
+        return new Callback<TableColumn<Relation, RelationType>, TableCell<Relation, RelationType>>() {
+    @Override
+    public TableCell<Relation, RelationType> call(TableColumn<Relation, RelationType> param) {
+        return new TableCell<Relation, RelationType>() {
+            @Override
+            protected void updateItem(RelationType item, boolean empty) {
+                super.updateItem(item, empty);
+                ImageView imageview = new ImageView();
+                if (item != null) {
+                    imageview.setImage(ElementsConfig.INSTANCE.getImageOfRelationType(item));
+                    imageview.setFitHeight(40);
+                    imageview.setFitWidth(40);
+                    setGraphic(imageview);
+                } else {
+                    setGraphic(null);
+                }
+            }
+        };
+    }
+};
     }
 
     private static Callback<TableColumn<Member, String>, TableCell<Member, String>> getPhotoCellFactory() {
 
-        Callback<TableColumn<Member, String>, TableCell<Member, String>> callback =
-                new Callback<TableColumn<Member, String>, TableCell<Member, String>>() {
+        return new Callback<TableColumn<Member, String>, TableCell<Member, String>>() {
+            @Override
+            public TableCell<Member, String> call(TableColumn<Member, String> param) {
+
+                return new TableCell<Member, String>() {
                     @Override
-                    public TableCell<Member, String> call(TableColumn<Member, String> param) {
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        ImageView imageview = new ImageView();
+                        imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
+                        imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
+                        if (item != null) {
+                            imageview.setImage(new Image(item));
+                            setGraphic(imageview);
+                        } else {
+                            if (!empty) {
 
-                        TableCell<Member, String> cell = new TableCell<Member, String>() {
-                            @Override
-                            protected void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                ImageView imageview = new ImageView();
-                                imageview.setFitHeight(TABLE_IMAGE_MEMBER_HEIGHT);
-                                imageview.setFitWidth(TABLE_IMAGE_MEMBER_WIDTH);
-                                if (item != null) {
-                                    imageview.setImage(new Image(item));
-                                    setGraphic(imageview);
-                                } else {
-                                    if (!empty) {
-
-                                        imageview.setImage(new Image(ImageFiles.GENERIC_MALE.toString()));
-                                        setGraphic(imageview);
-                                    } else {
-                                        setGraphic(null);
-                                    }
-                                }
+                                imageview.setImage(new Image(ImageFiles.GENERIC_MALE.toString()));
+                                setGraphic(imageview);
+                            } else {
+                                setGraphic(null);
                             }
-                        };
-                        return cell;
+                        }
                     }
                 };
-        return callback;
+            }
+        };
     }
 
     private static Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>> getPhotoValueFactory() {
-        Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>> callback = param -> new ReadOnlyObjectWrapper<>(param.getValue().getPhoto());
-        return callback;
+        return param -> new ReadOnlyObjectWrapper<>(param.getValue().getPhoto());
     }
 
     private static Callback<ListView<RelationType>, ListCell<RelationType>> getCustomRelationListCell() {
         int relationWidth = 50;
         int relationHeight = 50;
 
-        Callback<ListView<RelationType>, ListCell<RelationType>> callback = new Callback<ListView<RelationType>, ListCell<RelationType>>() {
+        return new Callback<ListView<RelationType>, ListCell<RelationType>>() {
             @Override
             public ListCell<RelationType> call(ListView<RelationType> param) {
-                final ListCell<RelationType> relationCell = new ListCell<RelationType>() {
+                return new ListCell<RelationType>() {
                     @Override
                     public void updateItem(RelationType item, boolean empty) {
                         super.updateItem(item, empty);
@@ -164,14 +153,12 @@ public class CellFactoryProvider {
                     }
 
                 };
-                return relationCell;
             }
         };
-        return callback;
     }
 
     private static Callback<ListView<Realm>, ListCell<Realm>> getCustomRealmListCell() {
-        Callback<ListView<Realm>, ListCell<Realm>> callback = new Callback<ListView<Realm>, ListCell<Realm>>() {
+        return new Callback<ListView<Realm>, ListCell<Realm>>() {
 
             @Override
             public ListCell<Realm> call(ListView<Realm> param) {
@@ -189,14 +176,13 @@ public class CellFactoryProvider {
                 return realmCell;
             }
         };
-        return callback;
     }
 
     private static Callback<ListView<Race>, ListCell<Race>> getRaceListCell() {
-        Callback<ListView<Race>, ListCell<Race>> callback = new Callback<ListView<Race>, ListCell<Race>>() {
+        return new Callback<ListView<Race>, ListCell<Race>>() {
             @Override
             public ListCell<Race> call(ListView<Race> param) {
-                final ListCell<Race> raceCell = new ListCell<Race>() {
+                return new ListCell<Race>() {
                     @Override
                     public void updateItem(Race item, boolean empty) {
                         super.updateItem(item, empty);
@@ -210,18 +196,16 @@ public class CellFactoryProvider {
                     }
 
                 };
-                return raceCell;
             }
         };
-        return callback;
 
     }
 
     private static Callback<ListView<Age>, ListCell<Age>> getAgeListCell() {
-        Callback<ListView<Age>, ListCell<Age>> callback = new Callback<ListView<Age>, ListCell<Age>>() {
+        return new Callback<ListView<Age>, ListCell<Age>>() {
             @Override
             public ListCell<Age> call(ListView<Age> param) {
-                final ListCell<Age> ageCell = new ListCell<Age>() {
+                return new ListCell<Age>() {
                     @Override
                     public void updateItem(Age item, boolean empty) {
                         super.updateItem(item, empty);
@@ -235,10 +219,8 @@ public class CellFactoryProvider {
                     }
 
                 };
-                return ageCell;
             }
         };
-        return callback;
 
     }
 
@@ -280,8 +262,7 @@ public class CellFactoryProvider {
         imv.setFitHeight(height);
         return imv;
     }
-
-
+    
     private static ImageView setGraphicToImageView(ImageView imv, String path) {
         imv = new ImageView(path);
         return imv;
