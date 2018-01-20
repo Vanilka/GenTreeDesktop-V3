@@ -1,9 +1,7 @@
 package gentree.client.visualization.elements.configuration;
 
-import gentree.common.configuration.enums.Age;
-import gentree.common.configuration.enums.Gender;
-import gentree.common.configuration.enums.Race;
-import gentree.common.configuration.enums.RelationType;
+import gentree.client.visualization.elements.configuration.images.ImageDeathPaths;
+import gentree.common.configuration.enums.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -20,6 +18,7 @@ public class ElementsConfig {
     private final HashMap<Age, Image> ageImagesMap = new HashMap<>();
     private final HashMap<Gender, Image> genderImagesMap = new HashMap<>();
     private final HashMap<RelationType, Image> relationTypeImagesMap = new HashMap<>();
+    private final HashMap<DeathCauses, Image> deathCausesImageHashMap = new HashMap<>();
 
     private ElementsConfig() {
         initMap();
@@ -27,6 +26,7 @@ public class ElementsConfig {
         initAgeImageMap();
         initGenderImageMap();
         initRelationImagesMap();
+        initDeathCauseHashMap();
     }
 
 
@@ -78,6 +78,19 @@ public class ElementsConfig {
         relationTypeImagesMap.put(RelationType.FIANCE, new Image(ImageFiles.RELATION_FIANCE.toString()));
     }
 
+    private void initDeathCauseHashMap() {
+        deathCausesImageHashMap.put(DeathCauses.NATURAL, new Image(ImageDeathPaths.CAUSE_NORMAL.toString()));
+        deathCausesImageHashMap.put(DeathCauses.FIRE, new Image(ImageDeathPaths.CAUE_FIRE.toString()));
+        deathCausesImageHashMap.put(DeathCauses.LAUGHTER, new Image(ImageDeathPaths.CAUSE_LAUGH.toString()));
+        deathCausesImageHashMap.put(DeathCauses.ELECTROCUTION, new Image(ImageDeathPaths.CAUSE_LIGHTERING.toString()));
+        deathCausesImageHashMap.put(DeathCauses.STRAVATION, new Image(ImageDeathPaths.CAUSE_STRAVING.toString()));
+
+    }
+
+    public Image getImageOfDeath(DeathCauses cause) {
+        if(deathCausesImageHashMap.containsKey(cause)) return deathCausesImageHashMap.get(cause);
+        return deathCausesImageHashMap.get(DeathCauses.NATURAL);
+    }
 
     public Image getImageOfRelationType(RelationType type) {
         if(relationTypeImagesMap.containsKey(type)) return relationTypeImagesMap.get(type);

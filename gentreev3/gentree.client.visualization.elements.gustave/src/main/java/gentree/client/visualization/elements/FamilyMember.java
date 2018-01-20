@@ -7,6 +7,7 @@ import gentree.client.visualization.elements.configuration.ManagerProvider;
 import gentree.common.configuration.enums.Age;
 import gentree.common.configuration.enums.Gender;
 import gentree.common.configuration.enums.Race;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.ContextMenuEvent;
@@ -35,6 +36,10 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
 
     @FXML
     private CircleEmbleme AGE_IMG;
+
+
+    @FXML
+    private CircleEmbleme DEATH_IMG;
 
 
     public FamilyMember(Member member) {
@@ -68,6 +73,7 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
             GENDER_IMG.setImage(ec.getImageOfGender(member.getGender()));
             RACE_IMG.setImage(ec.getImageOfRace(member.getRace()));
             AGE_IMG.setImage(ec.getImageOfAge(member.getAge()));
+            if (!member.isAlive()) DEATH_IMG.setImage(ec.getImageOfDeath(member.getDeathCause()));
         }
     }
 
@@ -101,18 +107,18 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
     }
 
     private void mouseEnterEvent(MouseEvent t) {
-       // setStrokeColor(Color.valueOf("#0188AE"));
+        // setStrokeColor(Color.valueOf("#0188AE"));
         setColorOnBackground(Color.valueOf("#0B4F6C"));
     }
 
     private void mouseExitedEvent(MouseEvent t) {
-       // setStrokeColor(Color.WHITE);
+        // setStrokeColor(Color.WHITE);
         setColorOnBackground(Color.valueOf("#7f8d8a"));
     }
 
     private void setColorOnBackground(Color color) {
         rectangleFond.setFill(color);
-       // rectanglePhotoFond.setFill(color);
+        // rectanglePhotoFond.setFill(color);
     }
 
     private void setStrokeColor(Color color) {
@@ -129,4 +135,17 @@ public class FamilyMember extends FamilyMemberCard implements AutoCleanable {
     private void contextMenuHandle(ContextMenuEvent event) {
         provider.showSimContextMenu(returnThis(), event);
     }
+
+    @Override
+    protected void memberChange(ObservableValue<? extends Member> observable, Member oldValue, Member newValue) {
+        DEATH_IMG.visibleProperty().unbind();
+        if (oldValue != null) {
+            oldValue.getProperties().forEach(p -> p.removeListener(listener));
+        }
+        newValue.getProperties().forEach(p -> p.addListener(listener));
+        DEATH_IMG.visibleProperty().bind(newValue.aliveProperty().not());
+
+        fillComponents(newValue);
+    }
+
 }

@@ -55,7 +55,7 @@ public class FamilyMemberCard extends AnchorPane implements AutoCleanable {
 
 
     private ObjectProperty<Member> member;
-    private ChangeListener<Object> listener = this::objectChange;
+    protected ChangeListener<Object> listener = this::objectChange;
     private ChangeListener<? super Member> memberListener = this::memberChange;
 
     {
@@ -190,7 +190,7 @@ public class FamilyMemberCard extends AnchorPane implements AutoCleanable {
         return this;
     }
 
-    private void memberChange(ObservableValue<? extends Member> observable, Member oldValue, Member newValue) {
+    protected void memberChange(ObservableValue<? extends Member> observable, Member oldValue, Member newValue) {
         if (oldValue != null) {
             oldValue.getProperties().forEach(p -> p.removeListener(listener));
         }
