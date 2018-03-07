@@ -5,6 +5,7 @@ import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLAnchorPane;
 import gentree.client.desktop.controllers.FXMLController;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -32,9 +33,15 @@ public class DialogAppPropertiesTreeController implements Initializable, FXMLCon
     private JFXToggleButton TOGGLE_ALLOWED_HOMO;
 
     @FXML
+    private  JFXToggleButton TOGGLE_AUTO_REDRAW;
+
+    @FXML
     private ObjectProperty<ResourceBundle> languageBundle = new SimpleObjectProperty<>();
 
     private ChangeListener<? super Boolean> toggleHomoListener = this::toogleHomoChange;
+
+    private ChangeListener<? super Boolean> toggleAutoRedrawListener = this::toggleAutoRedraw;
+
 
 
     @Override
@@ -48,6 +55,7 @@ public class DialogAppPropertiesTreeController implements Initializable, FXMLCon
 
     private void populateProperties() {
         TOGGLE_ALLOWED_HOMO.setSelected(Boolean.valueOf(properties.get(PropertiesKeys.PARAM_DEFAULT_ALLOW_HOMO)));
+        TOGGLE_AUTO_REDRAW.setSelected(Boolean.valueOf(properties.get(PropertiesKeys.PARAM_AUTO_REDRAW_TREE)));
     }
 
     /*
@@ -55,6 +63,16 @@ public class DialogAppPropertiesTreeController implements Initializable, FXMLCon
      */
     private void initListeners() {
         TOGGLE_ALLOWED_HOMO.selectedProperty().addListener(toggleHomoListener);
+        TOGGLE_ALLOWED_HOMO.textProperty().bind(Bindings
+                .when(TOGGLE_ALLOWED_HOMO.selectedProperty())
+                .then("IS ALLOWED")
+                .otherwise("NOT ALLOWED"));
+
+        TOGGLE_AUTO_REDRAW.selectedProperty().addListener(toggleAutoRedrawListener);
+        TOGGLE_AUTO_REDRAW.textProperty().bind(Bindings
+        .when(TOGGLE_AUTO_REDRAW.selectedProperty())
+        .then("YES")
+        .otherwise("NO"));
     }
 
     public void cleanListeners() {
@@ -62,12 +80,11 @@ public class DialogAppPropertiesTreeController implements Initializable, FXMLCon
     }
 
     private void toogleHomoChange(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-        if (newValue) {
-            TOGGLE_ALLOWED_HOMO.setText("ALLOWED");
-        } else {
-            TOGGLE_ALLOWED_HOMO.setText("NOT ALLOWED");
-        }
         properties.replace(PropertiesKeys.PARAM_DEFAULT_ALLOW_HOMO, newValue.toString());
+    }
+
+    private void toggleAutoRedraw(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+        properties.replace(PropertiesKeys.PARAM_AUTO_REDRAW_TREE, newValue.toString());
     }
 
     /*

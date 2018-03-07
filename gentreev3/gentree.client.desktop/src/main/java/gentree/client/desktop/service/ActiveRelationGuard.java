@@ -1,11 +1,14 @@
 package gentree.client.desktop.service;
 
+import gentree.client.desktop.configuration.GenTreeProperties;
+import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.domain.Relation;
 import gentree.common.configuration.enums.RelationType;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.configuration2.Configuration;
 
 import java.util.Objects;
 import java.util.Observable;
@@ -21,6 +24,7 @@ public class ActiveRelationGuard implements Observer {
     private final ObservableList<Relation> relations;
     private final ListChangeListener<? super Relation> relationListListener = this::relationListChange;
     GenTreeContext context = GenTreeContext.INSTANCE;
+    Configuration configuration = GenTreeProperties.INSTANCE.getConfiguration();
     ScreenManager sm = ScreenManager.INSTANCE;
 
 
@@ -42,7 +46,8 @@ public class ActiveRelationGuard implements Observer {
             /*
                 Redraw tree
              */
-            sm.getGenTreeDrawingService().startDraw();
+
+            if(configuration.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE)) sm.getGenTreeDrawingService().startDraw();
         }
     }
 

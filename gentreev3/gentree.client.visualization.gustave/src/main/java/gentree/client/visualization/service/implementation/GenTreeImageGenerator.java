@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,7 +30,7 @@ public class GenTreeImageGenerator {
      */
     private BorderPane imagePane = new BorderPane();
     private AnchorPane headerPane = new AnchorPane();
-    private AnchorPane content = new AnchorPane();
+    private HBox content = new HBox();
     private Label title = new Label("Family Name");
 
     private GenTreeImageGenerator() {
@@ -69,16 +70,12 @@ public class GenTreeImageGenerator {
     public WritableImage doScreen(Pane nodeContent, String text) {
         this.title.setText(text);
         content.getChildren().clear();
-        content.getChildren().add(new ImageView(nodeContent.snapshot(snapshotParameters, null)));
-        generateImagePane();
-        try {
-            PngEncoderFX encoderFX = new PngEncoderFX(nodeContent.snapshot(snapshotParameters, null), true);
-            byte[] bytes = encoderFX.pngEncode();
-            Files.write(Paths.get("./objetcOnco.png"), bytes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println("Has choldren : " +nodeContent.getChildren().size());
+        nodeContent.getChildren().forEach(child -> {
+            content.getChildren().add(new ImageView(child.snapshot(snapshotParameters, null)));
+        });
 
+        generateImagePane();
         Scene scene = new Scene(imagePane);
         return scene.snapshot(null);
     }

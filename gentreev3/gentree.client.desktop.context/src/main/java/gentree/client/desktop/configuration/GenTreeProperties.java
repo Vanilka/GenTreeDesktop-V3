@@ -1,6 +1,9 @@
 package gentree.client.desktop.configuration;
 
+import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.LogMessages;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +21,6 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -34,8 +36,9 @@ public class GenTreeProperties {
     private final GenTreeDefaultProperties defaultProperties = GenTreeDefaultProperties.INSTANCE;
     private final Configurations configs = new Configurations();
     private final Parameters params = new Parameters();
+    private final BooleanProperty adminModeON = new SimpleBooleanProperty(false);
+    private final BooleanProperty autoRedraw = new SimpleBooleanProperty(false);
     private FileBasedConfigurationBuilder<FileBasedConfiguration> builder;
-
     @Getter
     @Setter
     private RealmConfig realmConfig = new RealmConfig();
@@ -65,6 +68,7 @@ public class GenTreeProperties {
             }
 
             defaultProperties.getMissingProperties(configuration);
+            autoRedraw.set(configuration.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
         }
     }
 
@@ -86,8 +90,9 @@ public class GenTreeProperties {
     }
 
     public void storeProperties() {
-        Path path = Paths.get(CONFIG_FILE);
+        // Path path = Paths.get(CONFIG_FILE);
         try {
+            builder.getConfiguration();
             configuration = builder.getConfiguration();
             builder.save();
         } catch (ConfigurationException e) {
@@ -117,6 +122,7 @@ public class GenTreeProperties {
 
         } catch (ConfigurationException | IOException e) {
             log.error(e.getMessage());
+
         }
     }
 
@@ -149,4 +155,30 @@ public class GenTreeProperties {
             log.error(e.getMessage());
         }
     }
+
+    public boolean isAdminModeON() {
+        return adminModeON.get();
+    }
+
+    public void setAdminModeON(boolean adminModeON) {
+        this.adminModeON.set(adminModeON);
+    }
+
+    public BooleanProperty adminModeONProperty() {
+        return adminModeON;
+    }
+
+    public boolean isAutoRedraw() {
+        return autoRedraw.get();
+    }
+
+    public void setAutoRedraw(boolean autoRedraw) {
+        this.autoRedraw.set(autoRedraw);
+    }
+
+    public BooleanProperty autoRedrawProperty() {
+        return autoRedraw;
+    }
 }
+
+

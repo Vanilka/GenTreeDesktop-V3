@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="dialogAddParentToMember" fx:id="dialogAddParentToMember"
             minHeight="700"
             minWidth="700" styleClass="dialog-pane" xmlns="http://javafx.com/javafx/8.0.131"
@@ -18,7 +19,7 @@
             <children>
                 <HeaderPane styleClass="header-pane-content" text="%label_add_parents"
                             AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
-                <VBox alignment="TOP_CENTER" layoutX="40.0" AnchorPane.topAnchor="40">
+                <VBox alignment="TOP_CENTER" layoutX="40.0" AnchorPane.topAnchor="70">
                     <children>
                         <AnchorPane fx:id="MOTHER_PANE" maxHeight="145.0" maxWidth="255.0" minHeight="145.0"
                                     minWidth="255.0" prefHeight="145.0" prefWidth="255.0"/>
@@ -28,7 +29,7 @@
                 </VBox>
 
 
-                <VBox alignment="TOP_CENTER" layoutX="350.0" layoutY="40.0">
+                <VBox alignment="TOP_CENTER" layoutX="350.0" layoutY="70.0">
                     <children>
                         <AnchorPane fx:id="FATHER_PANE" maxHeight="145.0" maxWidth="255.0" minHeight="145.0"
                                     minWidth="255.0" prefHeight="145.0" prefWidth="255.0"/>
@@ -38,7 +39,7 @@
                 </VBox>
                 <AnchorPane fx:id="RELATION_TYPE_PANE"/>
 
-                <AnchorPane fx:id="CURRENT_MEMBER_PANE" layoutY="300.0" layoutX="200"/>
+                <AnchorPane fx:id="CURRENT_MEMBER_PANE" layoutY="320.0" layoutX="200"/>
 
             </children>
             <opaqueInsets>

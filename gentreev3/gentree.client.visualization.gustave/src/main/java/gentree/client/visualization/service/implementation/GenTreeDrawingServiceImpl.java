@@ -1,5 +1,7 @@
 package gentree.client.visualization.service.implementation;
 
+import gentree.client.desktop.configuration.GenTreeProperties;
+import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
@@ -14,6 +16,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.configuration2.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
     private final HBox box;
     private int nodeCounter;
     private Long idReference;
+    private Configuration configuration = GenTreeProperties.INSTANCE.getConfiguration();
 
     {
         idReference = 0L;
@@ -54,9 +58,6 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
     @Override
     public void startDraw() {
         reset();
-        /*
-            Find Roots ( simLeft = null and simRight = null
-         */
         List<FamilyGroup> groups = findGroups();
         box.getChildren().addAll(groups);
         groups.forEach(group -> {
@@ -251,7 +252,7 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
                 response = relation.getRight();
             } else if (relation.getRight() == null) {
                 response = relation.getLeft();
-            } else if (relation.getActive() || relation.getType() == RelationType.NEUTRAL) {
+            } else if (relation.getActive() && relation.getType() != RelationType.NEUTRAL) {
                 response = relation.getRight();
             } else {
                 response = relation.getLeft();

@@ -69,6 +69,11 @@ public class RestConnectionService {
      *
      * @return
      */
+
+    public ServiceResponse updateFamilyName(Family f, String newName) throws Exception {
+        return  fct.updateFamilyName( f,  newName);
+    }
+
     public ServiceResponse retrieveFamilies() {
         return fct.retrieveFamilies();
     }

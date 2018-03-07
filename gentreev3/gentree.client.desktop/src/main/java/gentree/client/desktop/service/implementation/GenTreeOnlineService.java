@@ -1,5 +1,7 @@
 package gentree.client.desktop.service.implementation;
 
+import gentree.client.desktop.configuration.GenTreeProperties;
+import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
@@ -33,6 +35,22 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
 
 
     @Override
+    public ServiceResponse updateFamilyName(String s) {
+        ServiceResponse response = null;
+        try {
+            response = rcs.updateFamilyName(getCurrentFamily(), s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(response instanceof FamilyResponse) {
+            getCurrentFamily().setName(((FamilyResponse) response).getFamily().getName());
+        }
+
+        return response;
+    }
+
+    @Override
     public ServiceResponse setCurrentFamily(Family family) {
         ServiceResponse response = null;
         try {
@@ -44,6 +62,7 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
             family = ((FamilyResponse) response).getFamily();
             currentFamily.setValue(family);
         }
+
         return response;
     }
 
@@ -65,7 +84,7 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
         if (response instanceof MemberWithBornRelationResponse) {
             getCurrentFamily().getMembers().add(((MemberWithBornRelationResponse) response).getMember());
             getCurrentFamily().getRelations().add(((MemberWithBornRelationResponse) response).getRelation());
-            sm.getGenTreeDrawingService().startDraw();
+            if(GenTreeProperties.INSTANCE.isAutoRedraw())  sm.getGenTreeDrawingService().startDraw();
         }
 
         return response;
@@ -155,7 +174,7 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
     }
 
     private void invalidate() {
-        sm.getGenTreeDrawingService().startDraw();
+        if(GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
     }
 
     @Override

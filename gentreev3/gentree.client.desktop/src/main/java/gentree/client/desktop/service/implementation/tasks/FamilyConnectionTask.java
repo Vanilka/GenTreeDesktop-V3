@@ -7,6 +7,7 @@ import gentree.client.desktop.service.responses.ExceptionResponse;
 import gentree.client.desktop.service.responses.FamilyListResponse;
 import gentree.client.desktop.service.responses.FamilyResponse;
 import gentree.server.dto.FamilyDTO;
+import gentree.server.dto.FamilyLazyDTO;
 import lombok.extern.log4j.Log4j2;
 
 import javax.ws.rs.client.Entity;
@@ -70,5 +71,18 @@ public class FamilyConnectionTask extends ConnectionTask {
         }
 
         return serviceResponse;
+    }
+
+    public ServiceResponse updateFamilyName(Family f, String newName) throws Exception {
+        ServiceResponse serviceResponse = null;
+        FamilyLazyDTO lazyDTO = cmd.convertToLazy(f);
+        lazyDTO.setName(newName);
+        Response response = cs.doPost(ServerPaths.FAMILY.concat(ServerPaths.UPDATE), Entity.json(lazyDTO));
+        if(response.getStatus() == 200) {
+            f = cdm.convertLazy(response.readEntity(FamilyDTO.class));
+            serviceResponse = new FamilyResponse(f);
+        }
+        return serviceResponse;
+
     }
 }

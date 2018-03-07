@@ -2,6 +2,7 @@ package gentree.client.desktop.service.implementation;
 
 
 import gentree.client.desktop.configuration.ErrorMessages;
+import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.domain.Family;
@@ -22,6 +23,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.configuration2.Configuration;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -66,6 +68,12 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
         setCurrentFamilyListener();
     }
 
+
+    @Override
+    public ServiceResponse updateFamilyName(String s) {
+        getCurrentFamily().setName(s);
+        return new FamilyResponse(getCurrentFamily());
+    }
 
     /**
      * Function to adding Member to Family
@@ -298,7 +306,8 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
                 });
             }
         }
-        sm.getGenTreeDrawingService().startDraw();
+        System.out.println( "Auto redraw bool : " +config.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
+        if(GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
     }
 
 
@@ -454,6 +463,21 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
         }
     }
 
+    public void reloadIds() {
+        reloadMemberIds();
+        reloadRelationIds();
+    }
+
+    private void reloadMemberIds() {
+        idMember = 0L;
+        getCurrentFamily().getMembers().forEach(member -> member.setId(++idMember));
+    }
+
+    private void reloadRelationIds() {
+        idRelation = 0L;
+        getCurrentFamily().getRelations().forEach(relation -> relation.setId(++idRelation));
+    }
+
 
     @Override
     public void clean() {
@@ -461,7 +485,7 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
     }
 
     private void invalidate() {
-        sm.getGenTreeDrawingService().startDraw();
+        if(GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
     }
 }
 

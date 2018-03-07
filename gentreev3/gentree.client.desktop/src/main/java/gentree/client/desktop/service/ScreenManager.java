@@ -324,8 +324,7 @@ public class ScreenManager implements Manager {
         try {
             anchor.getChildren().clear();
             anchor.getChildren().addAll((AnchorPane) loader.load());
-            FXMLPane controller = loader.getController();
-            return controller;
+            return loader.getController();
         } catch (Exception ex) {
             log.error(ex.getMessage());
             log.error(ex.getCause());
@@ -505,6 +504,10 @@ public class ScreenManager implements Manager {
     @Override
     public void showRelationContextMenu(RelationTypeElement relationTypeElement, ContextMenuEvent event) {
         relationContextMenu.show(relationTypeElement, event);
+    }
+
+    public void showRelationContextMenu(Relation r, Node node, ContextMenuEvent event) {
+        relationContextMenu.show(r, node, event);
     }
 
     /*

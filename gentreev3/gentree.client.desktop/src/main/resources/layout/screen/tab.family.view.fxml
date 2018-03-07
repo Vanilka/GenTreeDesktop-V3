@@ -16,9 +16,10 @@
                    onMouseClicked="#showInfoMember" prefHeight="20.0" prefWidth="240.0" AnchorPane.bottomAnchor="50.0"
                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
             <columns>
+                <TableColumn fx:id="SIM_ID_COLUMN" maxWidth="40" minWidth="40" text="id"/>
                 <TableColumn fx:id="SIM_PHOTO_COLUMN" maxWidth="60" minWidth="60" text="%avatar"/>
-                <TableColumn fx:id="SIM_NAME_COLUMN" maxWidth="90.0" minWidth="90.0" text="%sim_name"/>
-                <TableColumn fx:id="SIM_SURNAME_COLUMN" maxWidth="90.0" minWidth="90.0" text="%sim_surname"/>
+                <TableColumn fx:id="SIM_NAME_COLUMN" maxWidth="80.0" minWidth="80.0" text="%sim_name"/>
+                <TableColumn fx:id="SIM_SURNAME_COLUMN" maxWidth="80.0" minWidth="80.0" text="%sim_surname"/>
             </columns>
             <styleClass>
                 <String fx:value="firstTypeTable"/>

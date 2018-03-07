@@ -4,10 +4,7 @@ import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.desktop.service.implementation.ProjectsOnlineFilesService;
-import gentree.server.dto.FamilyDTO;
-import gentree.server.dto.MemberDTO;
-import gentree.server.dto.PhotoDTO;
-import gentree.server.dto.RelationDTO;
+import gentree.server.dto.*;
 
 /**
  * Created by Martyna SZYMKOWIAK on 24/10/2017.
@@ -74,4 +71,11 @@ public class ConverterModelToDto {
         return dto;
     }
 
+    public FamilyLazyDTO convertToLazy(Family source) {
+        FamilyLazyDTO dto = new FamilyLazyDTO();
+        dto.setVersion(source.getVersion());
+        dto.setId(source.getId());
+        dto.setName(source.getName());
+        return dto;
+    }
 }

@@ -3,6 +3,7 @@ package gentree.client.desktop.controllers.screen;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
+import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.enums.FilesFXML;
 import gentree.client.desktop.configuration.messages.Keys;
 import gentree.client.desktop.configuration.messages.LogMessages;
@@ -11,10 +12,14 @@ import gentree.client.desktop.controllers.FXMLTab;
 import gentree.client.desktop.domain.Family;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -37,6 +42,8 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
 
     private final TabFamilyInfoController instance = this;
 
+    private final BooleanProperty modifiable;
+
     @FXML
     private ObjectProperty<ResourceBundle> languageBundle = new SimpleObjectProperty<>();
 
@@ -56,6 +63,9 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     private JFXButton ADD_MEMBER_BUTTON;
 
     @FXML
+    private  JFXButton REDRAW_TREE;
+
+    @FXML
     private VBox CONTENT_VBOX;
 
     @Getter
@@ -69,6 +79,10 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     @Getter
     @Setter
     private JFXTabPane tabPane;
+
+    {
+        modifiable = new SimpleBooleanProperty(false);
+    }
 
     private InvalidationListener invalidationListener = new InvalidationListener() {
         @Override
@@ -85,11 +99,13 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
         this.languageBundle.setValue(resources);
         this.languageBundle.bind(context.getBundle());
         initGraphicalElements();
-
         loadFamily(context.getService().getCurrentFamily());
+        REDRAW_TREE.visibleProperty().bind(GenTreeProperties.INSTANCE.autoRedrawProperty().not());
         addLanguageListener();
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
     }
+
+
 
     @Override
     public void clean() {
@@ -108,7 +124,12 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     }
 
     private void initGraphicalElements() {
-        FAMILY_NAME_FIELD.setEditable(false);
+        FAMILY_NAME_FIELD.editableProperty().bind(modifiable);
+        MODIFY_NAME_BUTTON.textProperty()
+                .bind(Bindings
+                        .when(modifiable)
+                        .then(getValueFromKey(Keys.CONFIRM))
+                        .otherwise(getValueFromKey(Keys.MODIFY)));
         MEMBERS_COUNT_FIELD.setEditable(false);
         CONTENT_VBOX.setAlignment(Pos.TOP_CENTER);
 
@@ -164,5 +185,16 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     public void setTabAndTPane(JFXTabPane tabPane, Tab tab) {
         this.tab = tab;
         this.tabPane = tabPane;
+    }
+
+    public void manualDrawTree(ActionEvent actionEvent) {
+        sm.getGenTreeDrawingService().startDraw();
+    }
+
+    public void modify(ActionEvent actionEvent) {
+        if(modifiable.get() && !FAMILY_NAME_FIELD.getText().trim().equals(context.getService().getCurrentFamily().getName().trim())) {
+            context.getService().updateFamilyName(FAMILY_NAME_FIELD.getText().trim());
+        }
+       modifiable.setValue(!modifiable.get());
     }
 }

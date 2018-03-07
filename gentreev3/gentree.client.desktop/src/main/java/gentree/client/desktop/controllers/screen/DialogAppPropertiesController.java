@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.RealmConfig;
 import gentree.client.desktop.configuration.enums.FilesFXML;
+import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLController;
 import gentree.client.desktop.controllers.FXMLDialogController;
@@ -35,7 +36,7 @@ public class DialogAppPropertiesController implements Initializable, FXMLControl
 
     private final ToggleGroup group;
     private final HashMap<ToggleButton, AnchorPane> paneMap;
-    private final HashMap<String, String> propertiesMap;
+    private  HashMap<String, String> propertiesMap;
     private final RealmConfig realmConfig = GenTreeProperties.INSTANCE.getRealmConfig();
     @FXML
     public ToggleButton BUTTON_OTHER_PROPERTIES;
@@ -126,28 +127,34 @@ public class DialogAppPropertiesController implements Initializable, FXMLControl
     private void saveProperties() {
         Configuration config = GenTreeProperties.INSTANCE.getConfiguration();
 
-        propertiesMap.forEach((k, v) -> {
-            if (config.containsKey(k) && !config.getString(k).equals(v)) {
-                config.setProperty(k, v);
-            }
-        });
+        System.out.println("propertiesMap  : "  +propertiesMap.toString());
+
+        propertiesMap.forEach(config::setProperty);
+
+        System.out.println("Het Auto : " +propertiesMap.get(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
+        System.out.println("get auto from config : " +config.getString(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
+
+        GenTreeProperties.INSTANCE.setAdminModeON(dialogAppPropertiesOtherController.getAdminModeOn());
+        GenTreeProperties.INSTANCE.setAutoRedraw(config.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
+
 
         GenTreeProperties.INSTANCE.storeProperties();
 
         if (!GenTreeProperties.INSTANCE.getRealmConfig().equals(dialogAppPropertiesOnlineController.getRealmConfig())) {
-            System.out.println("will store new properties");
             GenTreeProperties.INSTANCE.setRealmConfig(dialogAppPropertiesOnlineController.getRealmConfig());
             GenTreeProperties.INSTANCE.storeRealms();
         }
+
+
     }
 
     private void populatePropertiesMap() {
         Configuration config = GenTreeProperties.INSTANCE.getConfiguration();
         Iterator<String> keys = config.getKeys();
-        while (keys.hasNext()) {
+        do {
             String key = keys.next();
             propertiesMap.put(key, config.getString(key));
-        }
+        } while (keys.hasNext());
     }
 
     /*
@@ -179,11 +186,13 @@ public class DialogAppPropertiesController implements Initializable, FXMLControl
         }
     }
 
+    @FXML
     public void cancel(ActionEvent actionEvent) {
         cleanListeners();
         stage.close();
     }
 
+    @FXML
     public void confirm(ActionEvent actionEvent) {
         cleanListeners();
         saveProperties();

@@ -12,6 +12,7 @@ import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.configuration.ImageFiles;
 import gentree.common.configuration.enums.RelationType;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -44,6 +45,7 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
     public static final String TABLE_RELATION_SIM_LEFT = "LEFT";
     private final ToggleGroup buttonsTableGroup;
 
+
     @FXML
     private ObjectProperty<ResourceBundle> languageBundle = new SimpleObjectProperty<>();
 
@@ -51,6 +53,8 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
     private JFXTabPane MAIN_TAB_PANE;
     @FXML
     private TableView<Member> FAMILY_MEMBER_TABLE;
+    @FXML
+    private TableColumn <Member, Number> SIM_ID_COLUMN;
     @FXML
     private TableColumn<Member, String> SIM_NAME_COLUMN;
     @FXML
@@ -179,6 +183,8 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
 
     @FXML
     private void showRelationContextMenu(ContextMenuEvent event) {
+        Relation r = FAMILY_RELATION_TABLE.getSelectionModel().getSelectedItem();
+        if(r != null) sm.showRelationContextMenu(r, FAMILY_RELATION_TABLE, event);
 
     }
 
@@ -202,6 +208,7 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
     private void setCellValueFactory() {
         this.SIM_NAME_COLUMN.setCellValueFactory(data -> data.getValue().nameProperty());
         this.SIM_SURNAME_COLUMN.setCellValueFactory(data -> data.getValue().surnameProperty());
+        this.SIM_ID_COLUMN.setCellValueFactory(data -> data.getValue().idProperty());
         this.SIM_PHOTO_COLUMN.setCellValueFactory(CellFactoryProvider.PHOTO_VALUE_FACTORY);
 
         this.RELATION_SIM_LEFT_COLUMN.setCellValueFactory(data -> data.getValue().leftProperty());

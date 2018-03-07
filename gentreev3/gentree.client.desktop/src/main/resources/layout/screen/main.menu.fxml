@@ -52,9 +52,10 @@
                     <MenuItem mnemonicParsing="false" text="About"/>
                 </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Admin Menu">
+            <Menu fx:id="MENU_ADMIN" mnemonicParsing="false" text="Admin Menu">
                 <items>
                     <MenuItem mnemonicParsing="false" text="GC" onAction="#doGC"/>
+                    <MenuItem mnemonicParsing="false" text="Reconfigure ID's" onAction="#reloadID"/>
                 </items>
             </Menu>
         </menus>

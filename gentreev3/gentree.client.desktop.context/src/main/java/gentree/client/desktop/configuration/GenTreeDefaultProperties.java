@@ -20,6 +20,7 @@ public class GenTreeDefaultProperties {
     private static final String DEFAULT_DIR_ONLINE_TEMP = "onlinetemp";
     private static final String DEFAULT_DIR_LOG = "logs";
     private static final String DEFAULT_ALLOW_HOMO_VALUE = "false";
+    private static final String DEFAULT_AUTO_REDRAW = "false";
 
 
     private Map<String, String> defaults = new HashMap<>();
@@ -47,6 +48,11 @@ public class GenTreeDefaultProperties {
         return properties;
     }
 
+
+    /**
+     * Add missing default properties if they are not pressent in Configuration passing in parameter
+     * @param configuration
+     */
     public void getMissingProperties(Configuration configuration) {
         for (Map.Entry<String, String> param : defaults.entrySet()) {
             if (null == configuration.getProperty(param.getKey())) {
@@ -56,12 +62,17 @@ public class GenTreeDefaultProperties {
         }
     }
 
+
+    /**
+     * Populating default Map
+     */
     private void populateDefaultMap() {
         defaults.put(PropertiesKeys.PARAM_DIR_IMAGE_NAME, DEFAULT_DIR_IMAGE_NAME);
         defaults.put(PropertiesKeys.PARAM_DIR_PROJECT_NAME, DEFAULT_DIR_PROJECT_NAME);
         defaults.put(PropertiesKeys.PARAM_DIR_ONLINE_TEMP, DEFAULT_DIR_ONLINE_TEMP);
         defaults.put(PropertiesKeys.PARAM_DIR_LOG, DEFAULT_DIR_LOG);
         defaults.put(PropertiesKeys.PARAM_DEFAULT_ALLOW_HOMO, DEFAULT_ALLOW_HOMO_VALUE);
+        defaults.put(PropertiesKeys.PARAM_AUTO_REDRAW_TREE, DEFAULT_AUTO_REDRAW);
     }
 
 }

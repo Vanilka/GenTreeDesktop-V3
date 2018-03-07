@@ -1,5 +1,6 @@
 package gentree.client.desktop.controllers.screen;
 
+import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.enums.AppLanguage;
 import gentree.client.desktop.configuration.enums.FilesFXML;
 import gentree.client.desktop.configuration.messages.Keys;
@@ -56,6 +57,9 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
     private Menu MENU_PROJECT;
 
     @FXML
+    private Menu MENU_ADMIN;
+
+    @FXML
     private MenuItem MENU_ITEM_CONNECT_TO_SERVER;
 
     @FXML
@@ -102,13 +106,18 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
         initMenuItemsVisibility();
         initFamilyServiceListener();
         this.setCellFactoryToComboBox();
+
         this.languageChooser.setItems(FXCollections.observableArrayList(AppLanguage.values()));
         this.languageChooser.getSelectionModel()
                 .select(AppLanguage.valueOf(languageBundle.getValue().getString(Keys.LANGUAGE)));
         this.languageBundle.bind(context.getBundle());
+
+
         addLanguageListener();
 
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
+
+
     }
 
 
@@ -122,6 +131,9 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
         MENU_ITEM_SAVE_PROJECT_AS.setVisible(false);
         SEPARATOR_2.setVisible(false);
         SEPARATOR_3.setVisible(false);
+        MENU_ADMIN.visibleProperty().bind(GenTreeProperties.INSTANCE.adminModeONProperty());
+
+
     }
 
     private void initFamilyServiceListener() {
@@ -306,5 +318,11 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
     public void doGC(ActionEvent actionEvent) {
         System.out.println("Do GC");
         System.gc();
+    }
+
+    public void reloadID(ActionEvent actionEvent) {
+        if(context.getService() != null && context.getService() instanceof GenTreeLocalService) {
+            ((GenTreeLocalService)  context.getService()).reloadIds();
+        }
     }
 }

@@ -53,4 +53,5 @@ public interface FamilyService {
 
     void clean();
 
+    ServiceResponse updateFamilyName(String trim);
 }

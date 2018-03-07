@@ -72,4 +72,12 @@ public class Keys {
     public static final String BUTTON_RELATIONS = "button_relations";
     public static final String HEADER_INFO_SIM = "header_info_sim";
     public static final String HEADER_INF_RELATION = "header_info_relation";
+    public static final String MENU_ITEM_CHANGE_TYPE = "menu_item_change_type";
+    public static final String MENU_ITEM_ADD_CHILDREN = "menu_item_add_children";
+    public static final String MENU_ITEM_REMOVE = "menu_item_remove";
+    public static final String MENU_ITEM_CHANGE_ACTIVE = "menu_item_change_active";
+    public static final String MENU_ITEM_ADD_PARENTS = "menu_item_add_parents";
+    public static final String MENU_ITEM_ADD_SPOUX = "menu_item_add_spouse";
+    public static final String YES = "label_yes";
+    public static final String NO = "label_no";
 }

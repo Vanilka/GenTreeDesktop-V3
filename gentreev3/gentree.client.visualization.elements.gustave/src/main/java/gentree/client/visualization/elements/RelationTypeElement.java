@@ -3,10 +3,8 @@ package gentree.client.visualization.elements;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.configuration.ManagerProvider;
 import javafx.event.EventHandler;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,21 +26,21 @@ public class RelationTypeElement extends RelationTypeCard {
 
     public RelationTypeElement() {
         super();
+        init();
+
     }
 
     public RelationTypeElement(Relation relation) {
         super(relation);
+        init();
+
     }
 
 
     private void init() {
-
-        this.setOnMouseClicked(event -> {
-            System.out.println("Relation " + this.getRelation().get() + " -> Has reference   " + this.getRelation().get().getReferenceNumber());
-        });
-
-            this.setOnContextMenuRequested(contextMenuEvent);
-            this.setOnMouseClicked(mouseClickEvent);
+        this.setOnContextMenuRequested(contextMenuEvent);
+        this.setOnMouseClicked(mouseClickEvent);
+        embleme.setOnMouseClicked(mouseClickEvent);
     }
 
 
@@ -53,7 +51,7 @@ public class RelationTypeElement extends RelationTypeCard {
 
     @Override
     public void clean() {
-      /*  super.clean();
+       super.clean();
         this.setOnMouseClicked(null);
         this.setOnContextMenuRequested(null);
         getChildren().clear();
@@ -66,17 +64,19 @@ public class RelationTypeElement extends RelationTypeCard {
 
         contextMenuEvent = null;
         mouseClickEvent = null;
-*/
+
     }
 
 
     private void mouseEventHandle(MouseEvent event) {
+        System.out.println("Im working");
         if (event.getClickCount() == 2 && relation.get() != null) {
             provider.showInfoRelation(relation.get());
         }
     }
 
     private void contextMenuHandle(ContextMenuEvent event) {
+        System.out.println("Im working");
         provider.showRelationContextMenu(returnThis(), event);
     }
 }

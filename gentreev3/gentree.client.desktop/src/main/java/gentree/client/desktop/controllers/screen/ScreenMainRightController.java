@@ -65,11 +65,10 @@ public class ScreenMainRightController extends AnchorPane implements Initializab
 
     public WritableImage Image() {
 
-        return imageGenerator.doScreen(TREE_DRAW_ANCHOR_PANE, context.getService().getCurrentFamily().getName());
+        return imageGenerator.doScreen(GEN_TREE_CONTENT, context.getService().getCurrentFamily().getName());
     }
 
     public void redrawTree() {
-        System.out.println(drawingService + "  From Screen Main Right");
         drawingService.startDraw();
     }
 

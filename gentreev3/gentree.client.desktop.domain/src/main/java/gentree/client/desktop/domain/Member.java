@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * Created by Martyna SZYMKOWIAK on 02/07/2017.
  */
-@XmlType(name = "sim")
+@XmlType(name = "sim", propOrder = {"id", "name", "surname", "bornname", "photo", "age", "gender", "race", "deathCause","alive"})
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Member implements Serializable {
 

@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.net.URL?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="" fx:id=""
-            styleClass="" xmlns="http://javafx.com/javafx/8.0.131"
-            fx:controller="gentree.client.desktop.controllers.screen.DialogAppPropertiesOtherController"
-            minWidth="500" minHeight="400">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="" fx:id="" minHeight="400" minWidth="500" styleClass="" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gentree.client.desktop.controllers.screen.DialogAppPropertiesOtherController">
     <stylesheets>
-        <URL value="@/layout/style/gentreestyle.css"/>
+        <URL value="@/layout/style/gentreestyle.css" />
     </stylesheets>
     <children>
-        <Label text="APP PROPERTIES OTHER"/>
+        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <AnchorPane fx:id="PANE_ADMIN_MODE" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Label layoutX="20.0" layoutY="8.0" prefHeight="42.0" prefWidth="261.0" text="%label_adminMode" underline="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="199.0" />
+                        <TextArea editable="false" layoutX="20.0" layoutY="60.0" prefHeight="81.0" prefWidth="480.0" text="Description:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                        <JFXToggleButton fx:id="TOGGLE_ADMIN_MODE" layoutX="259.0" prefHeight="58.0" prefWidth="201.0" AnchorPane.leftAnchor="259.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>
