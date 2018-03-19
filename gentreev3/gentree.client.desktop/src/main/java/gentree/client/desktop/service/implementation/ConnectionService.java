@@ -52,19 +52,19 @@ public class ConnectionService {
     private ConnectionService() {
 
         client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
-        client.register(log);
+       // client.register(log);
         client.property(
                 ClientProperties.CONNECT_TIMEOUT,
-                5000);
+                10000);
         client.property(
                 ClientProperties.READ_TIMEOUT,
-                5000);
+                10000);
         log.trace(LogMessages.MSG_SERVICE_INITIALIZATION, SERVICE_NAME);
 
     }
 
     public void registerService(GenTreeOnlineService onlineService) {
-        this.service = service;
+        this.service = onlineService;
 
     }
 
@@ -79,6 +79,8 @@ public class ConnectionService {
      */
     public boolean login(String login, String password, Realm realm) {
         boolean result = true;
+
+
 
         Response response = doPost(client.target(realm.getAddress()), ServerPaths.LOGIN, generateToken(login, password), null);
 
@@ -118,6 +120,7 @@ public class ConnectionService {
                 result = false;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             result = false;
         }
 
@@ -181,8 +184,6 @@ public class ConnectionService {
             e.printStackTrace();
             log.error(e.getMessage());
         }
-
-
 
         printLogFooterRestExchange();
 

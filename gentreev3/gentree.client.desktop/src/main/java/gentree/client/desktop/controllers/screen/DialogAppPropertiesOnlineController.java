@@ -97,4 +97,9 @@ public class DialogAppPropertiesOnlineController implements Initializable, FXMLC
     public void clean() {
 
     }
+
+    public void EditRealm(ActionEvent actionEvent) {
+        sm.showNewDialog(REALM_LIST.getSelectionModel().getSelectedItem(), FilesFXML.DIALOG_EDIT_REALM);
+        REALM_LIST.refresh();
+    }
 }

@@ -172,7 +172,11 @@ public class TabFamilyViewController implements Initializable, FXMLController, F
     private void reloadElements() {
         // Nothing to do
         BUTTON_SHOW_MEMBERS_TABLE.setText(getValueFromKey(Keys.BUTTON_MEMBERS));
-        BUTTON_SHOW_RELATIONS_TABLE.setText(getValueFromKey(Keys.BUTTON_MEMBERS));
+        BUTTON_SHOW_RELATIONS_TABLE.setText(getValueFromKey(Keys.BUTTON_RELATIONS));
+        SIM_NAME_COLUMN.setText(getValueFromKey(Keys.SIM_NAME));
+        SIM_SURNAME_COLUMN.setText(getValueFromKey(Keys.SIM_SURNAME));
+        RELATION_TYPE_COLUMN.setText(getValueFromKey(Keys.RELATION_TYPE));
+
     }
 
     @FXML

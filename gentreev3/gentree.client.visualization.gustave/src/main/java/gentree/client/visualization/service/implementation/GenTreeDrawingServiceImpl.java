@@ -155,7 +155,9 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
      * @return
      */
     private boolean shouldBeCreated(Relation root) {
+        if(root.getChildren() == null || root.getChildren().isEmpty()) return false;
         if (root.getChildren().size() > 1) return true;
+
         Member rootSim = root.getChildren().get(0);
 
         List<Relation> relations = context.getService().getCurrentFamily().getRelations().stream()

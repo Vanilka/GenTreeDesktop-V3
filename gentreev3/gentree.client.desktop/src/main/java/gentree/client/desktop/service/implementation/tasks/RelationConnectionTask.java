@@ -3,7 +3,9 @@ package gentree.client.desktop.service.implementation.tasks;
 import gentree.client.desktop.configuration.enums.ServerPaths;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.desktop.responses.ServiceResponse;
+import gentree.client.desktop.service.responses.ExceptionResponse;
 import gentree.client.desktop.service.responses.RelationListResponse;
+import gentree.exception.ExceptionBean;
 import gentree.server.dto.FamilyInjectable;
 import gentree.server.dto.RelationDTO;
 import lombok.extern.log4j.Log4j2;
@@ -58,6 +60,7 @@ public class RelationConnectionTask extends ConnectionTask {
 
             } catch (Exception e) {
                 e.printStackTrace();
+              //  serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
             }
         }
         return serviceResponse;

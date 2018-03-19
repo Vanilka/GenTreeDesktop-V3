@@ -4,6 +4,7 @@ import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.FamilyMember;
 import gentree.client.visualization.elements.RelationTypeElement;
+import javafx.scene.Node;
 import javafx.scene.input.ContextMenuEvent;
 
 public interface Manager {

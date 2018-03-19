@@ -10,6 +10,7 @@ import gentree.client.desktop.configuration.messages.AppTitles;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.configuration.wrappers.PhotoMarshaller;
 import gentree.client.desktop.controllers.*;
+import gentree.client.desktop.controllers.contextmenu.ChildDeleteContextMenu;
 import gentree.client.desktop.controllers.contextmenu.RelationContextMenu;
 import gentree.client.desktop.controllers.contextmenu.SimContextMenu;
 import gentree.client.desktop.controllers.screen.*;
@@ -93,6 +94,7 @@ public class ScreenManager implements Manager {
 
     private SimContextMenu simContextMenu;
     private RelationContextMenu relationContextMenu;
+    private ChildDeleteContextMenu childDeleteContextMenu;
 
 
     private ScreenManager() {
@@ -112,6 +114,7 @@ public class ScreenManager implements Manager {
         this.stage = stage;
         simContextMenu = new SimContextMenu();
         relationContextMenu = new RelationContextMenu();
+        childDeleteContextMenu = new ChildDeleteContextMenu();
         configureStatics();
         initRoot();
     }
@@ -223,6 +226,25 @@ public class ScreenManager implements Manager {
             AnchorPane dialogwindow = (AnchorPane) loader.load();
             FXMLDialogWithRealmListControl controller = loader.getController();
             controller.setList(list);
+            Scene scene = new Scene(dialogwindow);
+            initDialogProperties(dialogStage, Modality.WINDOW_MODAL, this.getStage(), scene, false);
+            controller.setStage(dialogStage);
+            dialogStage.showAndWait();
+
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            log.error(ex.getCause());
+            ex.printStackTrace();
+        }
+    }
+
+    public void showNewDialog(Realm realm, FilesFXML fxml) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
+        try {
+            Stage dialogStage = new Stage();
+            AnchorPane dialogwindow = (AnchorPane) loader.load();
+            FXMLDialogWithRealmControl controller = loader.getController();
+            controller.setRealm(realm);
             Scene scene = new Scene(dialogwindow);
             initDialogProperties(dialogStage, Modality.WINDOW_MODAL, this.getStage(), scene, false);
             controller.setStage(dialogStage);
@@ -510,6 +532,10 @@ public class ScreenManager implements Manager {
         relationContextMenu.show(r, node, event);
     }
 
+    public void showSimDeleteContextMenu(Member member, Relation fromRelation, Node n, ContextMenuEvent event) {
+        childDeleteContextMenu.show(member, fromRelation, n, event);
+    }
+
     /*
             SHOW WARNINGS
      */
@@ -520,6 +546,17 @@ public class ScreenManager implements Manager {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+
+    public void showErrorAndQuit(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+
+        reloadScreenWelcomeController();
     }
 
     /*

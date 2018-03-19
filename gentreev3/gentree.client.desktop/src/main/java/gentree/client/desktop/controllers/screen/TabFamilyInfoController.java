@@ -12,7 +12,6 @@ import gentree.client.desktop.controllers.FXMLTab;
 import gentree.client.desktop.domain.Family;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -63,7 +62,7 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     private JFXButton ADD_MEMBER_BUTTON;
 
     @FXML
-    private  JFXButton REDRAW_TREE;
+    private JFXButton REDRAW_TREE;
 
     @FXML
     private VBox CONTENT_VBOX;
@@ -79,11 +78,6 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     @Getter
     @Setter
     private JFXTabPane tabPane;
-
-    {
-        modifiable = new SimpleBooleanProperty(false);
-    }
-
     private InvalidationListener invalidationListener = new InvalidationListener() {
         @Override
         public void invalidated(Observable observable) {
@@ -93,6 +87,10 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     private ChangeListener<? super ResourceBundle> languageListener = this::languageChange;
     private ChangeListener<? super Family> familyListener = this::familyListener;
 
+    {
+        modifiable = new SimpleBooleanProperty(false);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.trace(LogMessages.MSG_CTRL_INITIALIZATION);
@@ -101,10 +99,10 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
         initGraphicalElements();
         loadFamily(context.getService().getCurrentFamily());
         REDRAW_TREE.visibleProperty().bind(GenTreeProperties.INSTANCE.autoRedrawProperty().not());
+        addListener();
         addLanguageListener();
         log.trace(LogMessages.MSG_CTRL_INITIALIZED);
     }
-
 
 
     @Override
@@ -114,7 +112,7 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
 
     @FXML
     private void openNewMemberDialog() {
-        sm.showNewDialog( FilesFXML.ADD_MEMBER_DIALOG);
+        sm.showNewDialog(FilesFXML.ADD_MEMBER_DIALOG);
     }
 
     private void loadFamily(Family f) {
@@ -125,18 +123,24 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
 
     private void initGraphicalElements() {
         FAMILY_NAME_FIELD.editableProperty().bind(modifiable);
-        MODIFY_NAME_BUTTON.textProperty()
+/*        MODIFY_NAME_BUTTON.textProperty()
                 .bind(Bindings
                         .when(modifiable)
                         .then(getValueFromKey(Keys.CONFIRM))
-                        .otherwise(getValueFromKey(Keys.MODIFY)));
+                        .otherwise(getValueFromKey(Keys.MODIFY)));*/
         MEMBERS_COUNT_FIELD.setEditable(false);
         CONTENT_VBOX.setAlignment(Pos.TOP_CENTER);
 
     }
 
     private void addListener() {
-
+        modifiable.addListener((observable, oldValue, newValue) -> {
+            if(newValue) {
+                MODIFY_NAME_BUTTON.setText(getValueFromKey(Keys.CONFIRM));
+            } else {
+                MODIFY_NAME_BUTTON.setText(getValueFromKey(Keys.MODIFY));
+            }
+        });
     }
 
     private void cleanListener() {
@@ -175,8 +179,9 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     private void reloadElements() {
         FAMILY_NAME_FIELD.setPromptText(getValueFromKey(Keys.PROJECT_MEMBER_NUMBER));
         MEMBERS_COUNT_FIELD.setPromptText(getValueFromKey(Keys.PROJECT_MEMBER_NUMBER));
-        MODIFY_NAME_BUTTON.setText(getValueFromKey(Keys.MODIFY));
+        MODIFY_NAME_BUTTON.setText(getValueFromKey(modifiable.get() ? Keys.CONFIRM : Keys.MODIFY));
         ADD_MEMBER_BUTTON.setText(getValueFromKey(Keys.ADD_MEMBER));
+        REDRAW_TREE.setText(getValueFromKey(Keys.BUTTON_REDRAW));
 
 
     }
@@ -192,9 +197,9 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     }
 
     public void modify(ActionEvent actionEvent) {
-        if(modifiable.get() && !FAMILY_NAME_FIELD.getText().trim().equals(context.getService().getCurrentFamily().getName().trim())) {
+        if (modifiable.get() && !FAMILY_NAME_FIELD.getText().trim().equals(context.getService().getCurrentFamily().getName().trim())) {
             context.getService().updateFamilyName(FAMILY_NAME_FIELD.getText().trim());
         }
-       modifiable.setValue(!modifiable.get());
+        modifiable.setValue(!modifiable.get());
     }
 }

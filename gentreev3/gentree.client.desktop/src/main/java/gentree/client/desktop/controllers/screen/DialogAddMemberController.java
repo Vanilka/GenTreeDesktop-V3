@@ -125,12 +125,12 @@ public class DialogAddMemberController implements Initializable, FXMLController,
                 ALIVE_TOGGLE_BUTTON.isSelected() ? null : DEATH_CAUSE_COMBO_BOX.getSelectionModel().getSelectedItem());
 
         ServiceResponse response = context.getService().addMember(member);
-        System.out.println(response);
 
         if (response.getStatus().equals(ServiceResponse.ResponseStatus.OK)) {
             cleanListeners();
-            this.stage.close();
         }
+
+        this.stage.close();
     }
 
 

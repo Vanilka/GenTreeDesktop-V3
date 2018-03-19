@@ -80,4 +80,6 @@ public class Keys {
     public static final String MENU_ITEM_ADD_SPOUX = "menu_item_add_spouse";
     public static final String YES = "label_yes";
     public static final String NO = "label_no";
+    public static final String MENU_ITEM_DELETE_CHILD = "menu_item_delete_child";
+    public static final String BUTTON_REDRAW = "button_redraw";
 }

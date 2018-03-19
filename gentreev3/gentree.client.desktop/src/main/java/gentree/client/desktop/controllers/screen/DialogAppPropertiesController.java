@@ -131,8 +131,7 @@ public class DialogAppPropertiesController implements Initializable, FXMLControl
 
         propertiesMap.forEach(config::setProperty);
 
-        System.out.println("Het Auto : " +propertiesMap.get(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
-        System.out.println("get auto from config : " +config.getString(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
+        propertiesMap.forEach((k,v) -> System.out.println("key : " +k +  "  -- " +v));
 
         GenTreeProperties.INSTANCE.setAdminModeON(dialogAppPropertiesOtherController.getAdminModeOn());
         GenTreeProperties.INSTANCE.setAutoRedraw(config.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));

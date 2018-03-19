@@ -23,7 +23,7 @@ public abstract class SubBorderPane extends BorderPane implements AutoCleanable 
     /**
      * Relation Height =
      */
-    protected final static double RELATION_HEIGHT = 280;
+    protected final static double RELATION_HEIGHT = 300;
 
     @Setter(AccessLevel.NONE)
     private ObjectProperty<SubBorderPane> parentPane;

@@ -6,9 +6,11 @@ import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.desktop.responses.ServiceResponse;
+import gentree.client.desktop.service.responses.ExceptionResponse;
 import gentree.client.desktop.service.responses.FamilyResponse;
 import gentree.client.desktop.service.responses.MemberResponse;
 import gentree.client.desktop.service.responses.MemberWithBornRelationResponse;
+import gentree.exception.ExceptionBean;
 import gentree.server.dto.FamilyDTO;
 import gentree.server.dto.MemberDTO;
 import gentree.server.dto.NewMemberDTO;
@@ -34,7 +36,10 @@ public class MemberConnectionTask extends ConnectionTask {
 
         Response response = cs.doPost(ServerPaths.MEMBER.concat(ServerPaths.ADD), Entity.json(dto));
 
-        if (response.getStatus() == 200) {
+        if(response == null) {
+         serviceResponse = new ExceptionResponse(new ExceptionBean());
+
+        } else if (response.getStatus() == 200) {
             try {
                 NewMemberDTO returnedDTO = response.readEntity(NewMemberDTO.class);
                 Member addedMember = cdm.convert(returnedDTO.getMemberDTO());
@@ -43,6 +48,7 @@ public class MemberConnectionTask extends ConnectionTask {
                 serviceResponse = new MemberWithBornRelationResponse(addedMember, bornRelation);
             } catch (Exception e) {
                 e.printStackTrace();
+               // serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
             }
 
         }
@@ -66,6 +72,7 @@ public class MemberConnectionTask extends ConnectionTask {
 
             } catch (Exception e) {
                 e.printStackTrace();
+              //  serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
             }
 
         }
@@ -85,6 +92,7 @@ public class MemberConnectionTask extends ConnectionTask {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            //    serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
             }
         }
         return serviceResponse;

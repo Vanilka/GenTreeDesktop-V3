@@ -35,6 +35,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -129,6 +130,9 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
 
     private void initMenuItemsVisibility() {
         MENU_ITEM_SAVE_PROJECT_AS.setVisible(false);
+        MENU_ITEM_CLOSE_PROJECT.setVisible(false);
+        MENU_ITEM_SAVE_PROJECT_AS.setVisible(false);
+        MENU_ITEM_EXPORT_IMAGE.setVisible(false);
         SEPARATOR_2.setVisible(false);
         SEPARATOR_3.setVisible(false);
         MENU_ADMIN.visibleProperty().bind(GenTreeProperties.INSTANCE.adminModeONProperty());
@@ -177,6 +181,10 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
 
     private void changeElementsVisibility(boolean value) {
         MENU_ITEM_SAVE_PROJECT_AS.setVisible(value);
+        MENU_ITEM_SAVE_PROJECT_AS.setVisible(value);
+        MENU_ITEM_CLOSE_PROJECT.setVisible(value);
+        MENU_ITEM_SAVE_PROJECT_AS.setVisible(value);
+        MENU_ITEM_EXPORT_IMAGE.setVisible(value);
         SEPARATOR_2.setVisible(value);
         SEPARATOR_3.setVisible(value);
     }
@@ -238,7 +246,7 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
     public void generateImage() throws IOException {
 
         WritableImage image = sm.getScreenMainRightController().Image();
-        File file = new File("./GenTree" + LocalDateTime.now() + ".png");
+        File file = new File("./GenTree" + Instant.now().toEpochMilli() + ".png");
         ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
 
     }

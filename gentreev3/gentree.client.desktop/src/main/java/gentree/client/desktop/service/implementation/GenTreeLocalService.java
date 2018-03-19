@@ -169,13 +169,21 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
     @Override
     public ServiceResponse moveChildFromRelation(Member m, Relation oldRelation, Relation newRelation) {
 
-        if (!getCurrentFamily().getRelations().contains(newRelation)) {
-            addRelation(newRelation);
+
+        if (newRelation == null) {
+            oldRelation.getChildren().remove(m);
+            newRelation = new Relation(m);
+            this.addRelation(newRelation);
+
+        } else {
+
+            if (!getCurrentFamily().getRelations().contains(newRelation)) {
+                addRelation(newRelation);
+            }
+
+            oldRelation.getChildren().remove(m);
+            newRelation.getChildren().add(m);
         }
-
-        oldRelation.getChildren().remove(m);
-        newRelation.getChildren().add(m);
-
 
         if ((oldRelation.getLeft() == null || oldRelation.getRight() == null) && oldRelation.getChildren().isEmpty()) {
             getCurrentFamily().getRelations().remove(oldRelation);

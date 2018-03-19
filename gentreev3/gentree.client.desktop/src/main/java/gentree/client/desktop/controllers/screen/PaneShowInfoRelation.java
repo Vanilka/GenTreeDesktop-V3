@@ -25,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
@@ -264,5 +265,10 @@ public class PaneShowInfoRelation implements Initializable, FXMLController, FXML
     @Override
     public void clean() {
 
+    }
+
+    public void showDeleteSimMenuContext(ContextMenuEvent contextMenuEvent) {
+        Member m = FAMILY_MEMBER_TABLE.getSelectionModel().getSelectedItem();
+        if (m != null) sm.showSimDeleteContextMenu(m, relation.get(), FAMILY_MEMBER_TABLE, contextMenuEvent);
     }
 }

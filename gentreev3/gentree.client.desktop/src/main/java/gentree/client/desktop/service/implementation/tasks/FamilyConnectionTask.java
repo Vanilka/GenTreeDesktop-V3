@@ -6,6 +6,7 @@ import gentree.client.desktop.responses.ServiceResponse;
 import gentree.client.desktop.service.responses.ExceptionResponse;
 import gentree.client.desktop.service.responses.FamilyListResponse;
 import gentree.client.desktop.service.responses.FamilyResponse;
+import gentree.exception.ExceptionBean;
 import gentree.server.dto.FamilyDTO;
 import gentree.server.dto.FamilyLazyDTO;
 import lombok.extern.log4j.Log4j2;
@@ -42,7 +43,8 @@ public class FamilyConnectionTask extends ConnectionTask {
             list.forEach(dto -> resultList.add(cdm.convertLazy(dto)));
             serviceResponse = new FamilyListResponse(resultList);
         } else {
-            serviceResponse = new ExceptionResponse();
+            serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
+
         }
 
         return serviceResponse;
@@ -55,6 +57,8 @@ public class FamilyConnectionTask extends ConnectionTask {
 
         if (response.getStatus() == 200) {
             //Actualy do nothing. Familly List will be retrieved later
+        } else {
+           // serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
         }
 
         return serviceResponse;
@@ -68,6 +72,8 @@ public class FamilyConnectionTask extends ConnectionTask {
         if (response.getStatus() == 200) {
             f = cdm.convertFull(response.readEntity(FamilyDTO.class));
             serviceResponse = new FamilyResponse(f);
+        } else  {
+           // serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
         }
 
         return serviceResponse;
@@ -81,6 +87,8 @@ public class FamilyConnectionTask extends ConnectionTask {
         if(response.getStatus() == 200) {
             f = cdm.convertLazy(response.readEntity(FamilyDTO.class));
             serviceResponse = new FamilyResponse(f);
+        } else {
+          //  serviceResponse = new ExceptionResponse(response.readEntity(ExceptionBean.class));
         }
         return serviceResponse;
 

@@ -1,7 +1,6 @@
 package gentree.client.desktop.service.implementation;
 
 import gentree.client.desktop.configuration.GenTreeProperties;
-import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
@@ -43,7 +42,7 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
             e.printStackTrace();
         }
 
-        if(response instanceof FamilyResponse) {
+        if (response instanceof FamilyResponse) {
             getCurrentFamily().setName(((FamilyResponse) response).getFamily().getName());
         }
 
@@ -57,6 +56,8 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
             response = rcs.retrieveFullFamily(family);
         } catch (Exception e) {
             e.printStackTrace();
+
+
         }
         if (response instanceof FamilyResponse) {
             family = ((FamilyResponse) response).getFamily();
@@ -84,7 +85,10 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
         if (response instanceof MemberWithBornRelationResponse) {
             getCurrentFamily().getMembers().add(((MemberWithBornRelationResponse) response).getMember());
             getCurrentFamily().getRelations().add(((MemberWithBornRelationResponse) response).getRelation());
-            if(GenTreeProperties.INSTANCE.isAutoRedraw())  sm.getGenTreeDrawingService().startDraw();
+            if (GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
+        } else {
+            sm.showError("Eroor add Member", "Error add Member", "ERROR MEMBER");
+            sm.reloadScreenWelcomeController();
         }
 
         return response;
@@ -112,12 +116,12 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
     @Override
     public ServiceResponse addRelation(Relation relation) {
         ServiceResponse response = rcs.addRelation(relation);
-        if(response instanceof RelationListResponse) {
+        if (response instanceof RelationListResponse) {
             getCurrentFamily().getRelations().clear();
             getCurrentFamily().getRelations().addAll(((RelationListResponse) response).getList());
             invalidate();
         }
-        return null;
+        return response;
     }
 
     @Override
@@ -134,13 +138,50 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
         });
 
         ServiceResponse response = rcs.addRelation(to);
-        return null;
+        if (response instanceof RelationListResponse) {
+            getCurrentFamily().getRelations().clear();
+            getCurrentFamily().getRelations().addAll(((RelationListResponse) response).getList());
+            invalidate();
+        }
+
+        return response;
     }
 
     @Override
     public ServiceResponse updateRelation(Relation relation) {
-        ServiceResponse response = rcs.updateRelation(relation);
-        if(response instanceof  RelationListResponse) {
+        ServiceResponse response = rcs.addRelation(relation);
+        if (response instanceof RelationListResponse) {
+            getCurrentFamily().getRelations().clear();
+            getCurrentFamily().getRelations().addAll(((RelationListResponse) response).getList());
+            invalidate();
+        }
+        return response;
+    }
+
+    @Override
+    public ServiceResponse moveChildFromRelation(Member m, Relation oldRelation, Relation newRelation) {
+
+
+        if (newRelation == null) {
+            oldRelation.getChildren().remove(m);
+            newRelation = new Relation(m);
+            this.addRelation(newRelation);
+
+        } else {
+
+            if (!getCurrentFamily().getRelations().contains(newRelation)) {
+                addRelation(newRelation);
+            }
+
+            oldRelation.getChildren().remove(m);
+
+
+            newRelation.getChildren().add(m);
+        }
+
+        ServiceResponse response = rcs.addRelation(newRelation);
+
+        if (response instanceof RelationListResponse) {
             getCurrentFamily().getRelations().clear();
             getCurrentFamily().getRelations().addAll(((RelationListResponse) response).getList());
             invalidate();
@@ -149,23 +190,14 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
     }
 
     @Override
-    public ServiceResponse moveChildFromRelation(Member m, Relation oldRelation, Relation newRelation) {
-
-        if (!getCurrentFamily().getRelations().contains(newRelation)) {
-            addRelation(newRelation);
-        }
-
-        oldRelation.getChildren().remove(m);
-        newRelation.getChildren().add(m);
-
-        ServiceResponse response = rcs.addRelation(newRelation);
-        return null;
-    }
-
-    @Override
     public ServiceResponse removeRelation(Relation r) {
         ServiceResponse response = rcs.removeRelation(r);
-        return null;
+        if (response instanceof RelationListResponse) {
+            getCurrentFamily().getRelations().clear();
+            getCurrentFamily().getRelations().addAll(((RelationListResponse) response).getList());
+            invalidate();
+        }
+        return response;
     }
 
     @Override
@@ -174,7 +206,8 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
     }
 
     private void invalidate() {
-        if(GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
+        System.out.println("is auto redraw : " +GenTreeProperties.INSTANCE.isAutoRedraw());
+        if (GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
     }
 
     @Override

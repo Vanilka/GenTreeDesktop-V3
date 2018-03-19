@@ -26,15 +26,20 @@ public class RelationContextMenu extends ContextMenu {
 
     GenTreeContext context = GenTreeContext.INSTANCE;
     ScreenManager sm = ScreenManager.INSTANCE;
-    RelationTypeElement relationTypeElement;
+    Relation relation;
+
+    //RelationTypeElement relationTypeElement;
 
     private MenuItem itemChangeType = new MenuItem(getValueFromKey(Keys.MENU_ITEM_CHANGE_TYPE));
     private MenuItem itemAddChildren = new MenuItem(getValueFromKey(Keys.MENU_ITEM_ADD_CHILDREN));
     private MenuItem itemRemove = new MenuItem(getValueFromKey(Keys.MENU_ITEM_REMOVE));
     private Menu menuChangeType = new Menu(getValueFromKey(Keys.MENU_ITEM_CHANGE_TYPE));
     private Menu menuChangeActive = new Menu(getValueFromKey(Keys.MENU_ITEM_CHANGE_ACTIVE));
+/*    private MenuItem yes = new MenuItem(getValueFromKey(Keys.YES));
+    private MenuItem no = new MenuItem(getValueFromKey(Keys.NO));*/
     private MenuItem yes = new MenuItem(getValueFromKey(Keys.YES));
     private MenuItem no = new MenuItem(getValueFromKey(Keys.NO));
+
 
     public RelationContextMenu() {
         super();
@@ -42,8 +47,14 @@ public class RelationContextMenu extends ContextMenu {
         this.getItems().addAll(menuChangeActive, menuChangeType, itemAddChildren, itemRemove);
     }
 
+    /**
+     * Showing from Relation type element in GenTree
+     * @param r
+     * @param event
+     */
     public void show(RelationTypeElement r, ContextMenuEvent event) {
-        this.relationTypeElement = r;
+       // this.relationTypeElement = r;
+        this.relation = r.getRelation().get();
 
         boolean isActive = r.getRelation().get().getActive();
         yes.setDisable(isActive);
@@ -53,8 +64,15 @@ public class RelationContextMenu extends ContextMenu {
     }
 
 
+    /**
+     * Showing from relation in the lst
+     * @param r
+     * @param n
+     * @param event
+     */
     public void show(Relation r, Node n, ContextMenuEvent event) {
 
+        this.relation = r;
         boolean isActive = r.getActive();
         yes.setDisable(isActive);
         no.setDisable(!isActive);
@@ -85,14 +103,19 @@ public class RelationContextMenu extends ContextMenu {
         itemRemove.setText(getValueFromKey(Keys.MENU_ITEM_REMOVE));
         menuChangeType.setText(getValueFromKey(Keys.MENU_ITEM_CHANGE_TYPE));
         menuChangeActive.setText(getValueFromKey(Keys.MENU_ITEM_CHANGE_ACTIVE));
-        yes.setText(getValueFromKey(getValueFromKey(Keys.YES)));
+        yes.setText(getValueFromKey(Keys.YES));
         no.setText(getValueFromKey(Keys.NO));
     }
 
     private void initMenuChangeActive() {
 
+/*
         yes.setOnAction(event -> updateActiveRelation(relationTypeElement.getRelation().get(), true));
         no.setOnAction(event -> updateActiveRelation(relationTypeElement.getRelation().get(), false));
+*/
+
+        yes.setOnAction(event -> updateActiveRelation(relation, true));
+        no.setOnAction(event -> updateActiveRelation(relation, false));
 
         List<MenuItem> activeItems = new ArrayList<>(Arrays.asList(yes, no));
         menuChangeActive.getItems().addAll(activeItems);
@@ -113,24 +136,30 @@ public class RelationContextMenu extends ContextMenu {
     private MenuItem createMenuItemFromRelationType(RelationType relationType) {
         MenuItem item = new MenuItem(relationType.name());
         item.setOnAction(event -> {
-            Relation relation = relationTypeElement.getRelation().get();
-            relation.setType(relationType);
+            //Relation relation = relationTypeElement.getRelation().get();
+            //relation.setType(relationType);
+
             context.getService().updateRelation(relation);
         });
         item.setOnAction(event -> {
-            relationTypeElement.getRelation().get().setType(relationType);
-            context.getService().updateRelation(relationTypeElement.getRelation().get());
+           // relationTypeElement.getRelation().get().setType(relationType);
+           // context.getService().updateRelation(relationTypeElement.getRelation().get());
+            relation.setType(relationType);
+            context.getService().updateRelation(relation);
 
         });
         return item;
     }
 
     private void initItemAddChildren() {
-        itemAddChildren.setOnAction(event -> sm.showNewDialog(relationTypeElement.getRelation().get(), FilesFXML.DIALOG_ADD_CHILDREN));
+      //  itemAddChildren.setOnAction(event -> sm.showNewDialog(relationTypeElement.getRelation().get(), FilesFXML.DIALOG_ADD_CHILDREN));
+        itemAddChildren.setOnAction(event -> sm.showNewDialog(relation, FilesFXML.DIALOG_ADD_CHILDREN));
     }
 
     private void initRemoveRelation() {
-        itemRemove.setOnAction(event -> context.getService().removeRelation(relationTypeElement.getRelation().get()));
+      //  itemRemove.setOnAction(event -> context.getService().removeRelation(relationTypeElement.getRelation().get()));
+        itemRemove.setOnAction(event -> context.getService().removeRelation(relation));
+
     }
 
     private void updateActiveRelation(Relation r, boolean active) {

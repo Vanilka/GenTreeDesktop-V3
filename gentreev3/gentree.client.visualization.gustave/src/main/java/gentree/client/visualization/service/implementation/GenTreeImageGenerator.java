@@ -1,5 +1,6 @@
 package gentree.client.visualization.service.implementation;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
@@ -12,9 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * Created by Martyna SZYMKOWIAK on 02/11/2017.
@@ -32,10 +30,14 @@ public class GenTreeImageGenerator {
     private AnchorPane headerPane = new AnchorPane();
     private HBox content = new HBox();
     private Label title = new Label("Family Name");
+    private Insets insets30 = new Insets(30);
+    private Insets insets10 = new Insets(10);
 
     private GenTreeImageGenerator() {
         initHeader();
         initParameters();
+        BorderPane.setMargin(headerPane, insets30);
+        BorderPane.setMargin(content, insets30);
     }
 
     private void generateImagePane() {
@@ -43,12 +45,18 @@ public class GenTreeImageGenerator {
         imagePane = new BorderPane();
         imagePane.setTop(headerPane);
         imagePane.setCenter(content);
+        imagePane.setPadding(new Insets(30, 30, 30, 30));
         imagePane.autosize();
         imagePane.setStyle(
                 "-fx-background-image: url(" +
                         "'layout/images/backgrounds/gentreebackground.jpg');" +
                         "-fx-background-size: cover;"
         );
+
+        content.setPadding(insets30);
+        content.setStyle(" -fx-background-color: rgba(251, 251, 255, 0.45);; " +
+                "-fx-background-radius: 10 10 10 10; " +
+                "-fx-border-radius: 10 10 10 10;");
     }
 
     private void initParameters() {
@@ -64,19 +72,25 @@ public class GenTreeImageGenerator {
         AnchorPane.setRightAnchor(this.title, 50.0);
         this.title.setFont(Font.font("Georgia", FontWeight.EXTRA_BOLD, 36));
         headerPane.setPrefHeight(70);
+        headerPane.setPadding(insets30);
+        headerPane.setStyle(" -fx-background-color: rgba(251, 251, 255, 0.45);; " +
+                "-fx-background-radius: 10 10 10 10; " +
+                "-fx-border-radius: 10 10 10 10;");
+
 
     }
 
     public WritableImage doScreen(Pane nodeContent, String text) {
         this.title.setText(text);
         content.getChildren().clear();
-        System.out.println("Has choldren : " +nodeContent.getChildren().size());
         nodeContent.getChildren().forEach(child -> {
             content.getChildren().add(new ImageView(child.snapshot(snapshotParameters, null)));
         });
 
         generateImagePane();
+        System.out.println("Content Children's count " +content.getChildren().size());
         Scene scene = new Scene(imagePane);
         return scene.snapshot(null);
+
     }
 }

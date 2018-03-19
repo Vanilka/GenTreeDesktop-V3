@@ -33,7 +33,8 @@ public enum FilesFXML {
     DIALOG_ADD_SPOUSE_TO_MEMBER("dialog.add.spouse.fxml"),
     DIALOG_CHOOSE_MEMBER("dialog.choose.member.fxml"),
     DIALOG_ADD_CHILDREN("dialog.add.children.fxml"),
-    DIALOG_ADD_REALM("dialog.add.realm.fxml");
+    DIALOG_ADD_REALM("dialog.add.realm.fxml"),
+    DIALOG_EDIT_REALM("dialog.edit.realm.fxml");
 
 
     private final String fxmlPath = "/layout/screen/";

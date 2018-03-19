@@ -24,14 +24,13 @@ public class SimContextMenu extends ContextMenu {
 
     private MenuItem itemAddParents = new MenuItem(getValueFromKey(Keys.MENU_ITEM_ADD_PARENTS));
     private MenuItem itemAddSiblings = new MenuItem(getValueFromKey(Keys.MENU_ITEM_ADD_SPOUX));
-    private MenuItem itemAddChildren = new MenuItem(getValueFromKey(Keys.MENU_ITEM_ADD_CHILDREN));
     private MenuItem itemDelete = new MenuItem(getValueFromKey(Keys.MENU_ITEM_REMOVE));
 
 
     public SimContextMenu() {
         super();
         initItems();
-        this.getItems().addAll(itemAddParents, itemAddSiblings, itemAddChildren, itemDelete);
+        this.getItems().addAll(itemAddParents, itemAddSiblings, itemDelete);
     }
 
     public void show(Member m, Node node, ContextMenuEvent event) {
@@ -56,7 +55,9 @@ public class SimContextMenu extends ContextMenu {
     }
 
     private void reloadLabels() {
-
+        itemAddParents.setText(getValueFromKey(Keys.MENU_ITEM_ADD_PARENTS));
+        itemAddSiblings.setText(getValueFromKey(Keys.MENU_ITEM_ADD_SPOUX));
+        itemDelete.setText(getValueFromKey(Keys.MENU_ITEM_REMOVE));
     }
 
 
@@ -69,9 +70,6 @@ public class SimContextMenu extends ContextMenu {
         itemAddSiblings.setOnAction(event -> sm.showNewDialog(member, FilesFXML.DIALOG_ADD_SPOUSE_TO_MEMBER));
     }
 
-    private void initItemAddChildren() {
-        //    itemAddChildren.setOnAction(event -> sm.showNewDialog(new DialogAddChildrenController(), member.getMember(), FilesFXML.DIALOG_ADD_CHILDREN));
-    }
 
     private void initItemDelete() {
         itemDelete.setOnAction(event -> context.getService().deleteMember(member));

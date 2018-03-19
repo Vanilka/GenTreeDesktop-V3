@@ -6,6 +6,7 @@ import gentree.client.desktop.controllers.FXMLController;
 import gentree.client.desktop.service.GenTreeDrawingService;
 import gentree.client.visualization.service.implementation.GenTreeDrawingServiceImpl;
 import gentree.client.visualization.service.implementation.GenTreeImageGenerator;
+import gentree.client.visualization.service.implementation.GenTreeImageGeneratorVanilla;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -64,6 +65,7 @@ public class ScreenMainRightController extends AnchorPane implements Initializab
 
 
     public WritableImage Image() {
+        //GenTreeImageGeneratorVanilla.INSTANCE.doScreen(GEN_TREE_CONTENT, context.getService().getCurrentFamily().getName());
 
         return imageGenerator.doScreen(GEN_TREE_CONTENT, context.getService().getCurrentFamily().getName());
     }

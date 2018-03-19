@@ -6,6 +6,8 @@ import gentree.client.desktop.service.ScreenManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.Properties;
+
 /**
  * Created by Martyna SZYMKOWIAK on 01/07/2017.
  */
@@ -18,7 +20,10 @@ public class GenTreeRun extends Application {
 
 
     public static void main(String[] args) {
+        Properties props = System.getProperties();
+        props.setProperty("com.sun.prism.order", "sw");
         launch(args);
+        props.setProperty("com.sun.prism.order", "sw");
     }
 
     @Override

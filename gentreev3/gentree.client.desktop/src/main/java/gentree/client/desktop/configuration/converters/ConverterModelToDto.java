@@ -6,6 +6,9 @@ import gentree.client.desktop.domain.Relation;
 import gentree.client.desktop.service.implementation.ProjectsOnlineFilesService;
 import gentree.server.dto.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Martyna SZYMKOWIAK on 24/10/2017.
  * Class  to convert DTO objects from objects used by this JavaFX Client to REST API
@@ -47,10 +50,20 @@ public class ConverterModelToDto {
         dto.setRight(convertLazy(relation.getRight()));
         dto.setType(relation.getType());
         dto.setActive(relation.getActive());
+        if (!relation.getChildren().isEmpty()) {
+            System.out.println("Relation chlidren convert");
+            System.out.println("Relation children" + relation.getChildren());
+            relation.getChildren().forEach(child -> {
+                List<MemberDTO> childrenList = new ArrayList<>();
+                childrenList.add(convertLazy(child));
+                dto.setChildren(childrenList);
+            });
+        }
         return dto;
     }
 
     public MemberDTO convertLazy(Member m) {
+        if(m == null) return  null;
         MemberDTO dto = new MemberDTO();
         dto.setVersion(m.getVersion());
         dto.setId(m.getId());
