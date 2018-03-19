@@ -54,6 +54,7 @@ gentree/client/desktop/configuration/CellFactoryProvider$7$1.class
 gentree/client/desktop/service/GenTreeContext.class
 gentree/client/desktop/service/ScreenManager$1.class
 gentree/client/desktop/configuration/converters/ConverterDtoToModel.class
+gentree/client/desktop/controllers/FXMLDialogWithRealmControl.class
 gentree/client/desktop/controllers/screen/ButtonOnlineModeController.class
 gentree/client/desktop/configuration/CellFactoryProvider$3$1.class
 gentree/client/desktop/configuration/CellFactoryProvider$5.class
@@ -97,6 +98,7 @@ gentree/client/desktop/configuration/CellFactoryProvider$5$1.class
 gentree/client/desktop/configuration/CellFactoryProvider$8.class
 gentree/client/desktop/controllers/screen/DialogAppPropertiesTreeController.class
 gentree/client/desktop/configuration/CellFactoryProvider.class
+gentree/client/desktop/controllers/screen/DialogEditRealmController.class
 gentree/client/desktop/controllers/screen/ScreenWelcomeController.class
 gentree/client/desktop/controllers/contextmenu/ChildDeleteContextMenu.class
 gentree/client/desktop/controllers/contextmenu/RelationContextMenu.class

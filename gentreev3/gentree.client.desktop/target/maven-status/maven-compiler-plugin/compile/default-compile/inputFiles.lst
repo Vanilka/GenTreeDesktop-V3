@@ -32,6 +32,7 @@
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/service/responses/FamilyListResponse.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/DialogAppPropertiesOtherController.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/DialogAppPropertiesOnlineController.java
+/Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/DialogEditRealmController.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/service/responses/MemberWithBornRelationResponse.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/service/ScreenManager.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/contextmenu/SimContextMenu.java
@@ -65,6 +66,7 @@
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/configuration/AlertsKeys.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/DialogAddParentsToMemberController.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/FXMLDialogController.java
+/Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/FXMLDialogWithRealmControl.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/ButtonLocalModeController.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/PaneLogonController.java
 /Volumes/Studia/Programowanie/Projekty/IntelliJ/Repository/GenTreeDesktop-V3/gentreev3/gentree.client.desktop/src/main/java/gentree/client/desktop/controllers/screen/TabFamilyViewController.java
