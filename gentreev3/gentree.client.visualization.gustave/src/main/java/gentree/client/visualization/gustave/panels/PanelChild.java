@@ -9,9 +9,11 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.WeakListChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -66,14 +68,23 @@ public class PanelChild extends SubBorderPane {
     @Setter(AccessLevel.NONE)
     private SpouseConnector spouseConnector;
 
+    private ListChangeListener<? super PanelRelationEx> panelRelationExListenerStrong = this::panelRelationExChanged;
+    private ChangeListener<? super PanelRelationCurrent> panelRelationCurrentListenerStrong = this::panelRelationCurrentChanged;
+    private ChangeListener<? super PanelSingle> panelSingleListenerStrong = this::panelSingleChanged;
+    private ChangeListener<? super FamilyGroup> familyGroupListenerStrong = this::familyGroupChanged;
+
     @Setter(AccessLevel.NONE)
-    private ListChangeListener<? super PanelRelationEx> panelRelationExListener = this::panelRelationExChanged;
+    private WeakListChangeListener<? super PanelRelationEx> panelRelationExListener = new WeakListChangeListener<>(panelRelationExListenerStrong);
+
     @Setter(AccessLevel.NONE)
-    private ChangeListener<? super PanelRelationCurrent> panelRelationCurrentListener = this::panelRelationCurrentChanged;
+    private WeakChangeListener<? super PanelRelationCurrent> panelRelationCurrentListener = new WeakChangeListener<>(panelRelationCurrentListenerStrong);
+
     @Setter(AccessLevel.NONE)
-    private ChangeListener<? super PanelSingle> panelSingleListener = this::panelSingleChanged;
+    private WeakChangeListener<? super PanelSingle> panelSingleListener = new WeakChangeListener<>(panelSingleListenerStrong);
+
     @Setter(AccessLevel.NONE)
-    private ChangeListener<? super FamilyGroup> familyGroupListener = this::familyGroupChanged;
+    private WeakChangeListener<? super FamilyGroup> familyGroupListener = new WeakChangeListener<>(familyGroupListenerStrong);
+
 
     {
         panelSinglePane = new AnchorPane();

@@ -2,6 +2,7 @@ package gentree.client.desktop.controllers.screen;
 
 import com.jfoenix.controls.JFXButton;
 import gentree.client.desktop.configuration.ErrorMessages;
+import gentree.client.desktop.configuration.Lambdas;
 import gentree.client.desktop.configuration.enums.FilesFXML;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLController;
@@ -132,8 +133,8 @@ public class DialogAddChildrenController implements Initializable, FXMLControlle
 
     private List<Member> generateList() {
         return context.getService().findAllRootMembers().stream()
-                .filter(c -> !c.equals(relation.get().getLeft()))
-                .filter(c -> !c.equals(relation.get().getRight()))
+                .filter(Lambdas.PREDICATE_MEMBER_IS_NOT_EQUAL(relation.get().getLeft()))
+                .filter(Lambdas.PREDICATE_MEMBER_IS_NOT_EQUAL(relation.get().getRight()))
                 .filter(c -> !childrenList.contains(c))
                 .filter(c -> !isAscOf(relation.get().getLeft(), c))
                 .filter(c -> !isAscOf(relation.get().getRight(), c))

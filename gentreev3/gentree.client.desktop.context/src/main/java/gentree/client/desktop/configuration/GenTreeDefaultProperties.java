@@ -21,6 +21,7 @@ public class GenTreeDefaultProperties {
     private static final String DEFAULT_DIR_LOG = "logs";
     private static final String DEFAULT_ALLOW_HOMO_VALUE = "false";
     private static final String DEFAULT_AUTO_REDRAW = "false";
+    private static final String DEFAUT_PATH_MC_LOG = "";
 
 
     private Map<String, String> defaults = new HashMap<>();
@@ -73,6 +74,7 @@ public class GenTreeDefaultProperties {
         defaults.put(PropertiesKeys.PARAM_DIR_LOG, DEFAULT_DIR_LOG);
         defaults.put(PropertiesKeys.PARAM_DEFAULT_ALLOW_HOMO, DEFAULT_ALLOW_HOMO_VALUE);
         defaults.put(PropertiesKeys.PARAM_AUTO_REDRAW_TREE, DEFAULT_AUTO_REDRAW);
+        defaults.put(PropertiesKeys.PARAM_PATH_MC_LOG, DEFAUT_PATH_MC_LOG);
     }
 
 }

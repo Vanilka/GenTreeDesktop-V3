@@ -10,4 +10,5 @@ public class PropertiesKeys {
     public static final String PARAM_DIR_ONLINE_TEMP = "dir.onlinetemp";
     public static final String PARAM_DEFAULT_ALLOW_HOMO = "default.allow.homo";
     public static final String PARAM_AUTO_REDRAW_TREE= "param.auto.redraw";
+    public static final String PARAM_PATH_MC_LOG = "path.mclog";
 }

@@ -115,7 +115,7 @@ public class DialogAppPropertiesController implements Initializable, FXMLControl
         dialogAppPropertiesTreeController.setProperties(propertiesMap);
         dialogAppPropertiesOnlineController = (DialogAppPropertiesOnlineController) sm.loadFxml( PANE_ONLINE_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_ONLINE);
         dialogAppPropertiesOtherController = (DialogAppPropertiesOtherController) sm.loadFxml( PANE_OTHER_PROPERTIES, FilesFXML.DIALOG_APP_PROPERTIES_OTHER);
-
+        dialogAppPropertiesOtherController.setProperties(propertiesMap);
 
     }
 

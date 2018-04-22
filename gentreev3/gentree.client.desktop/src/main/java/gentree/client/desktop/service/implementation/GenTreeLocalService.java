@@ -23,7 +23,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.configuration2.Configuration;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -90,6 +89,20 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
         }
         getCurrentFamily().addMember(member);
         return new MemberResponse(member);
+    }
+
+
+    @Override
+    public Member findMemberByNameAndSurname(String name, String surname) {
+        List<Member> list = getCurrentFamily().getMembers().stream()
+                .filter(m -> m.getSurname().equals(surname))
+                .filter(m -> m.getName().equals(name))
+                .collect(Collectors.toList());
+
+        if (list.size() == 1) {
+           return  list.get(0);
+        }
+        return null;
     }
 
     @Override
@@ -314,8 +327,8 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
                 });
             }
         }
-        System.out.println( "Auto redraw bool : " +config.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
-        if(GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
+        System.out.println("Auto redraw bool : " + config.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
+        if (GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
     }
 
 
@@ -465,7 +478,7 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
             jaxbMarshaller.marshal(getCurrentFamily(), new File(p.toUri()));
             log.trace(LogMessages.MSG_CONFIRM_SAVE_PROJECT_LOCAL, p);
         } catch (Exception e) {
-            log.error(LogMessages.MSG_ERROR_SAVE_FAMILY, p,  e.getMessage());
+            log.error(LogMessages.MSG_ERROR_SAVE_FAMILY, p, e.getMessage());
             sm.showError(ErrorMessages.TITLE_ERROR_SAVE, ErrorMessages.HEADER_ERROR_SAVE, e.getMessage());
             e.printStackTrace();
         }
@@ -493,7 +506,7 @@ public class GenTreeLocalService extends GenTreeService implements FamilyService
     }
 
     private void invalidate() {
-        if(GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
+        if (GenTreeProperties.INSTANCE.isAutoRedraw()) sm.getGenTreeDrawingService().startDraw();
     }
 }
 

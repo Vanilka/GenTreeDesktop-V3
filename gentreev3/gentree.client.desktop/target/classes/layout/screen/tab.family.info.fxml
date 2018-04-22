@@ -38,6 +38,10 @@
                                    prefWidth="187.0"
                                    onAction="#manualDrawTree"
                                    text="%button_redraw_tree"/>
+                        <JFXButton fx:id="MC_LOG_BUTTON" buttonType="RAISED" layoutY="154.0" prefHeight="37.0"
+                                   prefWidth="187.0"
+                                   onAction="#openMcLog"
+                                   text="%open_mc_log"/>
                     </children>
                 </AnchorPane>
             </children>

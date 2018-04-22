@@ -95,6 +95,11 @@ public class GenTreeOnlineService extends GenTreeService implements FamilyServic
     }
 
     @Override
+    public Member findMemberByNameAndSurname(String name, String surname) {
+        return null;
+    }
+
+    @Override
     public ServiceResponse deleteMember(Member m) {
         ServiceResponse response = rcs.deleteMember(m);
         if (response instanceof FamilyResponse) {

@@ -69,6 +69,16 @@ public class GenTreeProperties {
 
             defaultProperties.getMissingProperties(configuration);
             autoRedraw.set(configuration.getBoolean(PropertiesKeys.PARAM_AUTO_REDRAW_TREE));
+
+            checkMcLogPath();
+        }
+    }
+
+    private void checkMcLogPath() {
+        String path = configuration.getString(PropertiesKeys.PARAM_PATH_MC_LOG);
+        if(path.isEmpty() || ! Files.exists(Paths.get(path)) || ! Files.isRegularFile(Paths.get(path))) {
+           log.error("Inwalid file... set to default");
+           configuration.setProperty(PropertiesKeys.PARAM_PATH_MC_LOG, "");
         }
     }
 

@@ -12,6 +12,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -59,11 +60,13 @@ public class PanelRelationCurrent extends SubRelationPane implements RelationPan
     private ObjectProperty<Relation> thisRelation;
     private ParentToChildrenConnector childrenConnector;
 
-    private ChangeListener<? super Relation> spouseBornRelationListener = this::spouseBordRelationChanged;
+    private ChangeListener<? super Relation> spouseBornRelationListenerStrong = this::spouseBordRelationChanged;
     private ChangeListener<? super Relation> thisRelationListener = this::thisRelationChanged;
     private ChangeListener<? super Member> spouseListener = this::spouseChanged;
     private ListChangeListener<? super PanelChild> childrenListListener = this::childrenListChanged;
 
+
+    private WeakChangeListener<? super Relation> spouseBornRelationListener = new WeakChangeListener<>(spouseBornRelationListenerStrong);
     {
         relation = new Pane();
         relationTypeElement = new RelationTypeElement();

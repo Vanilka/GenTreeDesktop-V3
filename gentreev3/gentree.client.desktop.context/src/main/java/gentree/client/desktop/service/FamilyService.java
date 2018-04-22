@@ -45,6 +45,8 @@ public interface FamilyService {
 
     ServiceResponse removeRelation(Relation r);
 
+    Member findMemberByNameAndSurname(String name, String surname);
+
     Relation findRelation(Member left, Member right);
 
     boolean isAscOf(Member grain, Member sim);

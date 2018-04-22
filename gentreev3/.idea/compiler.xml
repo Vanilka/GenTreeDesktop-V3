@@ -10,20 +10,24 @@
         <module name="gentree.client.desktop" />
         <module name="gentree.client.desktop.context" />
         <module name="gentree.client.desktop.domain" />
+        <module name="gentree.client.desktop.extservice.mclog" />
         <module name="gentree.client.visualization.elements.default" />
         <module name="gentree.client.visualization.elements.gustave" />
         <module name="gentree.client.visualization.gustave" />
         <module name="gentree.client.visualization.vanilla" />
+        <module name="gentree.clientdesktop.extservice.mclog" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="gentree.client.desktop" target="1.8" />
       <module name="gentree.client.desktop.context" target="1.8" />
       <module name="gentree.client.desktop.domain" target="1.8" />
+      <module name="gentree.client.desktop.extservice.mclog" target="1.8" />
       <module name="gentree.client.visualization.elements.default" target="1.8" />
       <module name="gentree.client.visualization.elements.gustave" target="1.8" />
       <module name="gentree.client.visualization.gustave" target="1.8" />
       <module name="gentree.client.visualization.vanilla" target="1.8" />
+      <module name="gentree.clientdesktop.extservice.mclog" target="1.8" />
       <module name="gentreev3" target="1.8" />
     </bytecodeTargetLevel>
   </component>

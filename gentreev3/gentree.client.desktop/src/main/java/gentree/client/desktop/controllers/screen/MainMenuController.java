@@ -325,7 +325,18 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
     @FXML
     public void doGC(ActionEvent actionEvent) {
         System.out.println("Do GC");
+        System.out.println("BEFORE GC");
+        checkMemory();
         System.gc();
+        System.out.println("AFTER FC");
+        checkMemory();
+    }
+
+    private void checkMemory() {
+        Runtime runtime = Runtime.getRuntime();
+        long used = runtime.totalMemory() - runtime.freeMemory();
+        double mb = 1024 * 1024;
+        System.out.printf("Used Memory after GC: %.2f MB", used / mb);
     }
 
     public void reloadID(ActionEvent actionEvent) {

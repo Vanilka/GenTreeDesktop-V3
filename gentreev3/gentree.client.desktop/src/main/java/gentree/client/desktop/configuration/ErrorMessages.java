@@ -16,6 +16,12 @@ public class ErrorMessages {
 
     public static final String HEADER_ERROR_ADD_CHILDREN =  "Error add children";
     public static final String TITLE_ERROR_ADD_CHILDREN = "Program is encounter error while adding children";
+
+    public static final String TITLE_ERROR_MEMBER_NOT_FOUND = "Member not found";
+    public static final String HEADER_MEMBER_NOT_FOUND = "Member not found or founding more";
+
+    public static final String HEADER_AGE_NOT_FOUND = "Age String not corresponding to Ages";
+    public static final String TITLE_AGE_NOT_FOUND = "Age String invalid";
 }
 
 

@@ -1,7 +1,7 @@
 package gentree.client.visualization.service.implementation;
 
 import gentree.client.desktop.configuration.GenTreeProperties;
-import gentree.client.desktop.configuration.enums.PropertiesKeys;
+import gentree.client.desktop.configuration.Lambdas;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
@@ -20,7 +20,6 @@ import org.apache.commons.configuration2.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -135,8 +134,8 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
         List<FamilyGroup> result = new ArrayList<>();
         List<Relation> rootList = context.getService().getCurrentFamily().getRelations()
                 .stream()
-                .filter(r -> r.getLeft() == null)
-                .filter(r -> r.getRight() == null)
+                .filter(Lambdas.PREDICATE_SIM_LEFT_IS_NULL)
+                .filter(Lambdas.PREDICATE_SIM_RIGHT_IS_NULL)
                 .collect(Collectors.toList());
 
 
@@ -161,7 +160,8 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
         Member rootSim = root.getChildren().get(0);
 
         List<Relation> relations = context.getService().getCurrentFamily().getRelations().stream()
-                .filter(relation -> Objects.equals(relation.getLeft(), rootSim) || Objects.equals(relation.getRight(), rootSim)).collect(Collectors.toList());
+                .filter(Lambdas.PREDICATE_VERIFY_SIM_LEFT_RIGHT_EQUAL(rootSim))
+                .collect(Collectors.toList());
 
         if (relations.isEmpty()) return true;
         if (relations.size() > 1) return true;
@@ -270,7 +270,8 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
         nodeCounter = 1;
         List<Relation> list = context.getService().getCurrentFamily().getRelations()
                 .stream()
-                .filter(r -> r.getReferenceNumber() > 0).collect(Collectors.toList());
+                .filter(Lambdas.PREDICATE_REF_NUMBER_LARGER_THAN_0)
+                .collect(Collectors.toList());
         list.forEach(r -> r.setReferenceNumber(null));
         idReference = 0L;
         System.gc();

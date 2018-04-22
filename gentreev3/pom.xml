@@ -15,6 +15,7 @@
     <module>gentree.client.visualization.elements.default</module>
     <module>gentree.client.visualization.vanilla</module>
     <module>gentree.client.visualization.elements.gustave</module>
+    <module>gentree.client.desktop.extservice.mclog</module>
 </modules>
     <packaging>pom</packaging>
     <properties>

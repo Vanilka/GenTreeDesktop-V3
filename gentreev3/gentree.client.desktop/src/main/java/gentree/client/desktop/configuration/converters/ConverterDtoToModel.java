@@ -1,5 +1,6 @@
 package gentree.client.desktop.configuration.converters;
 
+import gentree.client.desktop.configuration.Lambdas;
 import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
@@ -120,7 +121,10 @@ public class ConverterDtoToModel {
     public Member findMemberInListById(Long id, Family f_ref) throws Exception {
         if (f_ref == null) return null;
 
-        List<Member> filtered = f_ref.getMembers().stream().filter(m -> m.getId() == id).collect(Collectors.toList());
+        List<Member> filtered = f_ref.getMembers()
+                .stream()
+                .filter(Lambdas.PREDICATE_COMPARE_MEMBER_ID_WITH_ID(id))
+                .collect(Collectors.toList());
         if (filtered.size() > 1) {
             //Should NEVER Happen ID is UNIQUE in DB.
             throw new Exception("NOT UNIQIE ID");

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.enums.FilesFXML;
+import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.Keys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLController;
@@ -28,8 +29,12 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.configuration2.Configuration;
 
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 /**
@@ -42,6 +47,8 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
     private final TabFamilyInfoController instance = this;
 
     private final BooleanProperty modifiable;
+
+    private final Configuration config = GenTreeProperties.INSTANCE.getConfiguration();
 
     @FXML
     private ObjectProperty<ResourceBundle> languageBundle = new SimpleObjectProperty<>();
@@ -66,6 +73,9 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
 
     @FXML
     private VBox CONTENT_VBOX;
+
+    @FXML
+    private JFXButton MC_LOG_BUTTON;
 
     @Getter
     @Setter
@@ -135,7 +145,7 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
 
     private void addListener() {
         modifiable.addListener((observable, oldValue, newValue) -> {
-            if(newValue) {
+            if (newValue) {
                 MODIFY_NAME_BUTTON.setText(getValueFromKey(Keys.CONFIRM));
             } else {
                 MODIFY_NAME_BUTTON.setText(getValueFromKey(Keys.MODIFY));
@@ -201,5 +211,14 @@ public class TabFamilyInfoController implements Initializable, FXMLController, F
             context.getService().updateFamilyName(FAMILY_NAME_FIELD.getText().trim());
         }
         modifiable.setValue(!modifiable.get());
+    }
+
+    public void openMcLog(ActionEvent actionEvent) {
+        Path path = Paths.get(config.getString(PropertiesKeys.PARAM_PATH_MC_LOG));
+        if (path.toString().isEmpty()|| !Files.exists(path) || !Files.isRegularFile(path)) {
+            sm.showError("Cannot open log", "Cannot open mc log", "Cannot open mc log");
+        } else {
+            sm.showMcLogDialog(FilesFXML.DIALOG_OPEN_MC_LOG);
+        }
     }
 }

@@ -16,8 +16,8 @@ import gentree.client.desktop.controllers.contextmenu.SimContextMenu;
 import gentree.client.desktop.controllers.screen.*;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
+import gentree.client.desktop.extservice.mclog.McLogReader;
 import gentree.client.visualization.elements.FamilyMember;
-import gentree.client.visualization.elements.RelationReference;
 import gentree.client.visualization.elements.RelationTypeElement;
 import gentree.client.visualization.elements.configuration.ImageFiles;
 import gentree.client.visualization.elements.configuration.Manager;
@@ -63,10 +63,14 @@ public class ScreenManager implements Manager {
     public static final ScreenManager INSTANCE = new ScreenManager();
     public static final GenTreeContext context = GenTreeContext.INSTANCE;
     public static final GenTreeProperties properties = GenTreeProperties.INSTANCE;
+    public static final McLogReader mcLogReader = McLogReader.INSTANCE;
     private static final String PREFIX_FILE_LOAD = "file://";
     private static final FileChooser imgFileChooser = new FileChooser();
     private static final FileChooser xmlFileChooser = new FileChooser();
     private static String LAST_PATH;
+    private static String MC_LOG_PATH;
+
+    private boolean canOpenMcDialog = true;
 
     /*
         Commons controllers
@@ -99,7 +103,9 @@ public class ScreenManager implements Manager {
 
     private ScreenManager() {
         LAST_PATH = System.getProperty("user.home");
+        MC_LOG_PATH = System.getProperty("user.home");
     }
+
 
     private synchronized static void initStage(Stage stage) {
         stage.setTitle(AppTitles.APP_TITLE);
@@ -211,6 +217,32 @@ public class ScreenManager implements Manager {
             dialogStage.setResizable(false);
             controller.setStage(dialogStage);
             dialogStage.showAndWait();
+
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            log.error(ex.getCause());
+            ex.printStackTrace();
+        }
+    }
+
+    public void showMcLogDialog(FilesFXML fxml) {
+
+       if (!canOpenMcDialog) return;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml.toString()), context.getBundleValue());
+
+        try {
+            Stage dialogStage = new Stage();
+            AnchorPane dialogwindow = (AnchorPane) loader.load();
+            FXMLDialogController controller = loader.getController();
+          //  dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.initOwner(this.getStage());
+            Scene scene = new Scene(dialogwindow);
+            dialogStage.setScene(scene);
+            dialogStage.setResizable(true);
+            controller.setStage(dialogStage);
+            canOpenMcDialog = false;
+            dialogStage.showAndWait();
+            canOpenMcDialog = true;
 
         } catch (Exception ex) {
             log.error(ex.getMessage());
@@ -463,6 +495,13 @@ public class ScreenManager implements Manager {
 
     }
 
+    public File openLogFileChooser() {
+        configureLogFileChooser(xmlFileChooser);
+        File file = xmlFileChooser.showOpenDialog(stage);
+        MC_LOG_PATH = file == null ? MC_LOG_PATH : file.getParent();
+        return file;
+    }
+
     public File openXMLFileChooser() {
         configureXmlFileChooser(xmlFileChooser);
         File file = xmlFileChooser.showOpenDialog(stage);
@@ -482,6 +521,7 @@ public class ScreenManager implements Manager {
         fileChooser.setInitialDirectory(
                 new File(LAST_PATH)
         );
+        fileChooser.getExtensionFilters().clear();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
@@ -494,8 +534,21 @@ public class ScreenManager implements Manager {
         fileChooser.setInitialDirectory(
                 new File(LAST_PATH)
         );
+        fileChooser.getExtensionFilters().clear();
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("XML", "*.xml")
+        );
+    }
+
+    private void configureLogFileChooser(final FileChooser fileChooser) {
+        fileChooser.setTitle("Select MC LOG");
+        fileChooser.setInitialDirectory(
+                new File(MC_LOG_PATH)
+        );
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("LOG", "*.log"),
+                new FileChooser.ExtensionFilter("TXT", "*.txt")
         );
     }
 

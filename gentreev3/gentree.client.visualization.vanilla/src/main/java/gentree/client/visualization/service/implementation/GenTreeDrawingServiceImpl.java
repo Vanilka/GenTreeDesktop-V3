@@ -39,6 +39,10 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
         GenTreeDrawingServiceImpl.context = context;
     }
 
+    private static void updateReferenceNumberLambda(Relation r) {
+        r.setReferenceNumber(null);
+    }
+
     @Override
     public void startDraw() {
         reset();
@@ -79,9 +83,9 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
      */
     private List<FamilyGroup> findGroups() {
         List<FamilyGroup> result = new ArrayList<>();
-        context.getService().getCurrentFamily().getRelations()
-                .filtered(r -> r.getLeft() == null)
-                .filtered(r -> r.getRight() == null)
+        context.getService().getCurrentFamily().getRelations().stream()
+                .filter(r -> r.getLeft() == null)
+                .filter(r -> r.getRight() == null)
                 .forEach(root -> result.add(new FamilyGroup(root, nodeCounter++)));
 
         return result;
@@ -128,9 +132,9 @@ public class GenTreeDrawingServiceImpl implements GenTreeDrawingService {
     private void reset() {
         box.getChildren().clear();
         nodeCounter = 1;
-        context.getService().getCurrentFamily().getRelations()
-                .filtered(r -> r.getReferenceNumber() > 0)
-                .forEach(r -> r.setReferenceNumber(null));
+        context.getService().getCurrentFamily().getRelations().stream()
+                .filter(r -> r.getReferenceNumber() > 0)
+                .forEach(GenTreeDrawingServiceImpl::updateReferenceNumberLambda);
         idReference = 0L;
     }
 

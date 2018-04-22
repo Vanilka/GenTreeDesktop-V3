@@ -72,6 +72,7 @@ gentree/client/desktop/controllers/screen/MainMenuController$1LanguageCellFactor
 gentree/client/desktop/service/responses/MemberWithBornRelationResponse.class
 gentree/client/desktop/controllers/screen/PaneShowInfoRelation.class
 gentree/client/desktop/configuration/CellFactoryProvider$8$1.class
+gentree/client/desktop/controllers/screen/DialogReadMcLogController.class
 gentree/client/desktop/service/implementation/tasks/RelationConnectionTask.class
 gentree/client/desktop/controllers/FXMLDialogWithMemberController.class
 gentree/client/desktop/controllers/screen/ScreenOpenOnlineProjectController.class
@@ -79,6 +80,7 @@ gentree/client/desktop/controllers/FXMLDialogController.class
 gentree/client/desktop/configuration/CellFactoryProvider$4$1.class
 gentree/client/desktop/service/implementation/tasks/MemberConnectionTask.class
 gentree/client/desktop/controllers/screen/TabFamilyInfoController.class
+gentree/client/desktop/controllers/screen/DialogReadMcLogController$1$1.class
 gentree/client/desktop/controllers/screen/MainMenuController$1LanguageCell.class
 gentree/client/desktop/GenTreeRun.class
 gentree/client/desktop/configuration/ErrorMessages.class
@@ -104,6 +106,7 @@ gentree/client/desktop/controllers/contextmenu/ChildDeleteContextMenu.class
 gentree/client/desktop/controllers/contextmenu/RelationContextMenu.class
 gentree/client/desktop/controllers/screen/MainWindowController.class
 gentree/client/desktop/controllers/screen/DialogAddChildrenController.class
+gentree/client/desktop/controllers/screen/DialogReadMcLogController$1.class
 gentree/client/desktop/service/implementation/tasks/FamilyConnectionTask.class
 gentree/client/desktop/service/responses/RelationResponse.class
 gentree/client/desktop/controllers/screen/DialogChooseMemberController$2.class

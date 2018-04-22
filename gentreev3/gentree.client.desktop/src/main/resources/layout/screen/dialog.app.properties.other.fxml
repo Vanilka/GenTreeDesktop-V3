@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
@@ -7,12 +8,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane id="" fx:id="" minHeight="400" minWidth="500" styleClass="" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gentree.client.desktop.controllers.screen.DialogAppPropertiesOtherController">
     <stylesheets>
         <URL value="@/layout/style/gentreestyle.css" />
     </stylesheets>
     <children>
-        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <VBox layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
             <children>
                 <AnchorPane fx:id="PANE_ADMIN_MODE" prefHeight="200.0" prefWidth="200.0">
                     <children>
@@ -21,6 +23,13 @@
                         <JFXToggleButton fx:id="TOGGLE_ADMIN_MODE" layoutX="259.0" prefHeight="58.0" prefWidth="201.0" AnchorPane.leftAnchor="259.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
                     </children>
                 </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="15.0" prefHeight="42.0" prefWidth="261.0" text="%label_mclogfile" underline="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="199.0" />
+                  <TextField fx:id="FILE_PATH_FIELD" layoutX="20.0" layoutY="42.0" prefHeight="27.0" prefWidth="303.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="42.0" />
+                  <JFXButton fx:id="BUTTON_SELECT_LOG" layoutX="351.0" layoutY="42.0" onAction="#openFileName" prefHeight="27.0" prefWidth="88.0" text="%select" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="42.0" />
+               </children>
+            </AnchorPane>
             </children>
         </VBox>
     </children>
