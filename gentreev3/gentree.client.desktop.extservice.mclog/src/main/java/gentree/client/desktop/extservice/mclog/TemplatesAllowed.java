@@ -6,4 +6,5 @@ package gentree.client.desktop.extservice.mclog;
 public class TemplatesAllowed {
 
     public static final String TEMPLATE_CHANGE_AGE = "has aged-up to";
+    public static final String TEMPLATE_MARRIED = ">>> Married";
 }

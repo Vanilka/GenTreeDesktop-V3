@@ -7,7 +7,9 @@
 
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="dialog-pane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gentree.client.desktop.controllers.screen.DialogReadMcLogController">
+<AnchorPane prefHeight="400.0" prefWidth="950.0"
+            minHeight="400.0" minWidth="950.0"
+            styleClass="dialog-pane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gentree.client.desktop.controllers.screen.DialogReadMcLogController">
     <stylesheets>
         <URL value="@/layout/style/gentreestyle.css" />
     </stylesheets>
@@ -17,7 +19,7 @@
             <TableView fx:id="LOG_TABLE_VIEW" layoutY="-45.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
                     <TableColumn fx:id="LOG_TEXT_COLUMN" text="Text"/>
-                    <TableColumn fx:id="LOG_ACTION_COLUMN"  text="Action"/>
+                    <TableColumn fx:id="LOG_ACTION_COLUMN" prefWidth="150.0" text="Action" />
 
                 </columns>
 

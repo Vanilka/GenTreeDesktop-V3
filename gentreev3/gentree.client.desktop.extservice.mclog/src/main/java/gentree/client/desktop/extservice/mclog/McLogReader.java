@@ -37,17 +37,13 @@ public class McLogReader {
     public void loadFile() {
         logContent.clear();
         try {
-            Stream<String> lines = Files.lines(path).filter(line -> line.contains("has aged-up to"));
+            Stream<String> lines = Files.lines(path).filter(line -> line.contains(TemplatesAllowed.TEMPLATE_CHANGE_AGE) || line.contains(TemplatesAllowed.TEMPLATE_MARRIED));
             lines.forEach(logContent::add);
             lines.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void readLine(String s) {
-        logContent.add(s);
     }
 
 }

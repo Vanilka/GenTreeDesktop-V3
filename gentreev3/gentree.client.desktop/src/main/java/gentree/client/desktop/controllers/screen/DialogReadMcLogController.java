@@ -10,6 +10,7 @@ import gentree.client.desktop.extservice.mclog.McLogParser;
 import gentree.client.desktop.extservice.mclog.McLogReader;
 import gentree.client.desktop.extservice.mclog.TemplatesAllowed;
 import gentree.common.configuration.enums.Age;
+import gentree.common.configuration.enums.RelationType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -105,6 +106,8 @@ public class DialogReadMcLogController implements Initializable, FXMLController,
                                         if (item.contains(TemplatesAllowed.TEMPLATE_CHANGE_AGE)) {
 
                                             processAgeChangingLog(item, event);
+                                        } else if (item.contains(TemplatesAllowed.TEMPLATE_MARRIED)) {
+                                            processMarriedLog(item, event);
                                         }
                                     });
                                     setGraphic(btn);
@@ -121,11 +124,45 @@ public class DialogReadMcLogController implements Initializable, FXMLController,
 
     }
 
+    private void processMarriedLog(String item, ActionEvent event) {
+
+        String householdname = McLogParser.takeHouseholdNameFromMarriedLog(item);
+        System.out.println("householdname [" + householdname + "]");
+        Member firstSim = findMemberFromString(McLogParser.takeFirstSimNameFromMarriedLog(item));
+        if (firstSim == null) {
+            sm.showError(ErrorMessages.TITLE_ERROR_MEMBER_NOT_FOUND,
+                    ErrorMessages.HEADER_MEMBER_NOT_FOUND,
+                    ErrorMessages.HEADER_MEMBER_NOT_FOUND);
+            return;
+        }
+
+
+        Member secondSim = findMemberFromString(McLogParser.takeSecondSimNameFromMarriedLog(item));
+        if (secondSim == null) {
+            sm.showError(ErrorMessages.TITLE_ERROR_MEMBER_NOT_FOUND,
+                    ErrorMessages.HEADER_MEMBER_NOT_FOUND,
+                    ErrorMessages.HEADER_MEMBER_NOT_FOUND);
+            return;
+        }
+
+        context.getService().addRelation(firstSim, secondSim, RelationType.MARRIED, true);
+
+        if (householdname != null
+                && !householdname.isEmpty()
+                && (firstSim.getBornname().isEmpty()
+                || firstSim.getSurname().equals(firstSim.getBornname()))) {
+            firstSim.setBornname(firstSim.getSurname());
+            firstSim.setSurname(householdname);
+            context.getService().updateMember(firstSim);
+        }
+
+    }
+
     private void processAgeChangingLog(String item, ActionEvent event) {
         String ageString = item.substring(item.lastIndexOf(" "), item.length()).trim();
         Age age = McLogParser.getAgeFromString(ageString);
 
-        if(age == null) {
+        if (age == null) {
             sm.showError(ErrorMessages.TITLE_AGE_NOT_FOUND,
                     ErrorMessages.HEADER_AGE_NOT_FOUND,
                     ErrorMessages.HEADER_AGE_NOT_FOUND);
@@ -133,24 +170,32 @@ public class DialogReadMcLogController implements Initializable, FXMLController,
             return;
         }
 
-        Member m = findMemberFromString(item);
-        if(m == null) {
+        Member m = findMemberFromChangeAgeString(item);
+        if (m == null) {
             sm.showError(ErrorMessages.TITLE_ERROR_MEMBER_NOT_FOUND,
                     ErrorMessages.HEADER_MEMBER_NOT_FOUND,
                     ErrorMessages.HEADER_MEMBER_NOT_FOUND);
             event.consume();
             return;
         }
-        if(!age.equals(m.getAge())) {
+        if (!age.equals(m.getAge())) {
             m.setAge(age);
             context.getService().updateMember(m);
         }
     }
 
-    private Member findMemberFromString(String item) {
+    private Member findMemberFromChangeAgeString(String item) {
         String nameAndSurname = McLogParser.takeNamSurnameFromChangeAgeLog(item);
         String name = nameAndSurname.substring(0, nameAndSurname.indexOf(" ")).trim();
         String surname = nameAndSurname.substring(nameAndSurname.indexOf(" "), nameAndSurname.length()).trim();
+        return context.getService().findMemberByNameAndSurname(name, surname);
+    }
+
+
+    private Member findMemberFromString(String item) {
+        if (item == null) return null;
+        String name = item.substring(0, item.indexOf(" ")).trim();
+        String surname = item.substring(item.indexOf(" "), item.length()).trim();
         return context.getService().findMemberByNameAndSurname(name, surname);
     }
 
