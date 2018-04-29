@@ -12,6 +12,7 @@
 
 */target/*
 */target/**
+target/
 
 # Package Files #
 *.jar
