@@ -655,7 +655,7 @@
       <option name="MAIN_CLASS_NAME" value="gentree.client.desktop.GenTreeRun" />
       <module name="gentree.client.desktop" />
       <option name="VM_PARAMETERS" value="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:./gc.log -XX:MaxPermSize=9048m -Dprism.glDepthSize=24 -Dprism.order=sw -Xmx4g -Xms4g" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../../../../../../STUDIA/GenealogyTree Document" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../../../WORKING-DIR/GenTree" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="gentree.client.desktop.GenTreeRun" />
