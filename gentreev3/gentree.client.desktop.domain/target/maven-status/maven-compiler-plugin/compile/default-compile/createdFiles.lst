@@ -1,8 +1,0 @@
-gentree/client/desktop/configuration/wrappers/PhotoMarshaller.class
-gentree/client/desktop/configuration/wrappers/SimMarshaller.class
-gentree/client/desktop/domain/Family.class
-gentree/client/desktop/configuration/wrappers/SimWrapper.class
-gentree/client/desktop/domain/Member.class
-gentree/client/desktop/domain/Relation.class
-gentree/client/desktop/domain/Owner.class
-gentree/client/desktop/configuration/wrappers/LongAdapter.class
