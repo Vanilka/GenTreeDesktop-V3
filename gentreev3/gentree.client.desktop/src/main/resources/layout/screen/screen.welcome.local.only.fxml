@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXButton?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            id="mainAnchorPane"
+            fx:id="MAIN_ANCHOR_PANE"
+            styleClass=""
+            fx:controller="gentree.client.desktop.controllers.screen.ScreenWelcomeLocalOnlyController"
+            prefHeight="400.0" prefWidth="600.0">
+    <stylesheets>
+        <URL value="@/layout/style/gentreestyle.css"/>
+    </stylesheets>
+    <styleClass>
+        <String fx:value="gt-screen"/>
+        <String fx:value="mainAnchorPane"/>
+    </styleClass>
+    <children>
+        <StackPane AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.bottomAnchor="20"
+                   AnchorPane.rightAnchor="20">
+            <children>
+            <Group StackPane.alignment="CENTER">
+                <children>
+                    <AnchorPane fx:id="CONTENT" styleClass="transparentPane">
+                        <children>
+                            <JFXTabPane fx:id="TAB_PANE_OPEN_PROJECT"
+                                        styleClass="tabPane"
+                                        AnchorPane.bottomAnchor="50.0"
+                                        AnchorPane.leftAnchor="10.0"
+                                        AnchorPane.rightAnchor="10.0"
+                                        AnchorPane.topAnchor="10.0">
+                                <tabs>
+                                    <Tab fx:id="tabOpenNew" text="FooTab">
+                                        <fx:include fx:id="tabONP" source="tab.open.new.project.fxml"/>
+                                    </Tab>
+                                    <Tab fx:id="tabOpenExisting" text="BarTab">
+                                        <fx:include fx:id="tabENP" source="tab.open.existing.project.fxml"/>
+                                    </Tab>
+                                </tabs>
+                            </JFXTabPane>
+
+                            <JFXButton fx:id="BUTTON_CONFIRM" onAction="#confirm" styleClass="button" text="%create"
+                                       AnchorPane.bottomAnchor="30"
+                                       AnchorPane.leftAnchor="40"
+                                       AnchorPane.rightAnchor="40"
+                                       prefHeight="30.0" prefWidth="120.0"/>
+
+                        </children>
+                    </AnchorPane>
+                </children>
+            </Group>
+            </children>
+        </StackPane>
+    </children>
+</AnchorPane>

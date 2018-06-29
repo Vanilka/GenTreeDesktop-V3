@@ -159,7 +159,6 @@ public class ScreenManager implements Manager {
             log.error(ex.getCause());
             showError(ErrorMessages.TITLE_ERROR_INIT_ROOT, ErrorMessages.HEADER_ERROR_INIT_ROOT, ex.getMessage());
         }
-
     }
 
     /**
@@ -169,7 +168,7 @@ public class ScreenManager implements Manager {
     private void initDefaultControllers() {
         mainFooterController = (MainFooterController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_FOOTER_FXML, Where.BOTTOM);
         mainMenuController = (MainMenuController) loadFxml(this.mainWindowBorderPane, FilesFXML.MAIN_MENU_FXML, Where.TOP);
-        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
+        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_LOCAL_ONLY_FXML, Where.CENTER);
     }
 
     public FXMLPane loadFxml(BorderPane border, FilesFXML fxml, Where where) {
@@ -553,8 +552,9 @@ public class ScreenManager implements Manager {
     }
 
     public void reloadScreenWelcomeController() {
-        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_FXML, Where.CENTER);
         context.setService(null);
+        screenWelcomeController = (ScreenWelcomeController) loadFxml(this.mainWindowBorderPane, FilesFXML.SCREEN_WELCOME_LOCAL_ONLY_FXML, Where.CENTER);
+
     }
 
     @Override

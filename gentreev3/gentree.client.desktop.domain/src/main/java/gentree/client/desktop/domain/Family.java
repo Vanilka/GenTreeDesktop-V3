@@ -79,6 +79,7 @@ public class Family implements Serializable {
         this.relations.add(relation);
     }
 
+
     public Relation findBornRelation(Member m) throws NotUniqueBornRelationException {
         List<Relation> list = relations.stream()
                 .filter(relation -> relation.getChildren().contains(m))

@@ -11,6 +11,7 @@ public enum FilesFXML {
     LOCAL_APP_MODE("button.local.mode.fxml"),
     ONLINE_APP_MODE("button.online.mode.fxml"),
     SCREEN_WELCOME_FXML("screen.welcome.fxml"),
+    SCREEN_WELCOME_LOCAL_ONLY_FXML("screen.welcome.local.only.fxml"),
     OPEN_PROJECT_DIALOG("dialog.open.project.fxml"),
     ADD_MEMBER_DIALOG("dialog.add.member.fxml"),
     SCREEN_MAIN_FXML("screen.main.fxml"),
