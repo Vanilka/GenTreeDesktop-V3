@@ -2,7 +2,7 @@ package gentree.client.visualization.controls;
 
 
 import gentree.client.visualization.controls.skin.AgePaneSkin;
-import gentree.common.configuration.enums.Age;
+import gentree.configuration.enums.Age;
 import javafx.beans.NamedArg;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;

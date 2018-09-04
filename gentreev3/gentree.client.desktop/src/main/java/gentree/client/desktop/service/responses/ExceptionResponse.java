@@ -30,7 +30,7 @@ public class ExceptionResponse extends ServiceResponse {
     @Override
     public String toString() {
         return "ExceptionResponse{" +
-                "exception=" + exception +
+                "gentree.exception=" + exception +
                 "} " + super.toString();
     }
 }

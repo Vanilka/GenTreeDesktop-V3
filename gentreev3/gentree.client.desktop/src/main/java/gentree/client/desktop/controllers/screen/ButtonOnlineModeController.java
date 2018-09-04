@@ -11,7 +11,6 @@ import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLController;
 import gentree.client.desktop.controllers.FXMLPane;
 import gentree.client.desktop.service.ScreenManager;
-import gentree.client.desktop.service.implementation.GenTreeOnlineService;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -52,9 +51,7 @@ public class ButtonOnlineModeController implements Initializable, FXMLPane, FXML
 
     @FXML
     public void selectOnlineApplication() {
-        context.setService(new GenTreeOnlineService());
-        this.sm.loadFxml( this.sm.getMainWindowBorderPane(), FilesFXML.SCREEN_LOGON_REGISTER_FXML, ScreenManager.Where.CENTER);
-    }
+   }
 
     /*
      * LISTEN LANGUAGE CHANGES

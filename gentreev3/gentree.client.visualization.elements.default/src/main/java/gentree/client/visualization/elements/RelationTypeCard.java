@@ -3,7 +3,7 @@ package gentree.client.visualization.elements;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.configuration.AutoCleanable;
 import gentree.client.visualization.elements.configuration.ImageFiles;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.RelationType;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

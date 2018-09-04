@@ -14,7 +14,7 @@ import gentree.client.desktop.service.FamilyService;
 import gentree.client.desktop.service.responses.FamilyResponse;
 import gentree.client.desktop.service.responses.MemberResponse;
 import gentree.client.desktop.service.responses.RelationResponse;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.RelationType;
 import gentree.exception.NotUniqueBornRelationException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;

@@ -4,7 +4,7 @@ import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.desktop.responses.ServiceResponse;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.RelationType;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 

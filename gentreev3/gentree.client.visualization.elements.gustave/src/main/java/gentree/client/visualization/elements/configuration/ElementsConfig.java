@@ -1,7 +1,7 @@
 package gentree.client.visualization.elements.configuration;
 
 import gentree.client.visualization.elements.configuration.images.ImageDeathPaths;
-import gentree.common.configuration.enums.*;
+import gentree.configuration.enums.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 

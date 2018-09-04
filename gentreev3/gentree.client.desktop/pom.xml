@@ -40,13 +40,13 @@
             <artifactId>gentree.exceptions</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>genealogytree</groupId>
             <artifactId>gentree.server.dto</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
         <dependency>
-            <groupId>genealogytree.v3</groupId>
+            <groupId>genealogytree</groupId>
             <artifactId>gentree.client.desktop.extservice.mclog</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

@@ -6,7 +6,7 @@ import gentree.client.visualization.elements.FamilyMember;
 import gentree.client.visualization.elements.RelationReference;
 import gentree.client.visualization.elements.RelationTypeElement;
 import gentree.client.visualization.gustave.connectors.ParentToChildrenConnector;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.RelationType;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

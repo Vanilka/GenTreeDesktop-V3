@@ -1,6 +1,6 @@
 package gentree.client.desktop.domain;
 
-import gentree.common.configuration.enums.RoleEnum;
+import gentree.configuration.enums.RoleEnum;
 import javafx.beans.property.*;
 
 import java.io.Serializable;

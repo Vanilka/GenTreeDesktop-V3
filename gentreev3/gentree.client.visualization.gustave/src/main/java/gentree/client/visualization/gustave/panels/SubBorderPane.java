@@ -53,7 +53,7 @@ public abstract class SubBorderPane extends BorderPane implements AutoCleanable 
 
     protected Bounds getRelativeBounds(Node node, Node relativeTo) {
         Bounds nodeBoundsInScene = node.localToScene(node.getBoundsInLocal());
-        return relativeTo.sceneToLocal(nodeBoundsInScene);
+        return  relativeTo.sceneToLocal(nodeBoundsInScene);
     }
 
     private void initParentListeners() {

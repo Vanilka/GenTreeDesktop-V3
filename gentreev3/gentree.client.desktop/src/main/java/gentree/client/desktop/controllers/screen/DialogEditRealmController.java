@@ -4,13 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import gentree.client.desktop.configuration.Realm;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLDialogWithRealmControl;
-import gentree.client.desktop.controllers.FXMLDialogWithRealmListControl;
-import gentree.client.desktop.service.RestConnectionService;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -18,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,7 +24,7 @@ import java.util.ResourceBundle;
 @Log4j2
 public class DialogEditRealmController implements Initializable, FXMLDialogWithRealmControl {
 
-    RestConnectionService restConnectionService = RestConnectionService.INSTANCE;
+    //RestConnectionService restConnectionService = RestConnectionService.INSTANCE;
 
     private ObjectProperty<Realm> realm = new SimpleObjectProperty<>();
 
@@ -75,11 +71,9 @@ public class DialogEditRealmController implements Initializable, FXMLDialogWithR
 
     @FXML
     private void connectionTest() {
-        if (restConnectionService.testConnection(SERVER_ADDRESS_FIELD.getText())) {
-            TEST_CONNECTION_RESULT.setText("OK");
-        } else {
+
             TEST_CONNECTION_RESULT.setText("NOT OK");
-        }
+
     }
 
     @Override

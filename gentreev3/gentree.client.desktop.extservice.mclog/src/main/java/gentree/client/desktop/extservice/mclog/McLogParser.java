@@ -1,6 +1,6 @@
 package gentree.client.desktop.extservice.mclog;
 
-import gentree.common.configuration.enums.Age;
+import gentree.configuration.enums.Age;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -35,12 +35,14 @@ public class McLogParser {
     public static String takeSecondSimNameFromMarriedLog(String log) {
         if (!log.contains(TemplatesAllowed.TEMPLATE_MARRIED)) return null;
 
-        return StringUtils.substringBetween(log, "and", "and they now live").trim();
+        return StringUtils.substringBetween(log, "and", "and renamed household").trim();
     }
 
     public static String takeHouseholdNameFromMarriedLog(String log) {
+        System.out.println("Log is " +log);
         if(!log.contains(TemplatesAllowed.TEMPLATE_MARRIED)) return null;
-        return StringUtils.substringBetween(log, "and they now live in the", "household").trim();
+
+        return StringUtils.substringAfter(log, "and renamed household to ").trim();
     }
 
     public static Age getAgeFromString(String string) {

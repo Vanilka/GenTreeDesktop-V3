@@ -10,7 +10,6 @@ import gentree.client.desktop.controllers.FXMLController;
 import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.service.FamilyService;
 import gentree.client.desktop.service.implementation.GenTreeLocalService;
-import gentree.client.desktop.service.implementation.GenTreeOnlineService;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -31,12 +30,10 @@ import javafx.util.Callback;
 import lombok.extern.log4j.Log4j2;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -155,9 +152,7 @@ public class MainMenuController implements Initializable, FXMLController, FXMLBo
     private void serviceChanged(ObservableValue<? extends FamilyService> obsContext, FamilyService oldContext, FamilyService newContext) {
         if (newContext != null) {
             newContext.familyProperty().addListener(familyListener);
-            if(newContext instanceof GenTreeOnlineService) {
-                MENU_ITEM_SAVE_PROJECT_AS.setVisible(false);
-            } else {
+            if(newContext instanceof GenTreeLocalService) {
                 MENU_ITEM_SAVE_PROJECT_AS.setVisible(true);
             }
 

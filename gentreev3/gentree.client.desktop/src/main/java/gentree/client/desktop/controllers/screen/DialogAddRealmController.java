@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import gentree.client.desktop.configuration.Realm;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLDialogWithRealmListControl;
-import gentree.client.desktop.service.RestConnectionService;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ObjectProperty;
@@ -26,7 +25,6 @@ import java.util.ResourceBundle;
 @Log4j2
 public class DialogAddRealmController implements Initializable, FXMLDialogWithRealmListControl {
 
-    RestConnectionService restConnectionService = RestConnectionService.INSTANCE;
 
     private ObservableList<Realm> realmList;
 
@@ -68,11 +66,9 @@ public class DialogAddRealmController implements Initializable, FXMLDialogWithRe
 
     @FXML
     private void connectionTest() {
-        if (restConnectionService.testConnection(SERVER_ADDRESS_FIELD.getText())) {
-            TEST_CONNECTION_RESULT.setText("OK");
-        } else {
-            TEST_CONNECTION_RESULT.setText("NOT OK");
-        }
+
+        TEST_CONNECTION_RESULT.setText("NOT OK");
+
     }
 
     @Override

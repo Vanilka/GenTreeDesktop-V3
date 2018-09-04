@@ -2,10 +2,10 @@ package gentree.client.desktop.domain;
 
 import gentree.client.desktop.configuration.wrappers.LongAdapter;
 import gentree.client.desktop.configuration.wrappers.PhotoMarshaller;
-import gentree.common.configuration.enums.Age;
-import gentree.common.configuration.enums.DeathCauses;
-import gentree.common.configuration.enums.Gender;
-import gentree.common.configuration.enums.Race;
+import gentree.configuration.enums.Age;
+import gentree.configuration.enums.DeathCauses;
+import gentree.configuration.enums.Gender;
+import gentree.configuration.enums.Race;
 import javafx.beans.property.*;
 
 import javax.xml.bind.annotation.*;

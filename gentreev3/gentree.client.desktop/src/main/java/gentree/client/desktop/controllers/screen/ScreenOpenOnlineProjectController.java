@@ -6,7 +6,6 @@ import gentree.client.desktop.controllers.FXMLAnchorPane;
 import gentree.client.desktop.controllers.FXMLController;
 import gentree.client.desktop.domain.Family;
 import gentree.client.desktop.responses.ServiceResponse;
-import gentree.client.desktop.service.RestConnectionService;
 import gentree.client.desktop.service.ScreenManager;
 import gentree.client.desktop.service.responses.FamilyListResponse;
 import gentree.client.desktop.service.responses.FamilyResponse;
@@ -31,8 +30,6 @@ import java.util.ResourceBundle;
  */
 @Log4j2
 public class ScreenOpenOnlineProjectController implements Initializable, FXMLController, FXMLAnchorPane {
-
-    private final RestConnectionService rcs = RestConnectionService.INSTANCE;
 
     @FXML
     private AnchorPane screenOpenOnlineProjectPane;
@@ -99,15 +96,8 @@ public class ScreenOpenOnlineProjectController implements Initializable, FXMLCon
 
     private void populateFamilyList() {
         FAMILY_TABLE.getItems().clear();
-        FamilyListResponse response = (FamilyListResponse) rcs.retrieveFamilies();
 
-        if (response.getStatus() == ServiceResponse.ResponseStatus.OK) {
-            FAMILY_TABLE.getItems().addAll(response.getList());
-
-            System.out.println(FAMILY_TABLE.getItems());
-        } else {
-            System.out.println("ERROR POPOULATE LIST");
-        }
+        System.out.println("ERROR");
     }
 
     private void setFamilyCellFactory() {

@@ -1,8 +1,8 @@
 package gentree.client.visualization.elements.configuration;
 
-import gentree.common.configuration.enums.Age;
-import gentree.common.configuration.enums.Gender;
-import gentree.common.configuration.enums.Race;
+import gentree.configuration.enums.Age;
+import gentree.configuration.enums.Gender;
+import gentree.configuration.enums.Race;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;

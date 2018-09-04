@@ -10,7 +10,6 @@ import gentree.client.desktop.configuration.enums.FilesFXML;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.controllers.FXMLAnchorPane;
 import gentree.client.desktop.controllers.FXMLController;
-import gentree.client.desktop.service.RestConnectionService;
 import gentree.client.desktop.service.ScreenManager;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,7 +27,6 @@ import java.util.ResourceBundle;
 @Log4j2
 public class PaneLogonController implements Initializable, FXMLController, FXMLAnchorPane {
 
-    RestConnectionService rcs = RestConnectionService.INSTANCE;
 
     @FXML
     private JFXPasswordField PASSWORD_FIELD;
@@ -52,7 +50,7 @@ public class PaneLogonController implements Initializable, FXMLController, FXMLA
 
     @FXML
     private void login() {
-        boolean result = rcs.login(LOGIN_FIELD.getText(), PASSWORD_FIELD.getText(), REALM_BOX.getSelectionModel().getSelectedItem());
+       boolean result = false;
         if (result) {
             System.out.println("wull load Online FXML");
             sm.loadFxml( sm.getMainWindowBorderPane(), FilesFXML.SCREEN_OPEN_ONLINE_PROJECT_FXML, ScreenManager.Where.CENTER);

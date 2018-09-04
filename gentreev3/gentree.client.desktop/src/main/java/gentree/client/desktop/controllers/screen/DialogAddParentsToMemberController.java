@@ -8,8 +8,8 @@ import gentree.client.desktop.controllers.FXMLDialogWithMemberController;
 import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.MemberCard;
-import gentree.common.configuration.enums.Gender;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.Gender;
+import gentree.configuration.enums.RelationType;
 import gentree.exception.NotUniqueBornRelationException;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -198,7 +198,6 @@ public class DialogAddParentsToMemberController implements Initializable, FXMLCo
         }
         return list;
     }
-
 
     private List<Member> removeDescends(List<Member> list, Member m) {
         /*

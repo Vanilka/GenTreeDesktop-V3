@@ -1,7 +1,6 @@
 package gentree.client.desktop;
 
 import gentree.client.desktop.configuration.GenTreeDefaultProperties;
-import gentree.client.desktop.extservice.mclog.McLogWatch;
 import gentree.client.desktop.service.GenTreeContext;
 import gentree.client.desktop.service.ScreenManager;
 import javafx.application.Application;

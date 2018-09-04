@@ -4,7 +4,7 @@ import gentree.client.desktop.configuration.GenTreeProperties;
 import gentree.client.desktop.configuration.enums.PropertiesKeys;
 import gentree.client.desktop.configuration.messages.LogMessages;
 import gentree.client.desktop.domain.Relation;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.RelationType;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import lombok.extern.log4j.Log4j2;

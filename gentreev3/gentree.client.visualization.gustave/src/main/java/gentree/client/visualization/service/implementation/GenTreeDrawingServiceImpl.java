@@ -10,7 +10,7 @@ import gentree.client.desktop.service.GenTreeDrawingService;
 import gentree.client.visualization.CleanTask;
 import gentree.client.visualization.elements.FamilyGroup;
 import gentree.client.visualization.gustave.panels.*;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.RelationType;
 import gentree.exception.NotUniqueBornRelationException;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;

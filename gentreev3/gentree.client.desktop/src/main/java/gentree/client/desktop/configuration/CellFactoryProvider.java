@@ -4,10 +4,10 @@ import gentree.client.desktop.domain.Member;
 import gentree.client.desktop.domain.Relation;
 import gentree.client.visualization.elements.configuration.ElementsConfig;
 import gentree.client.visualization.elements.configuration.ImageFiles;
-import gentree.common.configuration.enums.Age;
-import gentree.common.configuration.enums.Gender;
-import gentree.common.configuration.enums.Race;
-import gentree.common.configuration.enums.RelationType;
+import gentree.configuration.enums.Age;
+import gentree.configuration.enums.Gender;
+import gentree.configuration.enums.Race;
+import gentree.configuration.enums.RelationType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListCell;
@@ -129,7 +129,10 @@ public class CellFactoryProvider {
     }
 
     private static Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>> getPhotoValueFactory() {
-        return param -> new ReadOnlyObjectWrapper<>(param.getValue().getPhoto());
+        return param -> {
+            System.out.println("sout sim is " +param.getValue().getName() + " " +param.getValue().getSurname());
+            return new ReadOnlyObjectWrapper<>(param.getValue().getPhoto());
+        };
     }
 
     private static Callback<ListView<RelationType>, ListCell<RelationType>> getCustomRelationListCell() {
