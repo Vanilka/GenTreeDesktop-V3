@@ -10,6 +10,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.20" level="project" />
     <orderEntry type="module" module-name="gentree.client.desktop.domain" />
     <orderEntry type="module" module-name="gentree.exceptions" />
     <orderEntry type="module" module-name="gentree.configuration" />
